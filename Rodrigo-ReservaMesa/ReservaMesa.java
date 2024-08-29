@@ -19,7 +19,7 @@ public class ReservaMesa {
     public ReservaMesa() {
         quantidadeAtual = 0;
         quantidadeMaxima = Integer.MAX_VALUE;
-        mesas = new Mesa[quantidadeMAxima];
+        mesas = new Mesa[quantidadeMaxima];
     }
     
     public ReservaMesa(int quantidadeMaxima) {
