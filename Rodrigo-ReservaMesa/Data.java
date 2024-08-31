@@ -221,7 +221,7 @@ public class Data {
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade() == false){
                 int i = 0;
                 while(i != 135){
-                    int proximoIndex = horarios.indexOf(hora) + i;
+                    int proximoIndex = horarios.indexOf(hora) + (i/15);
                     if(proximoIndex < horarios.size()){
                         horarios.get(proximoIndex).setDisponibilidade(true);
                     }
@@ -231,4 +231,18 @@ public class Data {
         }
     }
     
+    public void cancelarReserva(LocalTime horario){
+        for(Horario hora : horarios){
+            if(hora.getHorario().equals(horario) && hora.isDisponibilidade()){
+                int i = 0;
+                while(i != 135){
+                    int proximoIndex = horarios.indexOf(hora) + (i/15);
+                    if(proximoIndex < horarios.size()){
+                        horarios.get(proximoIndex).setDisponibilidade(false);
+                    }
+                    i = i + 15;
+                }
+            }
+        }
+    }
 }

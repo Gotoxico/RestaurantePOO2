@@ -4,7 +4,6 @@
  */
 package Restaurante;
 
-import Restaurante.Mesa;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,7 +13,8 @@ import java.time.LocalTime;
  */
 public class ReservaMesa {
     private int quantidadeAtual, quantidadeMaxima; 
-    Mesa mesas[];
+    private Mesa mesas[];
+    private Queue<Cliente> queue = new LinkedList<>();
 
     public ReservaMesa() {
         quantidadeAtual = 0;
@@ -60,10 +60,27 @@ public class ReservaMesa {
         return null;
     }
     
+    public mesa[] verificarReserva(int capacidade, LocalDate data, LocalTime hora) {
+        for(int i = 0; i < quantidadeMaxima; i++){
+            if(mesas[i].verificarReservaDataHorario(data, hora) && mesas[i].getCapacidade >= capacidade){
+                return mesas[i];
+            }
+        }
+        return null;
+    }
+    
     public void reservarMesa(LocalDate data, LocalTime hora, int quantidadePessoas) {
         if(verificarDisponibilidade(quantidadePessoas, data, hora) != null){
             Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
             mesa.reservar(data, hora);
         }
     }
+    
+    public void cancelarReserva(LocalDate data, LocalTime hora, int quantidadePessoas) {
+        if(verificarReserva(quantidadePessoas, data, hora) != null){
+            Mesa mesa = verificarReserva(quantidadeAtual, data, hora);
+            mesa.cancelarReserva(data, hora);
+        }
+    }
+    
 }
