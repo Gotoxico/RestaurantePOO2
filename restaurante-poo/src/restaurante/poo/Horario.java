@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Restaurante;
+package restaurante.poo;
 
 import java.time.LocalTime;
 
 /**
  *
- * @author user
+ * @author rodri
  */
 public class Horario {
     private LocalTime horario;
@@ -37,6 +37,5 @@ public class Horario {
     public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
-    
     
 }

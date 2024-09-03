@@ -2,14 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sistemarestaurante;
+package restaurante.poo;
 
 /**
  *
  * @author Gabrielly
  */
 public class ClienteRestaurante {
-    
     private String nomeCliente;
     private String telefoneCliente;
     
@@ -35,6 +34,4 @@ public class ClienteRestaurante {
     public void setTelefoneCliente(String telefoneCliente) {
         this.telefoneCliente = telefoneCliente;
     }
-
-    
 }
