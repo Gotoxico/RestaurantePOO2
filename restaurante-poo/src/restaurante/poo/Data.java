@@ -20,6 +20,7 @@ public class Data {
     public Data() {
     }
 
+    //Construtor precisa criar o arrayList de horários de 15 em 15 minutos
     public Data(LocalDate data, LocalTime horarioInicio, LocalTime horarioFinal) {
         this.data = data;
         this.horarioInicio = horarioInicio;
@@ -65,8 +66,11 @@ public class Data {
         return horarioInicio;
     }
 
+    //O setter mudara a arrayList de horarios
     public void setHorarioInicio(LocalTime horarioInicio) {
+        //Se for diferente de nulo
         if(this.horarioInicio != null){
+            //Se o novo for antes do antigo
             if(this.horarioInicio.isBefore(horarioInicio)){
                 int horas = horarioInicio.getHour();
                 int minutos = horarioInicio.getMinute();
@@ -88,6 +92,7 @@ public class Data {
                 this.horarioInicio = horarioInicio;
             }
             
+            //Se o novo for depois do antigo
             else{
                 int horas = this.horarioInicio.getHour();
                 int minutos = this.horarioInicio.getMinute();
@@ -111,7 +116,9 @@ public class Data {
             }
         }
         
+        //Se for nulo
         else{
+            //Se o final for diferente de nulo
             if(this.horarioFinal != null){
                 this.horarioInicio = horarioInicio;
                 this.horarios = new ArrayList<>();
@@ -133,6 +140,7 @@ public class Data {
                     contadorMinutos = contadorMinutos + 15;
                 }
             }
+            //Senao, ira settar
             else{
                 this.horarioInicio = horarioInicio;
             }
@@ -143,8 +151,11 @@ public class Data {
         return horarioFinal;
     }
 
+    //O setter mudara a arrayList
     public void setHorarioFinal(LocalTime horarioFinal) {
+        //Se for diferente de nulo
         if(this.horarioFinal != null){
+            //Se o novo for antes do antigo
             if(this.horarioFinal.isBefore(horarioFinal)){
                 int horas = horarioFinal.getHour();
                 int minutos = horarioFinal.getMinute();
@@ -167,6 +178,7 @@ public class Data {
                 this.horarioFinal = horarioFinal;
             }
             
+            //Se o novo for depois do antigo
             else{
                 int horas = this.horarioFinal.getHour();
                 int minutos = this.horarioFinal.getMinute();
@@ -189,7 +201,9 @@ public class Data {
             }
         }
         
+        //Se for nulo
         else{
+            //Se o inicial for diferente de nulo
             if(this.horarioInicio != null){
                 this.horarioFinal = horarioFinal;
                 this.horarios = new ArrayList<>();
@@ -211,12 +225,14 @@ public class Data {
                     contadorMinutos = contadorMinutos + 15;
                 }
             }
+            //Senao
             else{
                 this.horarioFinal = horarioFinal;
             }
         }    
     }
     
+    //Altera o booleano de disponibilidade dos proximos 120 minutos
     public void inserirReserva(LocalTime horario){
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade() == false){
@@ -232,6 +248,7 @@ public class Data {
         }
     }
     
+    //Altera o booleano de disponibilidade dos proximos 120 minutos
     public void cancelarReserva(LocalTime horario){
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade()){

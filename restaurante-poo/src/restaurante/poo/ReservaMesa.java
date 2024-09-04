@@ -53,15 +53,17 @@ public class ReservaMesa {
         return;
     }
    
+    //Chamador metodos de verificacao de disponibilidade da classe Mesa
     public mesa[] verificarDisponibilidade(int capacidade, LocalDate data, LocalTime hora) {
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidade >= capacidade){
+            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidadeMaxima >= capacidade){
                 return mesas[i];
             }
         }
         return null;
     }
     
+    //Chamador metodos de verificacao de reservas da classe Mesa
     public mesa[] verificarReserva(int capacidade, LocalDate data, LocalTime hora) {
         for(int i = 0; i < quantidadeMaxima; i++){
             if(mesas[i].verificarReservaDataHorario(data, hora) && mesas[i].getCapacidade >= capacidade){
@@ -71,13 +73,15 @@ public class ReservaMesa {
         return null;
     }
     
+    //Chamador metodos para reservar mesa da classe Mesa
     public void reservarMesa(LocalDate data, LocalTime hora, int quantidadePessoas) {
         if(verificarDisponibilidade(quantidadePessoas, data, hora) != null){
             Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
-            mesa.reservar(data, hora);
+            mesa.adicionarReservar(data, hora);
         }
     }
     
+    //Chamador metodos para cancelar mesa da classe Mesa
     public void cancelarReserva(LocalDate data, LocalTime hora, int quantidadePessoas) {
         if(verificarReserva(quantidadePessoas, data, hora) != null){
             Mesa mesa = verificarReserva(quantidadeAtual, data, hora);
