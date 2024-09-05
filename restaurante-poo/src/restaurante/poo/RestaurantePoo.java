@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import restaurante.poo.ReservaMesa;
+import restaurante.poo.ClienteRestaurante;
 
 /**
  *
@@ -26,6 +27,9 @@ public class RestaurantePoo {
         private ArrayList<Garcom> garcoms;
         private Queue <Cliente> fila = new LinkedList<>();
         private ReservaMesa reserva;
+        private ClienteRestaurante clientes[];
+        private int max;
+        private int cont = 0;
         
         //Classe Mesa
         public void adicionarMesa(){
@@ -43,6 +47,14 @@ public class RestaurantePoo {
         
         public void cancelarReservaMesa(LocalDate data, LocalTime hora, int quantidade){
             reserva.cancelarReserva(data, hora, quantidade);
+        }
+
+        //Classe ClienteRestaurante (Gabrielly)
+        public void criarCliente(ClienteRestaurante c){
+            if(cont<max){
+                clientes[cont] = c;
+                cont++;
+            }
         }
         
         //Classe Garcom
