@@ -26,7 +26,7 @@ public class ReservaMesa {
     
     public ReservaMesa(int quantidadeMaxima) {
         quantidadeAtual = 0;
-        quantidadeMaxima = quantidadeMaxima;
+        this.quantidadeMaxima = quantidadeMaxima;
         mesas = new Mesa[quantidadeMaxima];
     }
 
@@ -35,7 +35,7 @@ public class ReservaMesa {
     }
 
     public void setQuantidadeMaxima(int quantidadeMaxima) {
-        quantidadeMaxima = quantidadeMaxima;
+        this.quantidadeMaxima = quantidadeMaxima;
         mesas = new Mesa[quantidadeMaxima];
     }
 
@@ -56,7 +56,7 @@ public class ReservaMesa {
     //Chamador metodos de verificacao de disponibilidade da classe Mesa
     public Mesa verificarDisponibilidade(int capacidade, LocalDate data, LocalTime hora) {
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidadeMaxima() >= capacidade){
+            if(mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, null) && mesas[i].getCapacidadeMaxima() >= capacidade){
     
                 return mesas[i];
             }
@@ -64,29 +64,25 @@ public class ReservaMesa {
         return null;
     }
     
-    //Chamador metodos de verificacao de reservas da classe Mesa
-    public Mesa verificarReserva(int capacidade, LocalDate data, LocalTime hora) {
+    public Mesa verificarReserva(int capacidade, LocalDate data, LocalTime hora, String nome){
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidadeMaxima() >= capacidade){
-                return mesas[i];
-            }
+            if(mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, nome) == false && mesas[i].getCapacidadeMaxima() >= capacidade)
         }
-        return null;
     }
     
     //Chamador metodos para reservar mesa da classe Mesa
-    public void reservarMesa(LocalDate data, LocalTime hora, int quantidadePessoas) {
+    public void reservarMesa(LocalDate data, LocalTime hora, String nome, int quantidadePessoas) {
         if(verificarDisponibilidade(quantidadePessoas, data, hora) != null){
-            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
-            mesa.adicionarReserva(data, hora);
+            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora, null);
+            mesa.adicionarReserva(data, hora, nome);
         }
     }
     
     //Chamador metodos para cancelar mesa da classe Mesa
-    public void cancelarReserva(LocalDate data, LocalTime hora, int quantidadePessoas) {
-        if(verificarReserva(quantidadePessoas, data, hora) != null){
-            Mesa mesa = verificarReserva(quantidadeAtual, data, hora);
-            mesa.cancelarReserva(data, hora);
+    public void cancelarReserva(LocalDate data, LocalTime hora, String nome, int quantidadePessoas) {
+        if(verificarReserva(quantidadePessoas, data, hora, nome) != null){
+            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora, nome);
+            mesa.cancelarReserva(data, hora, nome);
         }
     }
     

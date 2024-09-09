@@ -12,13 +12,15 @@ import java.time.LocalTime;
  */
 public class Horario {
     private LocalTime horario;
+    private String nome;
     private boolean disponibilidade;
 
     public Horario() {
     }
 
-    public Horario(LocalTime horario, boolean disponibilidade) {
+    public Horario(LocalTime horario, String nome, boolean disponibilidade) {
         this.horario = horario;
+        this.nome = nome;
         this.disponibilidade = disponibilidade;
     }
 
@@ -28,6 +30,14 @@ public class Horario {
 
     public void setHorario(LocalTime horario) {
         this.horario = horario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public boolean isDisponibilidade() {

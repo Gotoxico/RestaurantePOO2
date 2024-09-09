@@ -39,7 +39,7 @@ public class Reserva{
         int contadorMinutos = 0;
         
         while(contadorMinutos != totalMinutosDiferenca+15){
-            Horario h = new Horario(horarioInicio.plusMinutes(contadorMinutos), false);
+            Horario h = new Horario(horarioInicio.plusMinutes(contadorMinutos), null, false);
             horarios.add(h);
             contadorMinutos = contadorMinutos + 15;
         }
@@ -107,7 +107,7 @@ public class Reserva{
                 int contadorMinutos = totalMinutosDiferenca + 15;
                 
                 while(contadorMinutos != 0){
-                    Horario h = new Horario(horarioInicio.plusMinutes(contadorMinutos - 15), false);
+                    Horario h = new Horario(horarioInicio.plusMinutes(contadorMinutos - 15), null, false);
                     horarios.add(0, h);
                     contadorMinutos = contadorMinutos - 15;
                 }
@@ -135,7 +135,7 @@ public class Reserva{
                 int contadorMinutos = 0;
 
                 while(contadorMinutos != totalMinutosDiferenca+15){
-                    Horario h = new Horario(horarioInicio.plusMinutes(contadorMinutos), false);
+                    Horario h = new Horario(horarioInicio.plusMinutes(contadorMinutos), null, false);
                     horarios.add(h);
                     contadorMinutos = contadorMinutos + 15;
                 }
@@ -170,7 +170,7 @@ public class Reserva{
                 int contadorMinutos = totalMinutosDiferenca + 15;
                 
                 while(contadorMinutos != 0){
-                    Horario h = new Horario(horarioFinal.plusMinutes(contadorMinutos - 15), false);
+                    Horario h = new Horario(horarioFinal.plusMinutes(contadorMinutos - 15), null, false);
                     horarios.add(horarios.size(), h);
                     contadorMinutos = contadorMinutos - 15;
                 }
@@ -220,7 +220,7 @@ public class Reserva{
                 int contadorMinutos = 0;
 
                 while(contadorMinutos != totalMinutosDiferenca+15){
-                    Horario h = new Horario(this.horarioInicio.plusMinutes(contadorMinutos), false);
+                    Horario h = new Horario(this.horarioInicio.plusMinutes(contadorMinutos), null, false);
                     horarios.add(h);
                     contadorMinutos = contadorMinutos + 15;
                 }
@@ -233,7 +233,7 @@ public class Reserva{
     }
     
     //Altera o booleano de disponibilidade dos proximos 120 minutos
-    public void inserirReserva(LocalTime horario){
+    public void inserirReserva(String nome, LocalTime horario){
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade() == false){ //Verifica se dá pra adcionar horario
                 int i = 0;
@@ -241,6 +241,7 @@ public class Reserva{
                     int proximoIndex = horarios.indexOf(hora) + (i/15);
                     if(proximoIndex < horarios.size()){
                         horarios.get(proximoIndex).setDisponibilidade(true);
+                        horarios.get(proximoIndex).setNome(nome);
                     }
                     i = i + 15;
                 }
@@ -249,8 +250,7 @@ public class Reserva{
     }
     
     //Altera o booleano de disponibilidade dos proximos 120 minutos
-    public void cancelarReserva(LocalTime horario){
-        
+    public void cancelarReserva(String nome, LocalTime horario){
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade()){
                 int i = 0;
@@ -258,6 +258,7 @@ public class Reserva{
                     int proximoIndex = horarios.indexOf(hora) + (i/15);
                     if(proximoIndex < horarios.size()){
                         horarios.get(proximoIndex).setDisponibilidade(false);
+                        horarios.get(proximoIndex).setNome(nome);
                     }
                     i = i + 15;
                 }
