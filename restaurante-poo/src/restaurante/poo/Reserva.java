@@ -12,15 +12,15 @@ import java.util.ArrayList;
  *
  * @author rodri
  */
-public class Data {
+public class Reserva{
     private LocalDate data;
     private ArrayList<Horario> horarios;
     private LocalTime horarioInicio, horarioFinal;
 
-    public Data() {
+    public Reserva() {
     }
 
-    public Data(LocalDate data, LocalTime horarioInicio, LocalTime horarioFinal) {
+    public Reserva(LocalDate data, LocalTime horarioInicio, LocalTime horarioFinal) {
         this.data = data;
         this.horarioInicio = horarioInicio;
         this.horarioFinal = horarioFinal;
@@ -217,9 +217,9 @@ public class Data {
         }    
     }
     
-    public void inserirReserva(LocalTime horario){
+    public void inserirReserva(LocalTime horario){      
         for(Horario hora : horarios){
-            if(hora.getHorario().equals(horario) && hora.isDisponibilidade() == false){
+            if(hora.getHorario().equals(horario) && hora.isDisponibilidade() == false){ //Verifica se dá pra adcionar horario
                 int i = 0;
                 while(i != 135){
                     int proximoIndex = horarios.indexOf(hora) + (i/15);
@@ -233,6 +233,7 @@ public class Data {
     }
     
     public void cancelarReserva(LocalTime horario){
+        
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade()){
                 int i = 0;

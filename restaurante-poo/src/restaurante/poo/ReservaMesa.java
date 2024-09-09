@@ -16,7 +16,7 @@ import java.util.Queue;
 public class ReservaMesa {
     private int quantidadeAtual, quantidadeMaxima; 
     private Mesa mesas[];
-    private Queue<Cliente> queue = new LinkedList<>();
+    private Queue<ClienteRestaurante> queue = new LinkedList<>();
 
     public ReservaMesa() {
         quantidadeAtual = 0;
@@ -43,9 +43,9 @@ public class ReservaMesa {
         return quantidadeAtual;
     }
     
-    public void adicionarMesa(int capacidade, int numero) {
+    public void adicionarMesa(int capacidade, String numero) {
         if(quantidadeAtual < quantidadeMaxima){
-            Mesa mesa = new Mesa(capacidade, numero);
+            Mesa mesa = new Mesa(numero, capacidade);
             mesas[quantidadeAtual+1] = mesa;
             quantidadeAtual++;
             return;
@@ -53,18 +53,18 @@ public class ReservaMesa {
         return;
     }
    
-    public mesa[] verificarDisponibilidade(int capacidade, LocalDate data, LocalTime hora) {
+    public Mesa verificarDisponibilidade(int capacidade, LocalDate data, LocalTime hora) {
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidade >= capacidade){
+            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidadeMaxima() >= capacidade){
                 return mesas[i];
             }
         }
         return null;
     }
     
-    public mesa[] verificarReserva(int capacidade, LocalDate data, LocalTime hora) {
+    public Mesa verificarReserva(int capacidade, LocalDate data, LocalTime hora) {
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarReservaDataHorario(data, hora) && mesas[i].getCapacidade >= capacidade){
+            if(mesas[i].verificarDisponibilidadeDataHorario(data, hora) && mesas[i].getCapacidadeMaxima() >= capacidade){
                 return mesas[i];
             }
         }
@@ -74,7 +74,7 @@ public class ReservaMesa {
     public void reservarMesa(LocalDate data, LocalTime hora, int quantidadePessoas) {
         if(verificarDisponibilidade(quantidadePessoas, data, hora) != null){
             Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
-            mesa.reservar(data, hora);
+            mesa.adicionarReserva(data, hora);
         }
     }
     
