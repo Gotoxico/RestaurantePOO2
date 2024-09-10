@@ -111,16 +111,6 @@ public class Menu {
         return null;
     }
     
-    public List<ItemMenu> filtrarItensPorCategoria(String categoria) {
-        List<ItemMenu> itensFiltrados = new ArrayList<>();
-        for (ItemMenu item : itensMenu) {
-            if (item.getCategoria().equals(categoria)) {
-                itensFiltrados.add(item); //método utilizado
-            }
-        }
-        return itensFiltrados;
-    }
-    
     public void exibirMenu() {
         for (ItemMenu item : itensMenu) {
             System.out.println(item); //método utilizado
