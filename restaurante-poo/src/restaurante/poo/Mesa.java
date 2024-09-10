@@ -43,12 +43,15 @@ public class Mesa {
     }
 
 
-    public boolean verificarDisponibilidadeDataHorario(LocalDate data, LocalTime horario) {        //verifica a disponibilidade da mesa com base nas reservas marcadas da mesa
+    public boolean verificarDisponibilidadeDataHorarioNome(LocalDate data, LocalTime horario, String nomeCliente) {        //verifica a disponibilidade da mesa com base nas reservas marcadas da mesa     
         for (Reserva reservaData : reservasMarcadas) {
             if (reservaData.getData().equals(data)) {
                 for (Horario horarioReserva : reservaData.getHorarios()) {
-                    if (horarioReserva.getHorario().equals(horario) && horarioReserva.isDisponibilidade()) {
-                        return false;     // Se a mesa estiver reservada
+                    if (horarioReserva.getHorario().equals(horario) && horarioReserva.isDisponibilidade()){
+                        if(nomeCliente == null && horarioReserva.getNome() != null ||       //se o nome passado for nulo, verifica se existe qlqr nome lá
+                            nomeCliente != null && !nomeCliente.equals(horarioReserva.getNome())){  //se não for null, verifica se o nome não bate
+                            return false;
+                        }
                     }
                 }
             }
@@ -58,7 +61,8 @@ public class Mesa {
 
 
     public boolean ocuparMesa(ClienteRestaurante cliente, LocalDate data, LocalTime horario) {
-        if (!verificarDisponibilidadeDataHorario(data, horario)) {
+        String nomeCliente = cliente.getNomeCliente();
+        if (!verificarDisponibilidadeDataHorarioNome(data, horario,nomeCliente)) {
             System.out.println("A mesa " + numeroMesa + " está reservada para esse horário.");  //Se a mesa não está reservada
             return false;
         }
@@ -79,12 +83,12 @@ public class Mesa {
         System.out.println("A mesa " + numeroMesa + " foi liberada para uso.");
     }
 
-    public void adicionarReserva(LocalDate data,LocalTime horarioReserva) {
+    public void adicionarReserva(LocalDate data,LocalTime horarioReserva, String nomeCliente) {
     //adcionar reserva a lista de reserva da mesa
         Reserva reserva = new Reserva(data,Constantes.HORARIO_INICIO, Constantes.HORARIO_TERMINO); //constantes para horario de funcionamento
-        reserva.inserirReserva(horarioReserva);     //Cria reserva e insere o horario e data
+        reserva.inserirReserva(nomeCliente, horarioReserva);     //Cria reserva e insere o horario e data
         
-        if(this.verificarDisponibilidadeDataHorario(data, horarioReserva)== true){  //é associado a mesa após verificação
+        if(this.verificarDisponibilidadeDataHorarioNome(data, horarioReserva, nomeCliente)== true){  //é associado a mesa após verificação
             reservasMarcadas.add(reserva);  //adciona ao array list
             System.out.println("Reserva adicionada para a mesa " + numeroMesa + " em " + reserva.getData());
         }else{
@@ -93,7 +97,7 @@ public class Mesa {
         
     }
     
-    public void cancelarReserva(LocalDate data, LocalTime hora){    
+    public void cancelarReserva(LocalDate data, LocalTime hora, String nomeCliente){    
 //    if(this.verificarDisponibilidadeDataHorario(data, hora)== false){
 //        System.out.println("Reserva não encontrada");
 //        return;
@@ -101,8 +105,9 @@ public class Mesa {
         for (Reserva reservaData : reservasMarcadas) {  //Percorre Array procurando a Data
             if (reservaData.getData().equals(data)) {
                 for (Horario horarioReserva : reservaData.getHorarios()) {  //se a data coincidir procura os horarios
-                    if (horarioReserva.getHorario().equals(hora) && horarioReserva.isDisponibilidade()) {
-                        reservaData.cancelarReserva(hora);          //se encontrar cancela através da classe Reserva   
+                    if (horarioReserva.getHorario().equals(hora) && !horarioReserva.isDisponibilidade() &&
+                            horarioReserva.getNome().equals(nomeCliente)) {   //procura o horário correto, verifica a mesa NÃO está livre, verifica o nome
+                        reservaData.cancelarReserva(nomeCliente,hora);          //se encontrar cancela através da classe Reserva   
                     }
                 }
             }

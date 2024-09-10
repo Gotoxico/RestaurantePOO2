@@ -66,14 +66,17 @@ public class ReservaMesa {
     
     public Mesa verificarReserva(int capacidade, LocalDate data, LocalTime hora, String nome){
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, nome) == false && mesas[i].getCapacidadeMaxima() >= capacidade)
+            if(mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, nome) == false && mesas[i].getCapacidadeMaxima() >= capacidade){
+                return mesas[i];
+            }
         }
+        return null;
     }
     
     //Chamador metodos para reservar mesa da classe Mesa
     public void reservarMesa(LocalDate data, LocalTime hora, String nome, int quantidadePessoas) {
         if(verificarDisponibilidade(quantidadePessoas, data, hora) != null){
-            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora, null);
+            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
             mesa.adicionarReserva(data, hora, nome);
         }
     }
@@ -81,7 +84,7 @@ public class ReservaMesa {
     //Chamador metodos para cancelar mesa da classe Mesa
     public void cancelarReserva(LocalDate data, LocalTime hora, String nome, int quantidadePessoas) {
         if(verificarReserva(quantidadePessoas, data, hora, nome) != null){
-            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora, nome);
+            Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
             mesa.cancelarReserva(data, hora, nome);
         }
     }

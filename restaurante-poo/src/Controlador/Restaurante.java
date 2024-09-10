@@ -27,11 +27,11 @@ public class Restaurante {
         private int cont = 0;
         
         //Classe Mesa
-        public void adicionarMesa(){
-            
+        public void adicionarMesa(int capacidade, String numero){
+            reserva.adicionarMesa(capacidade, numero);
         }
         
-        public void removerMesa(){
+        public void removerMesa(String numero){
             
         }
         
