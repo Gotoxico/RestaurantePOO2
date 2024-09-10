@@ -27,11 +27,11 @@ public class Restaurante {
         private int cont = 0;
         
         //Classe Mesa
-        public void adicionarMesa(int capacidade, String numero){
-            reserva.adicionarMesa(capacidade, numero);
+        public void adicionarMesa(){
+            
         }
         
-        public void removerMesa(String numero){
+        public void removerMesa(){
             
         }
         
@@ -52,9 +52,9 @@ public class Restaurante {
             }
         }
         
-        //Classe Garcom
-        public void adicionarGarcom(){
-            
+        //Classe Garcom (Marcos)
+        public void adicionarGarcom(Garcom garcom){
+            this.garcoms.add(garcom);
         }
         
         //Classe Menu
