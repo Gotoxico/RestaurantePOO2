@@ -76,20 +76,20 @@ public class Menu {
     }
     
     public void adicionarItem(ItemMenu item) {
-        this.itensMenu.add(item);
+        this.itensMenu.add(item); //método utilizado
     }
 
     public void removerItem(ItemMenu item) {
-        this.itensMenu.remove(item);
+        this.itensMenu.remove(item); //método utilizado
     }
     
     
-    //Métodos a serem utilizados
+    //Outros métodos a serem utilizados
     public void atualizarItem(ItemMenu itemAtualizado) {
     for (int i = 0; i < itensMenu.size(); i++) {
         ItemMenu item = itensMenu.get(i);
         if (item.getNome().equals(itemAtualizado.getNome())) {
-            // Atualiza o item com os novos valores
+            //atualiza o item com os novos valores //método utilizado
             itensMenu.set(i, itemAtualizado);
             System.out.println("Item atualizado com sucesso!");
             return;
@@ -99,13 +99,13 @@ public class Menu {
 }
 
     public List<ItemMenu> listarItens() {
-        return this.itensMenu;
+        return this.itensMenu; //método utilizado
     }
     
     public ItemMenu buscarItemPorNome(String nome) {
         for (ItemMenu item : itensMenu) {
             if (item.getNome().equals(nome)) {
-                return item;
+                return item; //método utilizado
             }
         }
         return null;
@@ -115,7 +115,7 @@ public class Menu {
         List<ItemMenu> itensFiltrados = new ArrayList<>();
         for (ItemMenu item : itensMenu) {
             if (item.getCategoria().equals(categoria)) {
-                itensFiltrados.add(item);
+                itensFiltrados.add(item); //método utilizado
             }
         }
         return itensFiltrados;
@@ -123,11 +123,11 @@ public class Menu {
     
     public void exibirMenu() {
         for (ItemMenu item : itensMenu) {
-            System.out.println(item);
+            System.out.println(item); //método utilizado
         }
     }
     
     public int obterTotalItens() {
-        return this.itensMenu.size();
+        return this.itensMenu.size(); //método utilizado
     }
 }
