@@ -52,6 +52,19 @@ public class ReservaMesa {
         }
         return;
     }
+    
+    public void removerMesa(String numero) {
+        for(int i = 0; i < quantidadeAtual; i++){
+            if(mesas[i].getNumeroMesa().equals(numero)){
+                for(int j = i; j < quantidadeAtual; j++){
+                    mesas[j] = mesas[j+1];
+                }
+                quantidadeAtual--;
+                return;
+            }
+        }
+        return;
+    }
    
     //Chamador metodos de verificacao de disponibilidade da classe Mesa
     public Mesa verificarDisponibilidade(int capacidade, LocalDate data, LocalTime hora) {
