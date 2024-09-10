@@ -1,26 +1,26 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.7">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.8">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2058" dy="1179" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1715" dy="983" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="8nkqe2lEvv62Rr79oGIV-0" value="Mesa" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="341" y="240" width="140" height="120" as="geometry" />
+          <mxGeometry x="300" y="240" width="140" height="120" as="geometry" />
         </mxCell>
         <mxCell id="8nkqe2lEvv62Rr79oGIV-1" value="- Capacidade : Integer;&lt;div&gt;- Numero : Integer;&lt;/div&gt;&lt;div&gt;- Datas[] : Data; (Vetor de Datas;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="8nkqe2lEvv62Rr79oGIV-0" vertex="1">
           <mxGeometry y="26" width="140" height="94" as="geometry" />
         </mxCell>
         <mxCell id="8nkqe2lEvv62Rr79oGIV-8" value="ReservaMesa" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="320" y="440" width="180" height="200" as="geometry" />
+          <mxGeometry x="270" y="440" width="180" height="420" as="geometry" />
         </mxCell>
-        <mxCell id="8nkqe2lEvv62Rr79oGIV-9" value="- Mesas : ArrayList&amp;lt;Mesas&amp;gt;;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="8nkqe2lEvv62Rr79oGIV-8" vertex="1">
-          <mxGeometry y="26" width="180" height="26" as="geometry" />
+        <mxCell id="8nkqe2lEvv62Rr79oGIV-9" value="- Mesas : ArrayList&amp;lt;Mesas&amp;gt;;&lt;div&gt;- quantidadeAtual, quantidadeMaxima: Int;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="8nkqe2lEvv62Rr79oGIV-8" vertex="1">
+          <mxGeometry y="26" width="180" height="44" as="geometry" />
         </mxCell>
         <mxCell id="8nkqe2lEvv62Rr79oGIV-10" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="8nkqe2lEvv62Rr79oGIV-8" vertex="1">
-          <mxGeometry y="52" width="180" height="8" as="geometry" />
+          <mxGeometry y="70" width="180" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="8nkqe2lEvv62Rr79oGIV-11" value="- VerificarDisponibilidade (Capacidade: Integer, Data : LocalDate, Hora: LocalTime) : Mesa;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Reservar (Data: LocalDate, Hora : LocalTime, QuantidadePessoas : Integer) : Void;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="8nkqe2lEvv62Rr79oGIV-8" vertex="1">
-          <mxGeometry y="60" width="180" height="140" as="geometry" />
+        <mxCell id="8nkqe2lEvv62Rr79oGIV-11" value="&lt;div&gt;- adicionarMesa(int capacidade, String numero) : void;&lt;/div&gt;- VerificarDisponibilidade (Capacidade: Integer, Data : LocalDate, Hora: LocalTime) : Mesa;&lt;div&gt;- VerificarReserva(Capacidade: Int, Data: LocalDate, Hora: LocalTime, Nome: String): Mesa;&amp;nbsp;&lt;div&gt;- ReservarMesa (Data: LocalDate, Hora : LocalTime, QuantidadePessoas : Integer) : Void;&lt;/div&gt;&lt;div&gt;- CancelarReserva(Data: LocalDate, Hora: LocalTime, quantidadePessoas: int) : void;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="8nkqe2lEvv62Rr79oGIV-8" vertex="1">
+          <mxGeometry y="120" width="180" height="300" as="geometry" />
         </mxCell>
         <mxCell id="8nkqe2lEvv62Rr79oGIV-12" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8nkqe2lEvv62Rr79oGIV-1" target="8nkqe2lEvv62Rr79oGIV-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -29,25 +29,25 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="lvlK7y3_5qccihgCCs3c-0" value="Horario" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="607" y="20" width="160" height="80" as="geometry" />
+          <mxGeometry x="582" y="20" width="160" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="lvlK7y3_5qccihgCCs3c-1" value="- Horario : LocalTime;&lt;div&gt;- Disponibilidade : Boolean;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lvlK7y3_5qccihgCCs3c-0" vertex="1">
+        <mxCell id="lvlK7y3_5qccihgCCs3c-1" value="- Horario : LocalTime;&lt;div&gt;- Nome: String;&lt;br&gt;&lt;div&gt;- Disponibilidade : Boolean;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lvlK7y3_5qccihgCCs3c-0" vertex="1">
           <mxGeometry y="26" width="160" height="44" as="geometry" />
         </mxCell>
         <mxCell id="lvlK7y3_5qccihgCCs3c-2" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="lvlK7y3_5qccihgCCs3c-0" vertex="1">
           <mxGeometry y="70" width="160" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="lvlK7y3_5qccihgCCs3c-9" value="Data" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="607" y="120" width="163" height="190" as="geometry" />
+        <mxCell id="lvlK7y3_5qccihgCCs3c-9" value="Reserva" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="510" y="120" width="304" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="lvlK7y3_5qccihgCCs3c-10" value="- Data : LocalDate;&lt;div&gt;- Horarios[] : Horario; (Vetor de Horarios de 15 em 15 minutos;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lvlK7y3_5qccihgCCs3c-9" vertex="1">
-          <mxGeometry y="26" width="163" height="64" as="geometry" />
+        <mxCell id="lvlK7y3_5qccihgCCs3c-10" value="- Data : LocalDate;&lt;div&gt;- horario : ArrayList&amp;lt;Horario&amp;gt;; (Vetor de Horarios de 15 em 15 minutos;&lt;/div&gt;&lt;div&gt;- horarioInicio, horarioFinal : LocalTime&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lvlK7y3_5qccihgCCs3c-9" vertex="1">
+          <mxGeometry y="26" width="304" height="64" as="geometry" />
         </mxCell>
         <mxCell id="lvlK7y3_5qccihgCCs3c-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="lvlK7y3_5qccihgCCs3c-9" vertex="1">
-          <mxGeometry y="90" width="163" height="70" as="geometry" />
+          <mxGeometry y="90" width="304" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="gvnrVEk_l_4wtKJJRKSZ-3" value="- inserirReserva (LocalTime horario) : Void;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="lvlK7y3_5qccihgCCs3c-9">
-          <mxGeometry y="160" width="163" height="30" as="geometry" />
+        <mxCell id="gvnrVEk_l_4wtKJJRKSZ-3" value="- inserirReserva (String nome, LocalTime horario) : Void;&lt;div&gt;- cancelarReserva (String nome, LocalTime horario) : Void&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="lvlK7y3_5qccihgCCs3c-9" vertex="1">
+          <mxGeometry y="160" width="304" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
