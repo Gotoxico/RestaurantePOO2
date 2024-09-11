@@ -10,13 +10,14 @@ import java.util.ArrayList;
  *
  * @author juniortraj
  */
-public class Garcom extends Usuario {
+public class Garcom extends Usuario { //Herança
     
     private String registroGarcom;
     private double salarioBaseGarcom;
     private double gorjetaGarcom;
     private ArrayList<Mesa> mesasResponsavel;
-    
+
+    //Construtor
     public Garcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
     
         super(nome, email);
@@ -25,7 +26,8 @@ public class Garcom extends Usuario {
         this.gorjetaGarcom = gorjetaGarcom;
         this.mesasResponsavel = new ArrayList<>();
     }
-    
+
+    //Métodos getters e setters
     public String getRegistroGarcom() {
         return registroGarcom;
     }
@@ -57,7 +59,8 @@ public class Garcom extends Usuario {
     public void setMesasResponsavel(ArrayList<Mesa> mesasResponsavel){
         this.mesasResponsavel = mesasResponsavel;
     }
-    
+
+    //Métodos relacionados à mesa
     public void adicionarMesa(Mesa mesa) {
         mesasResponsavel.add(mesa);
     }
@@ -66,6 +69,7 @@ public class Garcom extends Usuario {
         mesasResponsavel.remove(mesa);
     }
     
+    //Métodos relacionados à pedidos e salário
     public void registrarPedido(double valorPedido){
         double gorjeta = valorPedido * (10/100);
         gorjetaGarcom += gorjeta;
