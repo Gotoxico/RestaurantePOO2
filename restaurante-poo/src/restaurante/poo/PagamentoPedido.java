@@ -9,7 +9,7 @@ public class PagamentoPedido {
     private boolean pago;
     private String formaPagamento;
 
-    public PagamentoPedido(Pedido pedido, String formaPagamento){
+    public PagamentoPedido(Pedido pedido, String formaPagamento){   //Construir um constructor nulo?
         this.idPagamento = UUID.randomUUID().toString();
         this.pedido = pedido;
         this.formaPagamento = formaPagamento;
@@ -19,7 +19,7 @@ public class PagamentoPedido {
 
     private double calcularTotalPedido() {
         double total = 0.0;
-        for(ItemMenu item : pedido.getItensPedido()){
+        for(ItemMenu item : pedido.getItensPedidos()){      //Alterar essa lógica para calcular preços, ou incluir novas dinamicas
             total += item.getPreco() * item.getQuantidade();
         }
         return total;
