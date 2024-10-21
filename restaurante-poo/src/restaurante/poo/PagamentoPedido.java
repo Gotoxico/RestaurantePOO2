@@ -8,6 +8,7 @@ public class PagamentoPedido {
     private double valorTotal;
     private boolean pago;
     private String formaPagamento;
+    private ProxyAutenticacaoCartoes proxy;
 
     public PagamentoPedido(Pedido pedido, String formaPagamento){   //Construir um constructor nulo?
         this.idPagamento = UUID.randomUUID().toString();
@@ -27,6 +28,19 @@ public class PagamentoPedido {
 
     public boolean realizarPagamento(){
         if(!pago){
+            if(formaPagamento.equals("cartao")){
+                if(pedido.getMesa().getClienteResponsavel().getCartao() != null){
+                    Cartao c = pedido.getMesa().getClienteResponsavel().getCartao();
+                    boolean a = proxy.checarCodigo(String.valueOf(c.getCodigo()));
+                    boolean b = proxy.checarNome(pedido.getMesa().getClienteResponsavel().getNomeCliente() , pedido.getMesa().getClienteResponsavel().getSobrenomeCliente(), c.getNome(), c.getSobrenome());
+                    boolean d = proxy.checarData(c.getVencimento());
+                    
+                    if(a && b && d){
+                        this.pago = true;
+                        return true;
+                    }
+                }
+            }
             this.pago = true;
             System.out.println("Pagamento de R$" + valorTotal + " realizado com sucesso.");
             return true;

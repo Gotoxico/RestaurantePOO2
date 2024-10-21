@@ -20,7 +20,15 @@ public class Reserva{
     public Reserva() {
     }
     
-    //Construtor precisa criar o arrayList de horários de 15 em 15 minutos
+    /*
+    @Brief: Construtor precisa criar o arrayList de horários de 15 em 15 minutos
+    
+    @Parameter: LocalDate data (Data para criar calendário de reservas)
+    @Parameter: LocalTime horarioInicio (Horario inícial de funcionamento do restaurante na data)
+    @Parameter: LocalTime horarioFinal (Horario final de funcionamento do restaurante na data)
+    
+    @Return none
+    */
     public Reserva(LocalDate data, LocalTime horarioInicio, LocalTime horarioFinal) {
         this.data = data;
         this.horarioInicio = horarioInicio;
@@ -43,7 +51,6 @@ public class Reserva{
             horarios.add(h);
             contadorMinutos = contadorMinutos + 15;
         }
-        
     }
 
     public LocalDate getData() {
@@ -66,7 +73,13 @@ public class Reserva{
         return horarioInicio;
     }
 
-    //O setter mudara a arrayList de horarios
+    /*
+    @Brief: Caso o horarioInicial esteja nulo, irá apenas settar, se não estiver terá de alterar o vetor de horarios para reserva
+    
+    @Parameters: LocalTime horarioInicio (Horario inicial de funcionamento do restaurante)
+    
+    @Return none
+    */
     public void setHorarioInicio(LocalTime horarioInicio) {
         //Se for diferente de nulo
         if(this.horarioInicio != null){
@@ -150,7 +163,14 @@ public class Reserva{
     public LocalTime getHorarioFinal() {
         return horarioFinal;
     }
-
+    
+    /*
+    @Brief: Caso o horarioFinal esteja nulo, irá apenas settar, se não estiver terá de alterar o vetor de horarios para reserva
+    
+    @Parameters: LocalTime horarioFinal (Horario final de funcionamento do restaurante)
+    
+    @Return none
+    */
     //O setter mudara a arrayList
     public void setHorarioFinal(LocalTime horarioFinal) {
         //Se for diferente de nulo
@@ -232,7 +252,14 @@ public class Reserva{
         }    
     }
     
-    //Altera o booleano de disponibilidade dos proximos 120 minutos
+    /*
+    @Brief Altera o booleano de disponibilidade dos proximos 120 minutos
+    
+    @Parameter: String nome (Nome do cliente que está reservando)
+    @Parameter: LocalTime horario (Horário inicial da reserva)
+    
+    @Return none
+    */
     public void inserirReserva(String nome, LocalTime horario){
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade() == false){ //Verifica se dá pra adcionar horario
@@ -249,7 +276,14 @@ public class Reserva{
         }
     }
     
-    //Altera o booleano de disponibilidade dos proximos 120 minutos
+    /*
+    @Brief Altera o booleano de disponibilidade dos proximos 120 minutos
+    
+    @Parameter: String nome (Nome do cliente que está reservado)
+    @Parameter: LocalTime horario (Horário inicial da reserva)
+    
+    @Return none
+    */
     public void cancelarReserva(String nome, LocalTime horario){
         for(Horario hora : horarios){
             if(hora.getHorario().equals(horario) && hora.isDisponibilidade()){
