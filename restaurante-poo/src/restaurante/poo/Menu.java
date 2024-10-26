@@ -6,15 +6,16 @@ package restaurante.poo;
 
 import java.util.ArrayList;
 import java.util.List;
+import restaurante.poo.Output.OutputConsole;
+import restaurante.poo.Output.OutputFactory;
+import restaurante.poo.Output.OutputInterface;
 
 /**
  *
  * @author Junim
  */
 public class Menu {
-
-    
-
+    private OutputInterface output;
     private String nomeRestaurante;
     private String nomeMenu;
     private String descricaoMenu;
@@ -26,7 +27,8 @@ public class Menu {
     }
     
     //Construtor da classe cheio
-    public Menu(String nomeRestaurante, String nomeMenu, String descricaoMenu, String horarioDisponibilidade) {
+    public Menu(String tipoOutput, String nomeRestaurante, String nomeMenu, String descricaoMenu, String horarioDisponibilidade) {
+        this.output = OutputFactory.getTipoOutput(tipoOutput);
         this.nomeRestaurante = nomeRestaurante;
         this.nomeMenu = nomeMenu;
         this.descricaoMenu = descricaoMenu;
@@ -91,11 +93,15 @@ public class Menu {
         if (item.getNome().equals(itemAtualizado.getNome())) {
             //atualiza o item com os novos valores //método utilizado
             itensMenu.set(i, itemAtualizado);
-            System.out.println("Item atualizado com sucesso!");
+            if(output instanceof OutputConsole){
+                output.display("Item atualizado com sucesso!");
+            }
             return;
         }
     }
-    System.out.println("Item não encontrado no menu.");
+    if(output instanceof OutputConsole){
+        System.out.println("Item não encontrado no menu.");
+    }
 }
 
     public List<ItemMenu> listarItens() {

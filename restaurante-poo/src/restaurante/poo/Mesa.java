@@ -4,16 +4,22 @@
  */
 package restaurante.poo;
 
+import restaurante.poo.Reserva.Horario;
+import restaurante.poo.Reserva.Reserva;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import restaurante.poo.Output.OutputConsole;
+import restaurante.poo.Output.OutputFactory;
+import restaurante.poo.Output.OutputInterface;
 
 /**
  *
  * @author renna
  */
 public class Mesa {
+    private OutputInterface output;
     private String numeroMesa;                         //atributos necessários
     private int capacidadeMaxima;
     private Boolean disponibilidadeFlag;
@@ -23,6 +29,7 @@ public class Mesa {
     private Pedido pedido;
 
     public Mesa() {                             //construtor vazio
+        this.output = OutputFactory.getTipoOutput(null);
         this.numeroMesa = "Indefinido";
         this.capacidadeMaxima = 0;
         this.disponibilidadeFlag = true; // Mesa está disponível por padrão
@@ -32,7 +39,8 @@ public class Mesa {
         this.pedido = null;
     }
 
-    public Mesa(String numeroMesa, int capacidadeMaxima) {  //construtor básico
+    public Mesa(String tipoOutput, String numeroMesa, int capacidadeMaxima) {  //construtor básico
+        this.output = OutputFactory.getTipoOutput(tipoOutput);
         this.numeroMesa = numeroMesa;
         this.capacidadeMaxima = capacidadeMaxima;       
         this.disponibilidadeFlag = true;                // Mesa disponível por padrão
@@ -63,16 +71,22 @@ public class Mesa {
     public boolean ocuparMesa(ClienteRestaurante cliente, LocalDate data, LocalTime horario) {
         String nomeCliente = cliente.getNomeCliente();
         if (!verificarDisponibilidadeDataHorarioNome(data, horario,nomeCliente)) {
-            System.out.println("A mesa " + numeroMesa + " está reservada para esse horário.");  //Se a mesa não está reservada
+            if(output instanceof OutputConsole){
+                System.out.println("A mesa " + numeroMesa + " está reservada para esse horário.");  //Se a mesa não está reservada
+            }
             return false;
         }
         if (!disponibilidadeFlag) {
-            System.out.println("A mesa " + numeroMesa + " já está ocupada.");   //Se a mesa não está 
+            if(output instanceof OutputConsole){
+                System.out.println("A mesa " + numeroMesa + " já está ocupada.");   //Se a mesa não está
+            } 
             return false;
         }
         this.clienteResponsavel = cliente;      //atribui cliente à mesa
         this.disponibilidadeFlag = false;       //muda status de disponibilidade
-        System.out.println("A mesa "+numeroMesa+" foi ocupada com sucesso por "+cliente.getNomeCliente()+" em "+data+" às" + horario);
+        if(output instanceof OutputConsole){
+            System.out.println("A mesa "+numeroMesa+" foi ocupada com sucesso por "+cliente.getNomeCliente()+" em "+data+" às" + horario);
+        }
         return true;
     }
 
@@ -80,7 +94,9 @@ public class Mesa {
         this.disponibilidadeFlag = true;
         this.clienteResponsavel = null;
         this.pedido = null;
-        System.out.println("A mesa " + numeroMesa + " foi liberada para uso.");
+        if(output instanceof OutputConsole){
+            System.out.println("A mesa " + numeroMesa + " foi liberada para uso.");
+        }
     }
 
     public void adicionarReserva(LocalDate data,LocalTime horarioReserva, String nomeCliente) {
@@ -90,11 +106,14 @@ public class Mesa {
         
         if(this.verificarDisponibilidadeDataHorarioNome(data, horarioReserva, nomeCliente)== true){  //é associado a mesa após verificação
             reservasMarcadas.add(reserva);  //adciona ao array list
-            System.out.println("Reserva adicionada para a mesa " + numeroMesa + " em " + reserva.getData());
+            if(output instanceof OutputConsole){
+                System.out.println("Reserva adicionada para a mesa " + numeroMesa + " em " + reserva.getData());
+            }
         }else{
-            System.out.println("Mesa não está disponível para reservar");;
+            if(output instanceof OutputConsole){
+                System.out.println("Mesa não está disponível para reservar");
+            }
         }
-        
     }
     
     public void cancelarReserva(LocalDate data, LocalTime hora, String nomeCliente){    //ALTERAR E COLOCAR UM REMOVE?

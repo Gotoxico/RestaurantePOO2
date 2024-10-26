@@ -4,6 +4,7 @@
  */
 package restaurante.poo;
 
+import restaurante.poo.Cartao.Cartao;
 import java.time.LocalDate;
 
 /**

@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import restaurante.poo.ReservaMesa;
+import restaurante.poo.Reserva.ReservaMesa;
 import restaurante.poo.ClienteRestaurante;
 import restaurante.poo.Garcom;
 import restaurante.poo.Mesa;
