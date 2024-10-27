@@ -18,18 +18,21 @@ import restaurante.poo.Mesa;
 public class ReservaMesa {
     private int quantidadeAtual, quantidadeMaxima; 
     private Mesa mesas[];
+    private String tipoOutput;
     private Queue<ClienteRestaurante> queue = new LinkedList<>();
 
     public ReservaMesa() {
         quantidadeAtual = 0;
         quantidadeMaxima = Integer.MAX_VALUE;
         mesas = new Mesa[quantidadeMaxima];
+        tipoOutput = null;
     }
     
-    public ReservaMesa(int quantidadeMaxima) {
+    public ReservaMesa(int quantidadeMaxima, String tipoOutput) {
         quantidadeAtual = 0;
         this.quantidadeMaxima = quantidadeMaxima;
         mesas = new Mesa[quantidadeMaxima];
+        this.tipoOutput = tipoOutput;
     }
 
     public int getQuantidadeMaxima() {
@@ -44,6 +47,27 @@ public class ReservaMesa {
     public int getQuantidadeAtual() {
         return quantidadeAtual;
     }
+
+    public String getTipoOutput() {
+        return tipoOutput;
+    }
+
+    public void setTipoOutput(String tipoOutput) {
+        this.tipoOutput = tipoOutput;
+    }
+    
+    public Mesa[] getMesas() {
+        return mesas;
+    }
+    
+    public Mesa getMesa(String numeroMesa){
+        for(int i = 0; i < quantidadeAtual; i++){
+            if(mesas[i].getNumeroMesa().equals(numeroMesa)){
+                return mesas[i];
+            }
+        }
+        return null;
+    }
     
     /*
     @Brief Adiciona uma mesa ao vetor de mesas
@@ -53,9 +77,9 @@ public class ReservaMesa {
     
     @Return none
     */
-    public void adicionarMesa(int capacidade, String numero) {
+    public void adicionarMesa(String tipoOutput, int capacidade, String numero) {
         if(quantidadeAtual < quantidadeMaxima){
-            Mesa mesa = new Mesa(numero, capacidade);
+            Mesa mesa = new Mesa(tipoOutput, numero, capacidade);
             mesas[quantidadeAtual+1] = mesa;
             quantidadeAtual++;
             return;
@@ -155,4 +179,12 @@ public class ReservaMesa {
         }
     }
     
+    public void liberarMesa(String numeroMesa){
+        for(int i = 0; i < quantidadeAtual; i++){
+            if(mesas[i].getNumeroMesa().equals(numeroMesa)){
+                mesas[i].liberarMesa();
+            }
+        }
+    }
+
 }

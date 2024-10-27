@@ -85,5 +85,13 @@ public class PagamentoPedido {
     public void setFormaPagamento(String formaPagamento){
         this.formaPagamento = formaPagamento;
     }
-
+    
+    @Override
+    public String toString(){
+        return "PagamentoPedido:\n" +
+               "idPagamento = " + idPagamento + "\n" +
+               "Valor Total = " + valorTotal + "\n" +
+               "Pago = " + pago + "\n" +
+               "Forma de Pagamento = " + formaPagamento + "\n";
+    }
 }

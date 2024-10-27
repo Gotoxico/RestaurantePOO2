@@ -54,7 +54,5 @@ public class Pedido {
     public void setGarcomResponsavel(Garcom garcomResponsavel) {
         this.garcomResponsavel = garcomResponsavel;
     }
-    
-    
-    
+
 }

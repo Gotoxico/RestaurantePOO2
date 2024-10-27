@@ -81,9 +81,14 @@ public class Menu {
         this.itensMenu.add(item); //método utilizado
     }
 
-    public void removerItem(ItemMenu item) {
-        this.itensMenu.remove(item); //método utilizado
+    public void removerItem(String nomeItem, double preco) {
+        for(ItemMenu item : itensMenu){
+            if(item.getNome().equals(nomeItem) && item.getPreco() == preco){
+                itensMenu.remove(item);
+            }
+        }
     }
+    
     
     
     //Outros métodos a serem utilizados
@@ -119,7 +124,9 @@ public class Menu {
     
     public void exibirMenu() {
         for (ItemMenu item : itensMenu) {
-            System.out.println(item); //método utilizado
+            if(output instanceof OutputConsole){
+                System.out.println(item); //método utilizado
+            }
         }
     }
     
