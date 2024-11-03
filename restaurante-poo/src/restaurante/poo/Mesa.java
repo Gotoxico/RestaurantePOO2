@@ -19,7 +19,7 @@ import restaurante.poo.Output.OutputInterface;
  * @author renna
  */
 public class Mesa {
-    private OutputInterface output;
+    private final OutputInterface output;
     private String numeroMesa;                         //atributos necessários
     private int capacidadeMaxima;
     private Boolean disponibilidadeFlag;
@@ -29,7 +29,7 @@ public class Mesa {
     private Pedido pedido;
 
     public Mesa() {                             //construtor vazio
-        this.output = OutputFactory.getTipoOutput(null);
+        this.output = OutputFactory.getInstance().getTipoOutput(null);
         this.numeroMesa = "Indefinido";
         this.capacidadeMaxima = 0;
         this.disponibilidadeFlag = true; // Mesa está disponível por padrão
@@ -40,7 +40,7 @@ public class Mesa {
     }
 
     public Mesa(String tipoOutput, String numeroMesa, int capacidadeMaxima) {  //construtor básico
-        this.output = OutputFactory.getTipoOutput(tipoOutput);
+        this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
         this.numeroMesa = numeroMesa;
         this.capacidadeMaxima = capacidadeMaxima;       
         this.disponibilidadeFlag = true;                // Mesa disponível por padrão
@@ -71,22 +71,16 @@ public class Mesa {
     public boolean ocuparMesa(ClienteRestaurante cliente, LocalDate data, LocalTime horario) {
         String nomeCliente = cliente.getNomeCliente();
         if (!verificarDisponibilidadeDataHorarioNome(data, horario,nomeCliente)) {
-            if(output instanceof OutputConsole){
-                System.out.println("A mesa " + numeroMesa + " está reservada para esse horário.");  //Se a mesa não está reservada
-            }
+            output.display("A mesa " + numeroMesa + " está reservada para esse horário.");  //Se a mesa não está reservada
             return false;
         }
         if (!disponibilidadeFlag) {
-            if(output instanceof OutputConsole){
-                System.out.println("A mesa " + numeroMesa + " já está ocupada.");   //Se a mesa não está
-            } 
+            output.display("A mesa " + numeroMesa + " já está ocupada.");   //Se a mesa não está
             return false;
         }
         this.clienteResponsavel = cliente;      //atribui cliente à mesa
         this.disponibilidadeFlag = false;       //muda status de disponibilidade
-        if(output instanceof OutputConsole){
-            System.out.println("A mesa "+numeroMesa+" foi ocupada com sucesso por "+cliente.getNomeCliente()+" em "+data+" às" + horario);
-        }
+        output.display("A mesa "+numeroMesa+" foi ocupada com sucesso por "+cliente.getNomeCliente()+" em "+data+" às" + horario);
         return true;
     }
 
@@ -95,7 +89,7 @@ public class Mesa {
         this.clienteResponsavel = null;
         this.pedido = null;
         if(output instanceof OutputConsole){
-            System.out.println("A mesa " + numeroMesa + " foi liberada para uso.");
+            output.display("A mesa " + numeroMesa + " foi liberada para uso.");
         }
     }
 
@@ -106,19 +100,15 @@ public class Mesa {
         
         if(this.verificarDisponibilidadeDataHorarioNome(data, horarioReserva, nomeCliente)== true){  //é associado a mesa após verificação
             reservasMarcadas.add(reserva);  //adciona ao array list
-            if(output instanceof OutputConsole){
-                System.out.println("Reserva adicionada para a mesa " + numeroMesa + " em " + reserva.getData());
-            }
+            output.display("Reserva adicionada para a mesa " + numeroMesa + " em " + reserva.getData());
         }else{
-            if(output instanceof OutputConsole){
-                System.out.println("Mesa não está disponível para reservar");
-            }
+            output.display("Mesa não está disponível para reservar");
         }
     }
     
     public void cancelarReserva(LocalDate data, LocalTime hora, String nomeCliente){    //ALTERAR E COLOCAR UM REMOVE?
 //    if(this.verificarDisponibilidadeDataHorario(data, hora)== false){
-//        System.out.println("Reserva não encontrada");
+//        output.display("Reserva não encontrada");
 //        return;
 //    }
         for (Reserva reservaData : reservasMarcadas) {  //Percorre Array procurando a Data

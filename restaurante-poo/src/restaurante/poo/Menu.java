@@ -15,20 +15,16 @@ import restaurante.poo.Output.OutputInterface;
  * @author Junim
  */
 public class Menu {
-    private OutputInterface output;
     private String nomeRestaurante;
     private String nomeMenu;
     private String descricaoMenu;
     private String horarioDisponibilidade;
     private List<ItemMenu> itensMenu;
-    
-    //Construtor da classe vazio
-    public Menu() {
-    }
+    private final OutputInterface output;
     
     //Construtor da classe cheio
-    public Menu(String tipoOutput, String nomeRestaurante, String nomeMenu, String descricaoMenu, String horarioDisponibilidade) {
-        this.output = OutputFactory.getTipoOutput(tipoOutput);
+    public Menu(OutputFactory outputFactory, String tipoOutput, String nomeRestaurante, String nomeMenu, String descricaoMenu, String horarioDisponibilidade) {
+        this.output = outputFactory.getInstance().getTipoOutput(tipoOutput);
         this.nomeRestaurante = nomeRestaurante;
         this.nomeMenu = nomeMenu;
         this.descricaoMenu = descricaoMenu;
@@ -98,15 +94,11 @@ public class Menu {
         if (item.getNome().equals(itemAtualizado.getNome())) {
             //atualiza o item com os novos valores //método utilizado
             itensMenu.set(i, itemAtualizado);
-            if(output instanceof OutputConsole){
-                output.display("Item atualizado com sucesso!");
-            }
+            output.display("Item atualizado com sucesso!");
             return;
         }
     }
-    if(output instanceof OutputConsole){
-        System.out.println("Item não encontrado no menu.");
-    }
+    output.display("Item não encontrado no menu.");
 }
 
     public List<ItemMenu> listarItens() {
@@ -124,9 +116,9 @@ public class Menu {
     
     public void exibirMenu() {
         for (ItemMenu item : itensMenu) {
-            if(output instanceof OutputConsole){
-                System.out.println(item); //método utilizado
-            }
+            output.display(item.getNome()); //método utilizado
+            output.display(item.getDescricao());
+            output.display(String.valueOf(item.getPreco()));
         }
     }
     

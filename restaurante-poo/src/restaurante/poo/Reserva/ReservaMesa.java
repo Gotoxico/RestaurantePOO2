@@ -10,29 +10,38 @@ import java.util.LinkedList;
 import java.util.Queue;
 import restaurante.poo.ClienteRestaurante;
 import restaurante.poo.Mesa;
+import restaurante.poo.Output.OutputFactory;
+import restaurante.poo.Output.OutputInterface;
 
 /**
  *
  * @author rodri
  */
 public class ReservaMesa {
+    private final OutputInterface output;
     private int quantidadeAtual, quantidadeMaxima; 
     private Mesa mesas[];
     private String tipoOutput;
     private Queue<ClienteRestaurante> queue = new LinkedList<>();
+    
+    private static ReservaMesa instance;
 
-    public ReservaMesa() {
-        quantidadeAtual = 0;
-        quantidadeMaxima = Integer.MAX_VALUE;
-        mesas = new Mesa[quantidadeMaxima];
-        tipoOutput = null;
+    private ReservaMesa() {
+        this(Integer.MAX_VALUE, null);
     }
     
-    public ReservaMesa(int quantidadeMaxima, String tipoOutput) {
+    private ReservaMesa(int quantidadeMaxima, String tipoOutput) {
         quantidadeAtual = 0;
         this.quantidadeMaxima = quantidadeMaxima;
         mesas = new Mesa[quantidadeMaxima];
-        this.tipoOutput = tipoOutput;
+        this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
+    }
+    
+    public static ReservaMesa getInstance(int quantidadeMaxima, String tipoOutput){
+        if(instance == null){
+            instance = new ReservaMesa(quantidadeMaxima, tipoOutput);
+        }
+        return instance;
     }
 
     public int getQuantidadeMaxima() {
@@ -80,8 +89,8 @@ public class ReservaMesa {
     public void adicionarMesa(String tipoOutput, int capacidade, String numero) {
         if(quantidadeAtual < quantidadeMaxima){
             Mesa mesa = new Mesa(tipoOutput, numero, capacidade);
-            mesas[quantidadeAtual+1] = mesa;
             quantidadeAtual++;
+            mesas[quantidadeAtual] = mesa;
             return;
         }
         return;
@@ -186,5 +195,4 @@ public class ReservaMesa {
             }
         }
     }
-
 }

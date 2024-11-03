@@ -16,7 +16,8 @@ import restaurante.poo.Garcom;
 import restaurante.poo.ItemMenu;
 import restaurante.poo.Menu;
 import restaurante.poo.Mesa;
-import restaurante.poo.Pedido;
+import restaurante.poo.Output.OutputFactory;
+import restaurante.poo.Output.OutputInterface;
 /**
  *
  * @author rodri
@@ -25,17 +26,21 @@ public class Restaurante {
     private ArrayList<Garcom> garcoms;
     private ArrayList<ClienteRestaurante> clientes;
     private Queue <ClienteRestaurante> fila = new LinkedList<>();
-    private ReservaMesa reserva;
+    private final ReservaMesa reserva;
     private Menu menu;
     private int contadorClientes = 0, maximoMesas, contadorMesas = 0;
     private String nomeRestaurante, tipoOutput;
+    private final OutputFactory outputFactory;
+    private final OutputInterface output;
     
-    public Restaurante(String nomeRestaurante, String tipoOutput, int maximoMesas, String nomeMenu, String descricaoMenu, String horarioDisponibilidade){
+    public Restaurante(String nomeRestaurante, OutputFactory outputFactory, String tipoOutput, int maximoMesas, String nomeMenu, String descricaoMenu, String horarioDisponibilidade){
         this.nomeRestaurante = nomeRestaurante;
         this.maximoMesas = maximoMesas;
-        reserva = new ReservaMesa(maximoMesas, tipoOutput);
-        menu = new Menu(tipoOutput, nomeRestaurante, nomeMenu, descricaoMenu, horarioDisponibilidade);
+        reserva = ReservaMesa.getInstance(maximoMesas, tipoOutput);
+        menu = new Menu(outputFactory, tipoOutput, nomeRestaurante, nomeMenu, descricaoMenu, horarioDisponibilidade);
+        this.outputFactory = outputFactory;
         this.tipoOutput = tipoOutput;
+        this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
     }
         
     //Classe Mesa
@@ -93,11 +98,10 @@ public class Restaurante {
     //Pedido
     public void adicionarPedido(String numeroMesa){
         Mesa mesa = reserva.getMesa(numeroMesa);
-        if(tipoOutput.equals("console")){
             int opcao = 0;
             Scanner scan = new Scanner(System.in);
             do {
-                System.out.println("Digite opcao desejada: \n1 - Adicionar Item\n2 - Remover Item\n3 - Encerrar Ordem");
+                output.display("Digite opcao desejada: \n1 - Adicionar Item\n2 - Remover Item\n3 - Encerrar Ordem");
                 opcao = scan.nextInt();
                 String nomeItem;
                 int quantidadeItens;
@@ -105,9 +109,9 @@ public class Restaurante {
                        
                 switch (opcao) {
                     case 1:
-                        System.out.println("Digite nome Item: ");
+                        output.display("Digite nome Item: ");
                         nomeItem = scan.nextLine();
-                        System.out.println("Digite quantidade itens: ");
+                        output.display("Digite quantidade itens: ");
                         quantidadeItens = scan.nextInt();
                         item = menu.buscarItemPorNome(nomeItem);
                         for (int i = 0; i < quantidadeItens; i++) {
@@ -116,9 +120,9 @@ public class Restaurante {
                         break;
                                 
                     case 2:
-                        System.out.println("Digite nome Item: ");
+                        output.display("Digite nome Item: ");
                         nomeItem = scan.nextLine();
-                        System.out.println("Digite quantidade itens: ");
+                        output.display("Digite quantidade itens: ");
                         quantidadeItens = scan.nextInt();
                         item = menu.buscarItemPorNome(nomeItem);
                         for (int i = 0; i < quantidadeItens; i++) {
@@ -127,13 +131,12 @@ public class Restaurante {
                         break;                                
                                 
                     default:
-                        System.out.println("Opcao inválida!\n");
+                        output.display("Opcao inválida!\n");
                         break;
                 }
                         
             } while (opcao != 3);
             scan.close();
-        }
     }
         
         

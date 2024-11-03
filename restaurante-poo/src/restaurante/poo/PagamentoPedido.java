@@ -8,7 +8,7 @@ import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
 public class PagamentoPedido {
-    private OutputInterface output;
+    private final OutputInterface output;
     private String idPagamento;
     private Pedido pedido;
     private double valorTotal;
@@ -17,7 +17,7 @@ public class PagamentoPedido {
     private ProxyAutenticacaoCartoes proxy;
 
     public PagamentoPedido(String tipoOutput, Pedido pedido, String formaPagamento){   //Construir um constructor nulo?
-        this.output = OutputFactory.getTipoOutput(tipoOutput);
+        this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
         this.idPagamento = UUID.randomUUID().toString();
         this.pedido = pedido;
         this.formaPagamento = formaPagamento;
@@ -50,14 +50,10 @@ public class PagamentoPedido {
                 }
             }
             this.pago = true;
-            if(output instanceof OutputConsole){
-                System.out.println("Pagamento de R$" + valorTotal + " realizado com sucesso.");
-            }
+            output.display("Pagamento de R$" + valorTotal + " realizado com sucesso.");
             return true;
         }else{
-            if(output instanceof OutputConsole){
-                System.out.println("O pagamento já foi realizado.");
-            }
+            output.display("O pagamento já foi realizado.");
             return false;
         }
     }
