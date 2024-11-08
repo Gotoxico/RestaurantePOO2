@@ -50,7 +50,6 @@ public class Mesa {
         this.pedido = null;
     }
 
-
     public boolean verificarDisponibilidadeDataHorarioNome(LocalDate data, LocalTime horario, String nomeCliente) {        //verifica a disponibilidade da mesa com base nas reservas marcadas da mesa     
         for (Reserva reservaData : reservasMarcadas) {
             if (reservaData.getData().equals(data)) {
@@ -66,7 +65,6 @@ public class Mesa {
         }
         return true; // Mesa está disponivel
     }
-
 
     public boolean ocuparMesa(ClienteRestaurante cliente, LocalDate data, LocalTime horario) {
         String nomeCliente = cliente.getNomeCliente();
@@ -123,9 +121,7 @@ public class Mesa {
         }
         //return true; // Mesa está disponivel
     }
-    
-
-    // Getters e Setters
+        // Getters e Setters
 
     public String getNumeroMesa() {
         return numeroMesa;
@@ -160,6 +156,9 @@ public class Mesa {
     }
 
     public Pedido getPedido() {
+        if (pedido == null){
+            this.pedido = new Pedido(this);
+        }
         return pedido;
     }
 

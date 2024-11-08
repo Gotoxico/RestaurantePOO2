@@ -10,21 +10,23 @@ import java.util.List;  //interface?
  *
  * @author renna
  */
-public class Pedido {
+public class Pedido {       //SINGLETON?
     private Mesa mesa; 
-    private PagamentoPedido pagamento;
     private List<ItemMenu> itensPedidos;  //implementar gorjeta por garçom?
     private Garcom garcomResponsavel;  //trocar para gerencia, ou incluir. Talvez
+    private boolean estaPago;   //add pedido
+    
+    //Adcionar COMANDA????
     
     public Pedido(Mesa mesa){
         this.mesa = mesa;
         this.itensPedidos = new ArrayList<>();
         this.garcomResponsavel = mesa.getGarcomResponsavel();
-        this.pagamento = null;              //alterar essa parte, revisar cooperação entre classes.
+        this.estaPago = false;
     }
     
-    public void addPedido(ItemMenu novoItem){
-        itensPedidos.add(novoItem);
+    public void addPedido(ItemMenu novoItem){   //adcionar verificação se item menu está disponível
+        itensPedidos.add(novoItem);             //add estoque?
     }
     
     public void removerItem(ItemMenu itemRemover){  //Checkar funcionalidade
@@ -43,7 +45,7 @@ public class Pedido {
         return itensPedidos;
     }
 
-    public void setItensPedidos(List<ItemMenu> itensPedidos) {
+    private void setItensPedidos(List<ItemMenu> itensPedidos) {
         this.itensPedidos = itensPedidos;
     }
 
