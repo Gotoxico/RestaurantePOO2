@@ -5,9 +5,15 @@
 package restaurante.poo.Output;
 
 /**
- *
+ * Interface OutputInterface define um contrato para exibir mensagens de saida
+ * 
  * @author rodri
  */
 public interface OutputInterface {
+    /**
+     * @Brief: Exibe uma mensagem de saida
+     * 
+     * @Parameter: message a mensagem que será exibida
+     */
     void display(String message);
 }
