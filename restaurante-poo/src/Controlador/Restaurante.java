@@ -66,13 +66,14 @@ public class Restaurante {
     }
 
     //Classe ClienteRestaurante (Gabrielly)
-    public void criarCliente(ClienteRestaurante c){
-        clientes.add(c);
+    public void criarCliente(String nomeCliente, String sobrenomeCliente, String telefoneCliente){
+        ClienteRestaurante cliente = new ClienteRestaurante(nomeCliente, sobrenomeCliente, telefoneCliente);
         contadorClientes++;
     }
         
     //Classe Garcom (Marcos)
-    public void adicionarGarcom(Garcom garcom){
+    public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
+        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom);
         this.garcoms.add(garcom);
     }
         
