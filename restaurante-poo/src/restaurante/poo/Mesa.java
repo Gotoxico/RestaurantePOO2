@@ -10,118 +10,167 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import restaurante.poo.Observador.Subject;
 import restaurante.poo.Output.OutputConsole;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
 /**
- *
+ * Classe que representa uma mesa do restaurante
+ * Contém atributos e métodos para gerenciar reservas, disponibilidade e ocupação
+ * 
  * @author renna
  */
-public class Mesa {
+public class Mesa extends Subject{
     private final OutputInterface output;
-    private String numeroMesa;                         //atributos necessários
+    private String numeroMesa;                         
     private int capacidadeMaxima;
     private Boolean disponibilidadeFlag;
     private List<Reserva> reservasMarcadas;
     private Garcom garcomResponsavel;
     private ClienteRestaurante clienteResponsavel;
-    private Pedido pedido;
-
-    public Mesa() {                             //construtor vazio
+    private Comanda comandaAtiva;  
+    
+    /**
+     * Construtor padrão da classe Mesa, inicializando com valores padrão
+     */
+    public Mesa() {                             
         this.output = OutputFactory.getInstance().getTipoOutput(null);
         this.numeroMesa = "Indefinido";
         this.capacidadeMaxima = 0;
-        this.disponibilidadeFlag = true; // Mesa está disponível por padrão
+        this.disponibilidadeFlag = true; 
         this.reservasMarcadas = new ArrayList<>();
         this.garcomResponsavel = null;
         this.clienteResponsavel = null;
         this.pedido = null;
+        this.chamarGarcom = false;
     }
-
-    public Mesa(String tipoOutput, String numeroMesa, int capacidadeMaxima) {  //construtor básico
+    
+    /**
+     * Construtor da classe Mesa com parâmetros
+     * 
+     * @param tipoOutput Tipo de saída utilizada
+     * @param numeroMesa Número identificador da mesa
+     * @param capacidadeMaxima Capacidade máxima de pessoas na mesa
+     */
+    public Mesa(String tipoOutput, String numeroMesa, int capacidadeMaxima) {  
         this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
         this.numeroMesa = numeroMesa;
         this.capacidadeMaxima = capacidadeMaxima;       
-        this.disponibilidadeFlag = true;                // Mesa disponível por padrão
+        this.disponibilidadeFlag = true;               
         this.reservasMarcadas = new ArrayList<>();      
-        this.garcomResponsavel = null;                  //Passar demais atributos por meio de métodos
+        this.garcomResponsavel = null;                  
         this.clienteResponsavel = null;
         this.pedido = null;
     }
-
-    public boolean verificarDisponibilidadeDataHorarioNome(LocalDate data, LocalTime horario, String nomeCliente) {        //verifica a disponibilidade da mesa com base nas reservas marcadas da mesa     
+    
+    
+    /**
+     * Verifica se a mesa está disponível para uma data, horário e cliente específicos
+     * 
+     * @param data Data da reserva
+     * @param horario Horário da reserva
+     * @param nomeCliente Nome do cliente para a reserva
+     * @return true se a mesa estiver disponível, false caso contrário
+     * 
+     * 
+     * 
+     */
+    public boolean verificarDisponibilidadeDataHorarioNome(LocalDate data, LocalTime horario, String nomeCliente) {         
         for (Reserva reservaData : reservasMarcadas) {
             if (reservaData.getData().equals(data)) {
                 for (Horario horarioReserva : reservaData.getHorarios()) {
-                    if (horarioReserva.getHorario().equals(horario) && horarioReserva.isDisponibilidade()){
-                        if(nomeCliente == null && horarioReserva.getNome() != null ||       //se o nome passado for nulo, verifica se existe qlqr nome lá
-                            nomeCliente != null && !nomeCliente.equals(horarioReserva.getNome())){  //se não for null, verifica se o nome não bate
+                    if (horarioReserva.getHorario().equals(horario) && horarioReserva.isDisponibilidade()) {
+                        if (nomeCliente == null && horarioReserva.getNome() != null ||       
+                            nomeCliente != null && !nomeCliente.equals(horarioReserva.getNome())) {  
                             return false;
                         }
                     }
                 }
             }
         }
-        return true; // Mesa está disponivel
+        return true; 
     }
 
+    /**
+     * Ocupa a mesa para um cliente específico em uma data e horário
+     * 
+     * @param cliente Cliente que ocupará a mesa
+     * @param data Data de ocupação
+     * @param horario Horário de ocupação
+     * @return true se a ocupação for bem-sucedida, false caso contrário
+     */
     public boolean ocuparMesa(ClienteRestaurante cliente, LocalDate data, LocalTime horario) {
         String nomeCliente = cliente.getNomeCliente();
-        if (!verificarDisponibilidadeDataHorarioNome(data, horario,nomeCliente)) {
-            output.display("A mesa " + numeroMesa + " está reservada para esse horário.");  //Se a mesa não está reservada
+        if (!verificarDisponibilidadeDataHorarioNome(data, horario, nomeCliente)) {
+            output.display("A mesa " + numeroMesa + " está reservada para esse horário.");  
             return false;
         }
         if (!disponibilidadeFlag) {
-            output.display("A mesa " + numeroMesa + " já está ocupada.");   //Se a mesa não está
+            output.display("A mesa " + numeroMesa + " já está ocupada.");   
             return false;
         }
-        this.clienteResponsavel = cliente;      //atribui cliente à mesa
-        this.disponibilidadeFlag = false;       //muda status de disponibilidade
-        output.display("A mesa "+numeroMesa+" foi ocupada com sucesso por "+cliente.getNomeCliente()+" em "+data+" às" + horario);
+        this.clienteResponsavel = cliente;      
+        this.disponibilidadeFlag = false;       
+        output.display("A mesa " + numeroMesa + " foi ocupada com sucesso por " + cliente.getNomeCliente() + " em " + data + " às " + horario);
         return true;
     }
-
-    public void liberarMesa() {         //função que renova o status da mesa para ocupação
+    
+    /**
+     * Libera a mesa novamente para ocupação
+     */
+    public void liberarMesa() {         
         this.disponibilidadeFlag = true;
         this.clienteResponsavel = null;
-        this.pedido = null;
-        if(output instanceof OutputConsole){
+         notifyObserver();
+        if (output instanceof OutputConsole) {
             output.display("A mesa " + numeroMesa + " foi liberada para uso.");
         }
+       
     }
-
-    public void adicionarReserva(LocalDate data,LocalTime horarioReserva, String nomeCliente) {
-    //adcionar reserva a lista de reserva da mesa
-        Reserva reserva = new Reserva(data,Constantes.HORARIO_INICIO, Constantes.HORARIO_TERMINO); //constantes para horario de funcionamento
-        reserva.inserirReserva(nomeCliente, horarioReserva);     //Cria reserva e insere o horario e data
+    
+    public void
+    
+    /**
+     * Adiciona uma reserva à mesa
+     * 
+     * @param data Data da reserva
+     * @param horarioReserva Horário da reserva
+     * @param nomeCliente Nome do cliente que fez a reserva
+     */
+    public void adicionarReserva(LocalDate data, LocalTime horarioReserva, String nomeCliente) {
+        Reserva reserva = new Reserva(data, Constantes.HORARIO_INICIO, Constantes.HORARIO_TERMINO); 
+        reserva.inserirReserva(nomeCliente, horarioReserva);     
         
-        if(this.verificarDisponibilidadeDataHorarioNome(data, horarioReserva, nomeCliente)== true){  //é associado a mesa após verificação
-            reservasMarcadas.add(reserva);  //adciona ao array list
+        if (this.verificarDisponibilidadeDataHorarioNome(data, horarioReserva, nomeCliente)) {  
+            reservasMarcadas.add(reserva);  
             output.display("Reserva adicionada para a mesa " + numeroMesa + " em " + reserva.getData());
-        }else{
-            output.display("Mesa não está disponível para reservar");
+        } else {
+            output.display("Mesa não está disponível para reservar.");
         }
     }
     
-    public void cancelarReserva(LocalDate data, LocalTime hora, String nomeCliente){    //ALTERAR E COLOCAR UM REMOVE?
-//    if(this.verificarDisponibilidadeDataHorario(data, hora)== false){
-//        output.display("Reserva não encontrada");
-//        return;
-//    }
-        for (Reserva reservaData : reservasMarcadas) {  //Percorre Array procurando a Data
+    /**
+     * Cancela uma reserva específica da mesa
+     * 
+     * @param data Data da reserva
+     * @param hora Horário da reserva
+     * @param nomeCliente Nome do cliente da reserva
+     */
+    public void cancelarReserva(LocalDate data, LocalTime hora, String nomeCliente) { 
+        for (Reserva reservaData : reservasMarcadas) {  
             if (reservaData.getData().equals(data)) {
-                for (Horario horarioReserva : reservaData.getHorarios()) {  //se a data coincidir procura os horarios
+                for (Horario horarioReserva : reservaData.getHorarios()) {  
                     if (horarioReserva.getHorario().equals(hora) && !horarioReserva.isDisponibilidade() &&
-                            horarioReserva.getNome().equals(nomeCliente)) {   //procura o horário correto, verifica a mesa NÃO está livre, verifica o nome
-                        reservaData.cancelarReserva(nomeCliente,hora);          //se encontrar cancela através da classe Reserva   
+                            horarioReserva.getNome().equals(nomeCliente)) {   
+                        reservaData.cancelarReserva(nomeCliente, hora);          
                     }
                 }
             }
         }
-        //return true; // Mesa está disponivel
     }
-        // Getters e Setters
+    
+    // Getters e Setters
 
     public String getNumeroMesa() {
         return numeroMesa;
@@ -155,23 +204,16 @@ public class Mesa {
         return clienteResponsavel;
     }
 
-    public Pedido getPedido() {
-        if (pedido == null){
-            this.pedido = new Pedido(this);
-        }
-        return pedido;
+    public Comanda getComandaAtiva() {
+        return comandaAtiva;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setComandaAtiva(Comanda comandaAtiva) {
+        this.comandaAtiva = comandaAtiva;
+        this.disponibilidadeFlag = (comandaAtiva == null);
     }
 
     public List<Reserva> getReservasMarcadas() {
         return reservasMarcadas;
     }
-
-//    public void setReservasMarcadas(List<Reserva> reservasMarcadas) {
-//        this.reservasMarcadas = reservasMarcadas;
-//    };
-    
 }

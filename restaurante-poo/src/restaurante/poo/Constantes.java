@@ -8,10 +8,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- *
+ * Classe que define constantes de horário para o restaurante
+ * 
  * @author renna
  */
 public class Constantes {
-    public static final LocalTime HORARIO_INICIO = LocalTime.of(17, 0);  // 09:00
-    public static final LocalTime HORARIO_TERMINO = LocalTime.of(23, 0); // 17:00
+    /**
+     * Hora de início do funcionamento do restaurante (17:00)
+     */
+    public static final LocalTime HORARIO_INICIO = LocalTime.of(17, 0);  
+    
+    /**
+     * Hora do encerramento do funcionamento do restaurante (23:00)
+     */
+    public static final LocalTime HORARIO_TERMINO = LocalTime.of(23, 0); 
 }
