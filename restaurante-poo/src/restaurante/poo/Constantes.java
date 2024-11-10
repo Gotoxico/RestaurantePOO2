@@ -22,4 +22,6 @@ public class Constantes {
      * Hora do encerramento do funcionamento do restaurante (23:00)
      */
     public static final LocalTime HORARIO_TERMINO = LocalTime.of(23, 0); 
+    
+    public static final double SALARIO_MINIMO = 1412;
 }

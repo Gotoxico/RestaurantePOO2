@@ -10,29 +10,47 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import restaurante.poo.Reserva.ReservaMesa;
 import restaurante.poo.ClienteRestaurante;
 import restaurante.poo.Garcom;
 import restaurante.poo.ItemMenu;
 import restaurante.poo.Menu;
 import restaurante.poo.Mesa;
+import restaurante.poo.ObserverQueue;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
+import restaurante.poo.Pessoa;
+import restaurante.poo.SubjectQueue;
 /**
  *
  * @author rodri
  */
-public class Restaurante {
+public class Restaurante implements SubjectQueue{
     private ArrayList<Garcom> garcoms;
     private ArrayList<ClienteRestaurante> clientes;
-    private Queue <ClienteRestaurante> fila = new LinkedList<>();
+    private Queue <Pessoa> fila = new LinkedList<>();
     private final ReservaMesa reserva;
     private Menu menu;
     private int contadorClientes = 0, maximoMesas, contadorMesas = 0;
     private String nomeRestaurante, tipoOutput;
     private final OutputFactory outputFactory;
     private final OutputInterface output;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private ArrayList<ObserverQueue> observers = new ArrayList<>();
     
+    /**
+     * 
+     * @param nomeRestaurante
+     * @param outputFactory
+     * @param tipoOutput
+     * @param maximoMesas
+     * @param nomeMenu
+     * @param descricaoMenu
+     * @param horarioDisponibilidade 
+     */
     public Restaurante(String nomeRestaurante, OutputFactory outputFactory, String tipoOutput, int maximoMesas, String nomeMenu, String descricaoMenu, String horarioDisponibilidade){
         this.nomeRestaurante = nomeRestaurante;
         this.maximoMesas = maximoMesas;
@@ -41,61 +59,129 @@ public class Restaurante {
         this.outputFactory = outputFactory;
         this.tipoOutput = tipoOutput;
         this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
+        
+        scheduler.scheduleAtFixedRate(() -> {
+            Pessoa pessoa = new Pessoa();
+            fila.add(pessoa);
+            notifyObservers(pessoa);
+        }, 0, 10, TimeUnit.SECONDS);
     }
         
+    /**
+     * 
+     * @param numeroMesa
+     * @param capacidadeMaxima 
+     */
     //Classe Mesa
     public void adicionarMesa(String numeroMesa, int capacidadeMaxima){
         reserva.adicionarMesa(tipoOutput, capacidadeMaxima, numeroMesa);
     }
-        
+    
+    /**
+     * 
+     * @param numeroMesa 
+     */    
     public void removerMesa(String numeroMesa){
         reserva.removerMesa(numeroMesa);
     }
     
+    /**
+     * 
+     * @param numeroMesa 
+     */
     public void liberarMesa(String numeroMesa){
         reserva.liberarMesa(numeroMesa);
     }
-        
+    
+    /**
+     * 
+     * @param data
+     * @param hora
+     * @param nome
+     * @param quantidade 
+     */
     //Classe ReservaMesa
     public void reservarMesa(LocalDate data, LocalTime hora, String nome, int quantidade){
         reserva.reservarMesa(data, hora, nome, quantidade);
     }
         
+    /**
+     * 
+     * @param data
+     * @param hora
+     * @param nome
+     * @param quantidade 
+     */
     public void cancelarReservaMesa(LocalDate data, LocalTime hora, String nome, int quantidade){
         reserva.cancelarReserva(data, hora, nome, quantidade);
     }
-
-    //Classe ClienteRestaurante (Gabrielly)
-    public void criarCliente(String nomeCliente, String sobrenomeCliente, String telefoneCliente){
-        ClienteRestaurante cliente = new ClienteRestaurante(nomeCliente, sobrenomeCliente, telefoneCliente);
+    
+    public void adicionarCliente(ClienteRestaurante clienteRestaurante){
+        clientes.add(clienteRestaurante);
+        aumentarContadorClientes();
+    }
+    
+    public void aumentarContadorClientes(){
         contadorClientes++;
     }
         
+    /**
+     * 
+     * @param nome
+     * @param email
+     * @param registroGarcom
+     * @param salarioBaseGarcom
+     * @param gorjetaGarcom 
+     */
     //Classe Garcom (Marcos)
     public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
         Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom);
         this.garcoms.add(garcom);
     }
         
+    /**
+     * 
+     * @param nomeItem
+     * @param descricaoItem
+     * @param preco 
+     */
     //Classe Menu
     public void adicionarItemMenu(String nomeItem, String descricaoItem, double preco){
         ItemMenu item = new ItemMenu(nomeItem, descricaoItem, preco);
         menu.adicionarItem(item);
     }
     
+    /**
+     * 
+     * @param nomeItem
+     * @param preco 
+     */
     public void removerItemMenu(String nomeItem, double preco){
         menu.removerItem(nomeItem, preco);
     }
         
+    /**
+     * 
+     * @param nomeItem
+     * @param descricaoItem
+     * @param preco 
+     */
     public void alterarPrecoItemMenu(String nomeItem, String descricaoItem, double preco){
         ItemMenu itemAtualizado = new ItemMenu(nomeItem, descricaoItem, preco);
         menu.atualizarItem(itemAtualizado);
     }
     
+    /**
+     * 
+     */
     public void exibirMenu(){
         menu.exibirMenu();
     }
         
+    /**
+     * 
+     * @param numeroMesa 
+     */
     //Pedido
     public void adicionarPedido(String numeroMesa){
         Mesa mesa = reserva.getMesa(numeroMesa);
@@ -140,10 +226,61 @@ public class Restaurante {
             scan.close();
     }
         
-        
+    /**
+     * 
+     */    
     //Pagamento pedido
     public void pagar(){
         
+    }
+    
+    /**
+     * 
+     * @param observerQueue 
+     * 
+     * @Brief: Adiciona um atendente como observador da fila
+     */
+    @Override
+    public void adicionarObserver(ObserverQueue observerQueue){
+        observers.add(observerQueue);
+    }
+    
+    /**
+     * 
+     * @param observerQueue 
+     * 
+     * @Brief: Remove um atendente como observador da fila
+     */
+    @Override
+    public void removerObserver(ObserverQueue observerQueue){
+        observers.remove(observerQueue);
+    }
+    
+    /**
+     * 
+     * @param pessoa 
+     * 
+     * @Brief: Avisa os atendentes sobre uma pessoa na fila
+     */
+    @Override
+    public void notifyObservers(Pessoa pessoa){
+        for(ObserverQueue observer : observers){
+            observer.update(pessoa);
+        }
+    }
+    
+    /**
+     * Brief: Parar Scheduler
+     */
+    public void pararScheduler() {
+        scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+        }
     }
     
 }

@@ -5,13 +5,10 @@
 package principal;
 
 import Controlador.Restaurante;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import restaurante.poo.ItemMenu;
-import restaurante.poo.Mesa;
+import restaurante.poo.Atendente;
+import restaurante.poo.Constantes;
+import restaurante.poo.Gerador;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -24,10 +21,12 @@ public class Principal {
     static String tipoOutput = "console";
     static OutputInterface output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
     static Restaurante restaurante = new Restaurante("Restaurante FCT", OutputFactory.getInstance(), tipoOutput, 30, "Menu Normal", "Menu pensado para as operações cotidianas do Restaurante FCT", "11:00 - 14:00 e 17:00 - 22:00");
+    static Atendente atendente = new Atendente(Constantes.SALARIO_MINIMO, Gerador.geradorAleatorioNome(), "oqequwqioe@email.com",  restaurante);
     static Scanner sc = new Scanner(System.in);
 
     public static void menuPrincipal() {
         int opc = 0;
+        restaurante.adicionarObserver(atendente);
 
         output.display("=================== MENU PRINCIPAL ========================");
         output.display("Selecione sua opção: ");
@@ -46,7 +45,7 @@ public class Principal {
 
         switch (opc) {
             case 1:
-                cadastrarCliente();
+                //Desnecessário, pois agora toda vez que uma pessoa entra na fila a cada 30 segundos, o atendente cria o cliente
                 break;
             case 2:
                 cadastrarReserva();
@@ -80,19 +79,6 @@ public class Principal {
                 menuPrincipal();
                 break;
         }
-    }
-
-    public static void cadastrarCliente() {
-        output.display("Nome do cliente: ");
-        String nome = sc.nextLine();
-       
-        output.display("Sobrenome do cliente: ");
-        String sobrenome = sc.nextLine();
-       
-        output.display("Telefone do cliente: ");
-        String telefone = sc.nextLine();
-
-        restaurante.criarCliente(nome, sobrenome, telefone);
     }
 
     public static void cadastrarReserva() {
@@ -176,6 +162,7 @@ public class Principal {
 
     public static void main(String[] args) {
         while (true) {
+            
             menuPrincipal();
         }
     }

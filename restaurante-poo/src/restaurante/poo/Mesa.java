@@ -129,7 +129,6 @@ public class Mesa extends Subject{
        
     }
     
-    public void
     
     /**
      * Adiciona uma reserva à mesa

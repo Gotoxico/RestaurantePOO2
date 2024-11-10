@@ -3,24 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package restaurante.poo;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import restaurante.poo.Observador.Observer;
 import restaurante.poo.Observador.Subject;
 
 /**
- * Classe que representa um garçom no sistema de restaurante
- * Estende a classe Usuario e possui informações específicas como registro, salário, gorjeta e mesas responsáveis
- * 
- * @author juniortraj
+ *
+ * @author rodri
  */
-public class Garcom extends Usuario implements Observer { //Herança
-    
+public class Garcom extends Funcionario implements Observer{
     private String registroGarcom;
-    private double salarioBaseGarcom;
     private double gorjetaGarcom;
     private ArrayList<Mesa> mesasResponsavel;
-
+    
     /**
      * @Brief: Construtor da classe Garcom
      * 
@@ -30,11 +26,9 @@ public class Garcom extends Usuario implements Observer { //Herança
      * @Parameter: salarioBaseGarcom Salário base do garçom
      * @Parameter: gorjetaGarcom     Valor inicial das gorjetas do garçom
      */
-    public Garcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
-    
-        super(nome, email);
+    public Garcom(String nome, String email, String registroGarcom, double salario, double gorjetaGarcom){
+        super(salario, nome, email);
         this.registroGarcom = registroGarcom;
-        this.salarioBaseGarcom = salarioBaseGarcom;
         this.gorjetaGarcom = gorjetaGarcom;
         this.mesasResponsavel = new ArrayList<>();
     }
@@ -62,17 +56,17 @@ public class Garcom extends Usuario implements Observer { //Herança
      * 
      * @Return: Salário base do garçom
      */
-    public double getSalarioBaseGarcom() {
-        return salarioBaseGarcom;
+    public double getSalario() {
+        return salario;
     }
     
     /**
      * @Brief: Define o salário base do garçom
      * 
-     * @Parameter: salarioBaseGarcom Novo salário base do garçom
+     * @Parameter: salario Novo salário base do garçom
      */
-    public void setSalarioBaseGarcom(double salarioBaseGarcom) {
-        this.salarioBaseGarcom = salarioBaseGarcom;
+    public void salario(double salario) {
+        this.salario = salario;
     }
     
     /**
@@ -145,10 +139,41 @@ public class Garcom extends Usuario implements Observer { //Herança
      * @Return: Salário final do garçom.
      */
     public double salarioFinalGarcom(){
-        return salarioBaseGarcom + gorjetaGarcom;
+        return salario + gorjetaGarcom;
+    }
+    
+    @Override
+    /**
+     * @Brief: Reimplementa método abstrato da classe abstrata Funcionario
+     * 
+     * @Return: Valor do desconto
+     */
+    double calcDescontosPrevidencia(){
+        return (this.salario/100) * 7.5;
+    }
+    
+    /**
+     * @Brief: Reimplementa método abstrato da classe abstrata Funcionario
+     * 
+     * @Return: Valor do desconto
+     */
+    @Override
+    double calcDescontosPlanoSaude(){
+        return (this.salario/100) * 0;
+    }
+    
+    /**
+     * @Brief: Reimplementa método abstrato da classe abstrata Funcionario
+     * 
+     * @Return: Valor do desconto
+     */
+    @Override
+    double calcOutrosDescontos(){
+        return (this.salario/100) * 10;
     }
     
     public void update(Subject s){
         
     }
+    
 }
