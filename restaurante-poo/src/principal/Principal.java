@@ -30,48 +30,42 @@ public class Principal {
 
         output.display("=================== MENU PRINCIPAL ========================");
         output.display("Selecione sua opção: ");
-        output.display("1 - Cadastrar Cliente");
+        //output.display("1 - Cadastrar Cliente"); //Desnecessário, pois agora toda vez que uma pessoa entra na fila a cada 30 segundos, o atendente cria o cliente
         //output.display("2 - Cadastrar Reserva");
-        output.display("3 - Cadastrar Mesa");
-        output.display("4 - Remover Mesa");
-        output.display("5 - Imprimir Menu");
-        output.display("6 - Cadastrar ItemMenu");
-        output.display("7 - Remover ItemMenu");
-        output.display("8 - Cadastrar Pedido");
-        output.display("9 - Cadastrar Garçom");
-        output.display("10 - Cadastrar Cartão");
+        output.display("1 - Cadastrar Mesa");
+        output.display("2 - Remover Mesa");
+        output.display("3 - Imprimir Menu");
+        output.display("4 - Cadastrar ItemMenu");
+        output.display("5 - Remover ItemMenu");
+        output.display("6 - Cadastrar Pedido");
+        output.display("7 - Cadastrar Garçom");
+        output.display("8 - Cadastrar Cartão");
         opc = sc.nextInt();
         sc.nextLine();
 
         switch (opc) {
             case 1:
-                //Desnecessário, pois agora toda vez que uma pessoa entra na fila a cada 30 segundos, o atendente cria o cliente
-                break;
-            case 2:
-                cadastrarReserva();
-                break;
-            case 3:
                 cadastrarMesa();
                 break;
-            case 4:
+            case 2:
                 removerMesa();
                 break;
-            case 5:
+            case 3:
                 imprimirMenu();
                 break;
-            case 6:
+            case 4:
                 cadastrarItemMenu();
                 break;
-            case 7:
+            case 5:
                 removerItemMenu();
                 break;
-            case 8:
+            case 6:
                 cadastrarPedido();
                 break;
-            case 9:
+            case 7:
                 cadastrarGarcom();
             break;
-            case 10:
+            case 8:
                 cadastrarCartao();
             break;
             default:
@@ -157,7 +151,6 @@ public class Principal {
     }
    
     public static void cadastrarCartao(){
-       
     }
 
     public static void main(String[] args) {
