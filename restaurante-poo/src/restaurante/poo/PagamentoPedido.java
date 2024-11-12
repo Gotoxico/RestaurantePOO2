@@ -15,10 +15,11 @@ public class PagamentoPedido {
     private final OutputInterface output;
     private String idPagamento;
     private Comanda comanda;
-    private double valorTotal;
+    private ClienteRestaurante cliente;
     private boolean pago;
     private String formaPagamento;
     private ProxyAutenticacaoCartoes proxy;
+    private double valorPago; // Considere esse no lugar de total
 
     /**
      * @Brief: Construtor para inicializar um pagamento com base em um pedido e uma forma de pagamento
@@ -28,27 +29,13 @@ public class PagamentoPedido {
      * @Parameter: pedido Pedido associado ao pagamento
      * @Parameter: formaPagamento Forma de pagamento escolhida pelo cliente
      */
-    public PagamentoPedido(String tipoOutput, Comanda comanda, String formaPagamento){  
+    public PagamentoPedido(String tipoOutput, Comanda comanda, String formaPagamento, ClienteRestaurante cliente){  
         this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
         this.idPagamento = UUID.randomUUID().toString();
         this.comanda = comanda;
         this.formaPagamento = formaPagamento;
-        this.valorTotal = calcularTotalPedido();
-        this.pago = false;
-    }
-
-    /**
-     * @Brief: Calcula o valor total do pedido com base nos itens pedidos
-     * 
-     * @Return: Valor total do pedido
-     */
-    private double calcularTotalPedido() {
-        double total = 0.0;
-        for(ItemMenu item : pedido.getItensPedidos()){      
-            
-            total += item.getPreco();
-        }
-        return total;
+        this.cliente = cliente;
+        this.pago = comanda.isPago();
     }
 
     /**
@@ -57,13 +44,13 @@ public class PagamentoPedido {
      * 
      * @Return: true se o pagamento for realizado com sucesso, false caso contrário
      */
-    public boolean realizarPagamento(){
+    public boolean realizarPagamento(){ // implementar mudanças para rachar conta, e considerar os 10%
         if(!pago){
             if(formaPagamento.equals("cartao")){
-                if(pedido.getMesa().getClienteResponsavel().getCartao() != null){
-                    Cartao c = pedido.getMesa().getClienteResponsavel().getCartao();
+                if(cliente.getCartao() != null){   
+                    Cartao c = cliente.getCartao();
                     boolean a = proxy.checarCodigo(String.valueOf(c.getCodigo()));
-                    boolean b = proxy.checarNome(pedido.getMesa().getClienteResponsavel().getNomeCliente() , pedido.getMesa().getClienteResponsavel().getSobrenomeCliente(), c.getNome(), c.getSobrenome());
+                    boolean b = proxy.checarNome(cliente.getNomeCliente() , cliente.getSobrenomeCliente(), c.getNome(), c.getSobrenome());
                     boolean d = proxy.checarData(c.getVencimento());
                     
                     if(a && b && d){
@@ -73,7 +60,7 @@ public class PagamentoPedido {
                 }
             }
             this.pago = true;
-            output.display("Pagamento de R$" + valorTotal + " realizado com sucesso.");
+            output.display("Pagamento de R$" + comanda.getValorTotal() + " realizado com sucesso."); 
             return true;
         }else{
             output.display("O pagamento já foi realizado.");

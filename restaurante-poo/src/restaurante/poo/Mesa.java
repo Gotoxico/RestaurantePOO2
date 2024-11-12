@@ -27,9 +27,11 @@ public class Mesa extends Subject{
     private int capacidadeMaxima;
     private Boolean disponibilidadeFlag;
     private List<Reserva> reservasMarcadas;
-    private Garcom garcomResponsavel;
+    private List<Garcom> garcomResponsavel;               //implementar List
     private ClienteRestaurante clienteResponsavel;
-    private Comanda comandaAtiva;  
+    private Comanda comandaAtiva;
+    private boolean chamadaGarcom;
+    
     
     /**
      * Construtor padrão da classe Mesa, inicializando com valores padrão
@@ -41,9 +43,8 @@ public class Mesa extends Subject{
         this.disponibilidadeFlag = true; 
         this.reservasMarcadas = new ArrayList<>();
         this.garcomResponsavel = null;
-        this.clienteResponsavel = null;
-        this.pedido = null;
-        this.chamarGarcom = false;
+        this.clienteResponsavel = null;     
+        this.chamadaGarcom = false;
     }
     
     /**
@@ -60,8 +61,7 @@ public class Mesa extends Subject{
         this.disponibilidadeFlag = true;               
         this.reservasMarcadas = new ArrayList<>();      
         this.garcomResponsavel = null;                  
-        this.clienteResponsavel = null;
-        this.pedido = null;
+        this.clienteResponsavel = null;     
     }
     
     
@@ -191,14 +191,7 @@ public class Mesa extends Subject{
         return disponibilidadeFlag;
     }
 
-    public Garcom getGarcomResponsavel() {
-        return garcomResponsavel;
-    }
-
-    public void setGarcomResponsavel(Garcom garcomResponsavel) {
-        this.garcomResponsavel = garcomResponsavel;
-    }
-
+    
     public ClienteRestaurante getClienteResponsavel() {
         return clienteResponsavel;
     }
@@ -215,4 +208,56 @@ public class Mesa extends Subject{
     public List<Reserva> getReservasMarcadas() {
         return reservasMarcadas;
     }
+    
+    
+    // A PARTIR DAQUI IMPLEMENTAÇÕES NOVAS
+    public List getGarcomResponsavel() {
+        return garcomResponsavel;
+    }
+    
+    public void removerGarcom(String registroGarcom){
+        for( Garcom i : garcomResponsavel){
+            if(i.getRegistroGarcom().equals(registroGarcom)){
+                super.removeObserver(i);
+                output.display("Garçom com registro " + registroGarcom + " removido com sucesso.");
+            return;  
+            }
+        }
+        output.display("Garçom com registro " + registroGarcom + " não encontrado.");
+    }
+                             
+    public void chamarGarcom(){
+        chamadaGarcom = true;
+        super.notifyObserver();
+    }
+    
+    /**
+     * Adiciona um garçom à lista de garçons responsáveis pela comanda.
+     * 
+     * @param garcomResponsavel O garçom a ser adicionado à lista.
+     */
+    public void addGarcom(Garcom garcomResponsavel) {
+        super.addObserver(garcomResponsavel);
+    }
+    
+    
+    
+    private Comanda abrirComanda(){
+        if(comandaAtiva == null){
+            this.comandaAtiva = new Comanda(this);
+        }       
+        return comandaAtiva;
+    }
+    
+    public void fecharComanda(){
+        if(comandaAtiva != null){
+            comandaAtiva.fecharComanda();
+        }       
+    }
+    
+    public void fazerPedido(Pedido p){
+        Comanda c = abrirComanda();                        
+        c.adicionarPedido(p);
+    }
+    
 }
