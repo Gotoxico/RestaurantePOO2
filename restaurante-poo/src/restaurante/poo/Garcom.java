@@ -7,6 +7,9 @@ package restaurante.poo;
 import java.util.ArrayList;
 import restaurante.poo.Observador.Observer;
 import restaurante.poo.Observador.Subject;
+import restaurante.poo.Output.OutputFactory;
+import restaurante.poo.Output.OutputInterface;
+
 
 /**
  *
@@ -16,6 +19,7 @@ public class Garcom extends Funcionario implements Observer{
     private String registroGarcom;
     private double gorjetaGarcom;
     private ArrayList<Mesa> mesasResponsavel;
+    private final OutputInterface output;
     
     /**
      * @Brief: Construtor da classe Garcom
@@ -28,6 +32,7 @@ public class Garcom extends Funcionario implements Observer{
      */
     public Garcom(String nome, String email, String registroGarcom, double salario, double gorjetaGarcom){
         super(salario, nome, email);
+        this.output = OutputFactory.getInstance().getTipoOutput(null);        
         this.registroGarcom = registroGarcom;
         this.gorjetaGarcom = gorjetaGarcom;
         this.mesasResponsavel = new ArrayList<>();
@@ -172,8 +177,14 @@ public class Garcom extends Funcionario implements Observer{
         return (this.salario/100) * 10;
     }
     
-    public void update(Subject s){
-        
+    public void update(Subject s){  //implementar algo que pegue essa merda e crie um pedido
+        if( s instanceof Mesa){
+            Mesa mesa =  (Mesa) s;
+            Pedido p = new Pedido();
+                mesa.fazerPedido(p);
+            
+            
+        }
     }
     
 }

@@ -13,20 +13,18 @@ import java.util.List;  //interface?
  * @author renna
  */
 public class Pedido {       
-    private List<ItemMenu> itensPedidos;  //implementar gorjeta por garçom?
-    private Garcom garcomResponsavel;  //trocar para gerencia, ou incluir. Talvez
+    private List<ItemMenu> itensPedidos;  //implementar gorjeta por garçom?    
     private double valorPedido;
     //Adcionar COMANDA????
-    
+       
     /**
      * @Brief: construtor para criar um novo pedido 
      * @Brief: inicializa a lista de itens do pedido e define o garçom responsável
      * 
      * @Parameter: mesa a mesa onde o pedido será feito
      */
-    public Pedido(Mesa mesa){
-        this.itensPedidos = new ArrayList<>();
-        this.garcomResponsavel = mesa.getGarcomResponsavel();
+    public Pedido(){
+        this.itensPedidos = new ArrayList<>();        
         this.valorPedido = 0.0;
     }
     
@@ -96,32 +94,26 @@ public class Pedido {
     private void setItensPedidos(List<ItemMenu> itensPedidos) {
         this.itensPedidos = itensPedidos;
     }
-    
-    /**
-     * @Brief: Obtém o garçom responsável pelo pedido
-     * 
-     * @Return: O garçom responsável
-     */
-    public Garcom getGarcomResponsavel() {
-        return garcomResponsavel;
-    }
-    
-    /**
-     * @Brief: Define o garçom responsável pelo pedido
-     * 
-     * @Parameter: garcomResponsavel o novo garçom responsável pelo pedido
-     */
-    public void setGarcomResponsavel(Garcom garcomResponsavel) {
-        this.garcomResponsavel = garcomResponsavel;
-    }
-    
+        
      /**
      * @Brief: Obtém valor total do pedido
      * 
-     * @eturn: double valor do pedido
+     * @return: double valor do pedido
      */
     public double getValorPedido(){
-        return valorPedido;
+        return calcularValorPedido();
+    }
+    
+    /**
+     * @Brief: Calcula o valor do pedido
+     * return: double valor do pedido
+     */
+    private double calcularValorPedido(){
+        double total = 0.0;
+        for (ItemMenu item : itensPedidos) {
+            total += item.getPreco();
+         }
+        return total;
     }
 }
 
