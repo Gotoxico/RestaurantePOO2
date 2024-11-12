@@ -5,10 +5,16 @@
 package principal;
 
 import Controlador.Restaurante;
+import UISegregation.Administrador;
+import UISegregation.Editor;
+import UISegregation.Visualizador;
 import java.util.Scanner;
 import restaurante.poo.Atendente;
 import restaurante.poo.Constantes;
+import restaurante.poo.Cozinheiro;
+import restaurante.poo.Garcom;
 import restaurante.poo.Gerador;
+import restaurante.poo.Gerente;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -21,9 +27,57 @@ public class Principal {
     static String tipoOutput = "console";
     static OutputInterface output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
     static Restaurante restaurante = new Restaurante("Restaurante FCT", OutputFactory.getInstance(), tipoOutput, 30, "Menu Normal", "Menu pensado para as operações cotidianas do Restaurante FCT", "11:00 - 14:00 e 17:00 - 22:00");
-    static Atendente atendente = new Atendente(Constantes.SALARIO_MINIMO, Gerador.geradorAleatorioNome(), "oqequwqioe@email.com",  restaurante);
+    static Atendente atendente = new Atendente(Constantes.SALARIO_MINIMO, Gerador.geradorAleatorioNome(), "oqequwqioe@email.com",  restaurante, output);
+    static Cozinheiro cozinheiro = new Cozinheiro("Cozinheiro", Constantes.SALARIO_MINIMO, Gerador.geradorAleatorioNome(), "uqywiweyquiwiueq@email.com", output, tipoOutput);
+    static Garcom garcom = new Garcom(Gerador.geradorAleatorioNome(), "qhejyqgtyeqtyugw@email.com", "Garcom1", Constantes.SALARIO_MINIMO, 10, output);
+    static Gerente gerente = new Gerente(Constantes.SALARIO_MINIMO*2, Gerador.geradorAleatorioNome(), "ujquiqweyuqguyeq@email.com", output);
     static Scanner sc = new Scanner(System.in);
-
+    
+    /**
+     * 
+     * @return 
+     */
+    public static Visualizador menuSelecaoTipoUsuario(){
+        output.display("Digite tipo de usuário: ");
+        output.display("1 - Cozinheiro");
+        output.display("2 - Chef");
+        output.display("3 - Garçom");
+        output.display("4 - Atendente");
+        output.display("5 - Gerente");
+        int opc = sc.nextInt();
+        if(opc == 1){ 
+            return cozinheiro;
+        }
+        if(opc == 2){
+            
+        }
+        if(opc == 3){
+            return garcom;
+        }
+        
+        if(opc == 4){
+            return atendente;
+        }
+        
+        return gerente;
+    }
+    
+    /**
+     * 
+     * @param usuario 
+     */
+    public static void mostrarUI(Visualizador usuario){
+        usuario.visualizarConteudo(new Principal());
+        
+        if(usuario instanceof Editor){
+            ((Editor) usuario).editarConteudo(new Principal());
+        }
+        
+        if(usuario instanceof Administrador){
+            ((Administrador) usuario).manejarUsuarios(new Principal());
+        }
+    }
+    
     public static void menuPrincipal() {
         int opc = 0;
         restaurante.adicionarObserver(atendente);
@@ -77,6 +131,18 @@ public class Principal {
 
     public static void cadastrarReserva() {
        
+    }
+    
+    public static void verificarDisponibilidade(){
+        
+    }
+    
+    public static void verificarReserva(){
+        
+    }
+    
+    public static void cancelarReserva(){
+        
     }
 
     public static void cadastrarMesa() {
@@ -155,8 +221,8 @@ public class Principal {
 
     public static void main(String[] args) {
         while (true) {
-            
-            menuPrincipal();
+            Visualizador usuario = menuSelecaoTipoUsuario();
+            mostrarUI(usuario);
         }
     }
 }
