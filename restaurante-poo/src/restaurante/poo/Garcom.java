@@ -4,7 +4,10 @@
  */
 package restaurante.poo;
 
+import UISegregation.Editor;
 import java.util.ArrayList;
+import java.util.Scanner;
+import principal.Principal;
 import restaurante.poo.Observador.Observer;
 import restaurante.poo.Observador.Subject;
 import restaurante.poo.Output.OutputFactory;
@@ -15,11 +18,12 @@ import restaurante.poo.Output.OutputInterface;
  *
  * @author rodri
  */
-public class Garcom extends Funcionario implements Observer{
+public class Garcom extends Funcionario implements Observer, Editor{
     private String registroGarcom;
     private double gorjetaGarcom;
     private ArrayList<Mesa> mesasResponsavel;
     private final OutputInterface output;
+    private static Scanner sc = new Scanner(System.in);    
     
     /**
      * @Brief: Construtor da classe Garcom
@@ -30,9 +34,9 @@ public class Garcom extends Funcionario implements Observer{
      * @Parameter: salarioBaseGarcom Salário base do garçom
      * @Parameter: gorjetaGarcom     Valor inicial das gorjetas do garçom
      */
-    public Garcom(String nome, String email, String registroGarcom, double salario, double gorjetaGarcom){
+    public Garcom(String nome, String email, String registroGarcom, double salario, double gorjetaGarcom, OutputInterface outputInterface){
         super(salario, nome, email);
-        this.output = OutputFactory.getInstance().getTipoOutput(null);        
+        this.output = outputInterface;        
         this.registroGarcom = registroGarcom;
         this.gorjetaGarcom = gorjetaGarcom;
         this.mesasResponsavel = new ArrayList<>();
@@ -184,6 +188,42 @@ public class Garcom extends Funcionario implements Observer{
                 mesa.fazerPedido(p);
             
             
+        }
+    }
+    
+    @Override
+    public void visualizarConteudo(Principal principal){
+        output.display("Digite opcao desejada: ");
+        output.display("1 - Imprimir Menu: ");
+        output.display("2 - Trocar usuario: ");
+        int opc = sc.nextInt();
+        while (true){
+            switch (opc){
+                case 1:
+                    principal.imprimirMenu();
+                    break;
+                    
+                case 2:
+                    //Sair
+            }     
+        }
+    }
+    
+    @Override
+    public void editarConteudo(Principal principal){
+        output.display("Digite opcao desejada: ");
+        output.display("1 - Cadastrar Pedido: ");
+        output.display("2 - Trocar usuario: ");
+        int opc = sc.nextInt();
+        while (true){
+            switch (opc){
+                case 1:
+                    principal.cadastrarPedido();
+                    break;
+                    
+                case 2:
+                    //Sair
+            }     
         }
     }
     
