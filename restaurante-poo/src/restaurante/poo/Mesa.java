@@ -73,8 +73,6 @@ public class Mesa extends Subject{
      * @param nomeCliente Nome do cliente para a reserva
      * @return true se a mesa estiver disponível, false caso contrário
      * 
-     * 
-     * 
      */
     public boolean verificarDisponibilidadeDataHorarioNome(LocalDate data, LocalTime horario, String nomeCliente) {         
         for (Reserva reservaData : reservasMarcadas) {
@@ -117,12 +115,12 @@ public class Mesa extends Subject{
     }
     
     /**
-     * Libera a mesa novamente para ocupação
+     * Libera a mesa novamente para ocupação.
+     * É chamada externamente pelo garçom após update
      */
     public void liberarMesa() {         
         this.disponibilidadeFlag = true;
-        this.clienteResponsavel = null;
-         notifyObserver();
+        this.clienteResponsavel = null;         
         if (output instanceof OutputConsole) {
             output.display("A mesa " + numeroMesa + " foi liberada para uso.");
         }
@@ -215,6 +213,11 @@ public class Mesa extends Subject{
         return garcomResponsavel;
     }
     
+     /**
+     * Remove um garçom da lista de garçons responsáveis pela mesa.
+     * 
+     * @param registroGarcom Registro do garçom a ser removido.
+     */
     public void removerGarcom(String registroGarcom){
         for( Garcom i : garcomResponsavel){
             if(i.getRegistroGarcom().equals(registroGarcom)){
@@ -225,7 +228,10 @@ public class Mesa extends Subject{
         }
         output.display("Garçom com registro " + registroGarcom + " não encontrado.");
     }
-                             
+    
+    /**
+     * Notifica os garçons responsáveis pela mesa. Usado para fechar comanda e liberar a mesa
+     */                         
     public void chamarGarcom(){
         chamadaGarcom = true;
         super.notifyObserver();
@@ -241,7 +247,11 @@ public class Mesa extends Subject{
     }
     
     
-    
+    /**
+     * Abre uma nova comanda para a mesa, se ainda não estiver aberta.
+     * 
+     * @return Comanda aberta.
+     */
     private Comanda abrirComanda(){
         if(comandaAtiva == null){
             this.comandaAtiva = new Comanda(this);
@@ -249,15 +259,23 @@ public class Mesa extends Subject{
         return comandaAtiva;
     }
     
+    /**
+     * Fecha a comanda, método usado externamente pelo garçom.
+     * Acessa método interno da comanda
+     */
     public void fecharComanda(){
         if(comandaAtiva != null){
             comandaAtiva.fecharComanda();
         }       
     }
     
-    public void fazerPedido(Pedido p){
+    /**
+     * Método para adcionar itens do menu na comanda da mesa
+     * @param: item (itemMenu), item para adcionar na comanda.
+     */
+    public void fazerPedido(ItemMenu item){
         Comanda c = abrirComanda();                        
-        c.adicionarPedido(p);
+        c.adicionarItem(item);
     }
     
 }

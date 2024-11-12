@@ -202,7 +202,7 @@ public class Restaurante implements SubjectQueue{
                         quantidadeItens = scan.nextInt();
                         item = menu.buscarItemPorNome(nomeItem);
                         for (int i = 0; i < quantidadeItens; i++) {
-                            mesa.getPedido().addPedido(item);
+                            mesa.fazerPedido(item);                            
                         }
                         break;
                                 
@@ -213,7 +213,7 @@ public class Restaurante implements SubjectQueue{
                         quantidadeItens = scan.nextInt();
                         item = menu.buscarItemPorNome(nomeItem);
                         for (int i = 0; i < quantidadeItens; i++) {
-                            mesa.getPedido().removerItem(item);
+                            mesa.getComandaAtiva().removerItemPedido(item);
                         }
                         break;                                
                                 

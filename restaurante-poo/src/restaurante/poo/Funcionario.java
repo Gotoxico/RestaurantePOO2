@@ -5,49 +5,99 @@
 package restaurante.poo;
 
 /**
- *
- * @author renna
+ * Classe abstrata Funcionario que representa um funcionário com atributos básicos como salário, nome e e-mail.
+ * A classe define métodos abstratos para calcular descontos e utiliza o padrão de projeto Template Method
+ * para calcular o salário líquido, permitindo que subclasses especifiquem diferentes tipos de descontos.
+ * 
+ * O padrão Template Method é implementado através do método calcSalarioLiquido(), que fornece um esqueleto para o
+ * cálculo do salário líquido. Esse método chama métodos abstratos que devem ser implementados por subclasses para
+ * fornecer os valores específicos dos descontos de acordo com cada tipo de funcionário.
+ * 
+ * O uso do Template Method permite que subclasses de Funcionario especifiquem detalhes de desconto específicos sem
+ * alterar o método de cálculo do salário líquido. 
+ * @author rennan
  */
-abstract class Funcionario {
+public abstract class Funcionario {
 
-  double salario;
-  private String nome, email;
+  // Atributos privados para salário, nome e e-mail do funcionário
+  protected double salario;
+  protected String nome;
+  protected String email;
 
+  /**
+   * Construtor da classe Funcionario.
+   * 
+   * @param salario O salário base do funcionário.
+   * @param nome O nome do funcionário.
+   * @param email O e-mail do funcionário.
+   */
   public Funcionario(double salario, String nome, String email) {
     this.salario = salario;
     this.nome = nome;
     this.email = email;
   }
 
-    public double getSalario() {
-        return salario;
-    }
+  // Métodos get e set para os atributos
 
-    public String getNome() {
-        return nome;
-    }
+  public double getSalario() {
+      return salario;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getNome() {
+      return nome;
+  }
 
-    public void setSalario(double salario) {
-        this.salario = salario;
-    }
+  public String getEmail() {
+      return email;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public void setSalario(double salario) {
+      this.salario = salario;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-  
+  public void setNome(String nome) {
+      this.nome = nome;
+  }
+
+  public void setEmail(String email) {
+      this.email = email;
+  }
+
+  /**
+   * Método abstrato que calcula os descontos previdenciários.
+   * Este método deve ser implementado por subclasses para definir a lógica específica do desconto previdenciário.
+   * 
+   * @return Valor do desconto previdenciário.
+   */
   abstract double calcDescontosPrevidencia();
+
+  /**
+   * Método abstrato que calcula os descontos referentes ao plano de saúde.
+   * Este método deve ser implementado por subclasses para definir a lógica específica do desconto de plano de saúde.
+   * 
+   * @return Valor do desconto do plano de saúde.
+   */
   abstract double calcDescontosPlanoSaude();
+
+  /**
+   * Método abstrato que calcula outros descontos aplicáveis ao funcionário.
+   * Este método deve ser implementado por subclasses para definir outros descontos específicos.
+   * 
+   * @return Valor de outros descontos.
+   */
   abstract double calcOutrosDescontos();
 
-  public double calcSalarioLiquido() { // template method
+  /**
+   * Método que calcula o salário líquido do funcionário aplicando o Template Method.
+   * O cálculo do salário líquido segue o seguinte fluxo:
+   * 1. Calcula o desconto previdenciário.
+   * 2. Calcula o desconto do plano de saúde.
+   * 3. Calcula outros descontos.
+   * 4. Subtrai todos os descontos do salário base.
+   * 
+   * @return Salário líquido após aplicação de todos os descontos.
+   */
+  public double calcSalarioLiquido() {
     double prev = calcDescontosPrevidencia();
     double saude = calcDescontosPlanoSaude();
     double outros = calcOutrosDescontos();
