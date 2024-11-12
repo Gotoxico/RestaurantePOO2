@@ -59,25 +59,7 @@ public class Garcom extends Funcionario implements Observer, Editor{
     public void setRegistroGarcom(String registroGarcom) {
         this.registroGarcom = registroGarcom;
     }
-    
-    /**
-     * @Brief: Coleta o salário base do garçom
-     * 
-     * @Return: Salário base do garçom
-     */
-    public double getSalario() {
-        return salario;
-    }
-    
-    /**
-     * @Brief: Define o salário base do garçom
-     * 
-     * @Parameter: salario Novo salário base do garçom
-     */
-    public void salario(double salario) {
-        this.salario = salario;
-    }
-    
+        
     /**
      * @Brief: Coleta o valor acumulado de gorjetas do garçom
      * 
@@ -181,13 +163,11 @@ public class Garcom extends Funcionario implements Observer, Editor{
         return (this.salario/100) * 10;
     }
     
-    public void update(Subject s){  //implementar algo que pegue essa merda e crie um pedido
+    public void update(Subject s){  //Fechar Comanda + liberar mesa()
         if( s instanceof Mesa){
             Mesa mesa =  (Mesa) s;
-            Pedido p = new Pedido();
-                mesa.fazerPedido(p);
-            
-            
+            mesa.fecharComanda();
+            mesa.liberarMesa();                       
         }
     }
     

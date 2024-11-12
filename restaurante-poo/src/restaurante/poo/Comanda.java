@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 
  * @author renna
  */
-public class Comanda {
+public class Comanda implements RegistroConsumo{
     private final OutputInterface output;
     private static final AtomicInteger contadorComanda = new AtomicInteger(0);  // Contador sequencial para IDs únicos
     private String numeroComanda;
@@ -33,7 +33,6 @@ public class Comanda {
      * Inicializa uma comanda com um número e uma mesa associada.
      * A comanda começa aberta e o valor total e quitado são inicializados como zero.
      * 
-     * @param numeroComanda Número da comanda
      * @param mesaAssociada Mesa associada à comanda
      */
     public Comanda(Mesa mesaAssociada) {
@@ -263,4 +262,22 @@ public class Comanda {
 
         return sb.toString();
         }
+    
+    /**
+    * Adiciona um item diretamente ao pedido da comanda.
+    * O item será adicionado com uma quantidade especificada.
+    * 
+    * @param item O item do menu a ser adicionado ao pedido.
+    * @param quantidade A quantidade do item a ser adicionada.
+    */
+    public void adicionarItem(ItemMenu item) {
+        if (!aberta) {
+            output.display("Comanda já foi fechada!");
+            return;
+        }
+        
+        this.pedido.adicionarItem(item, 1);
+        this.pago = false;
+        output.display("Item " + item.getNome() + " adicionado ao pedido da comanda " + numeroComanda + ".");
+    }
 }

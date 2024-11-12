@@ -4,8 +4,9 @@
  */
 package restaurante.poo.Observador;
 
-/**
- *
+/** Classe utilizada para aplicar o padrão Observador no projeto
+ * Define necessidade da função update.
+ * Implementada por garçom e outros
  * @author renna
  */
 public interface Observer {

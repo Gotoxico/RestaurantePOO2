@@ -19,7 +19,7 @@ public class PagamentoPedido {
     private boolean pago;
     private String formaPagamento;
     private ProxyAutenticacaoCartoes proxy;
-    private double valorPago; // Considere esse no lugar de total
+    private double valorAPagar; // Considere esse no lugar de total
 
     /**
      * @Brief: Construtor para inicializar um pagamento com base em um pedido e uma forma de pagamento
@@ -29,12 +29,13 @@ public class PagamentoPedido {
      * @Parameter: pedido Pedido associado ao pagamento
      * @Parameter: formaPagamento Forma de pagamento escolhida pelo cliente
      */
-    public PagamentoPedido(String tipoOutput, Comanda comanda, String formaPagamento, ClienteRestaurante cliente){  
+    public PagamentoPedido(String tipoOutput, Comanda comanda, String formaPagamento, ClienteRestaurante cliente, Double valorAPagar){  
         this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
         this.idPagamento = UUID.randomUUID().toString();
         this.comanda = comanda;
         this.formaPagamento = formaPagamento;
         this.cliente = cliente;
+        this.valorAPagar = valorAPagar;
         this.pago = comanda.isPago();
     }
 
@@ -100,8 +101,8 @@ public class PagamentoPedido {
      * 
      * @Return: Valor total do pedido
      */
-    public double getValorTotal(){
-        return valorTotal;
+    public double getValorAPagar(){
+        return valorAPagar;
     }
 
     /**
@@ -131,8 +132,38 @@ public class PagamentoPedido {
     public String toString(){
         return "PagamentoPedido:\n" +
                "idPagamento = " + idPagamento + "\n" +
-               "Valor Total = " + valorTotal + "\n" +
+               "Valor Pago = " + valorAPagar + "\n" +
                "Pago = " + pago + "\n" +
                "Forma de Pagamento = " + formaPagamento + "\n";
     }
+
+    public ClienteRestaurante getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteRestaurante cliente) {
+        this.cliente = cliente;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+
+    public ProxyAutenticacaoCartoes getProxy() {
+        return proxy;
+    }
+
+    public void setProxy(ProxyAutenticacaoCartoes proxy) {
+        this.proxy = proxy;
+    }
+    
+    public void setValorAPagar(double valorAPagar) {
+        this.valorAPagar = valorAPagar;
+    }
+    
+    
 }
