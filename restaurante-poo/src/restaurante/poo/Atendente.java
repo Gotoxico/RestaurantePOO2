@@ -91,9 +91,8 @@ public class Atendente extends Funcionario implements ObserverQueue, Editor{
         output.display("Digite opcao desejada: ");
         output.display("1 - Cadastrar Reserva: ");
         output.display("2 - Verificar Disponibilidade: ");
-        output.display("3 - Verificar Reserva: ");
-        output.display("4 - Cancelar Reserva: ");
-        output.display("5 - Trocar usuario: ");
+        output.display("3 - Cancelar Reserva: ");
+        output.display("4 - Trocar usuario: ");
         int opc = sc.nextInt();
         while (true){
             switch (opc){
@@ -106,13 +105,10 @@ public class Atendente extends Funcionario implements ObserverQueue, Editor{
                     break;
                     
                 case 3:
-                    principal.verificarReserva();
-                    break;
-                    
-                case 4:
                     principal.cancelarReserva();
                     break;
-                    
+                case 4:
+                    break;
                 case 5:
                     //Sair
             }     

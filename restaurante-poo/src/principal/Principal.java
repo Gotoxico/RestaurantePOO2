@@ -91,16 +91,15 @@ public class Principal {
         //output.display("1 - Cadastrar Cliente"); //Desnecessário, pois agora toda vez que uma pessoa entra na fila a cada 30 segundos, o atendente cria o cliente
         output.display("1 - Cadastrar Reserva");
         output.display("2 - Verificar Disponibilidade");
-        output.display("3 - Verificar Reserva");
-        output.display("4 - Cancelar Reserva");
-        output.display("5 - Cadastrar Mesa");
-        output.display("6 - Remover Mesa");
-        output.display("7 - Imprimir Menu");
-        output.display("8 - Cadastrar ItemMenu");
-        output.display("9 - Remover ItemMenu");
-        output.display("10 - Cadastrar Pedido");
-        output.display("11 - Cadastrar Garçom");
-        output.display("12 - Cadastrar Cartão");
+        output.display("3 - Cancelar Reserva");
+        output.display("4 - Cadastrar Mesa");
+        output.display("5 - Remover Mesa");
+        output.display("6 - Imprimir Menu");
+        output.display("7 - Cadastrar ItemMenu");
+        output.display("8 - Remover ItemMenu");
+        output.display("9 - Cadastrar Pedido");
+        output.display("10 - Cadastrar Garçom");
+        output.display("11 - Cadastrar Cartão");
         opc = sc.nextInt();
         sc.nextLine();
 
@@ -112,33 +111,30 @@ public class Principal {
                 verificarDisponibilidade();
                 break;
             case 3:
-                verificarReserva();
-                break;
-            case 4:
                 cancelarReserva();
                 break;
-            case 5:
+            case 4:
                 cadastrarMesa();
                 break;
-            case 6:
+            case 5:
                 removerMesa();
                 break;
-            case 7:
+            case 6:
                 imprimirMenu();
             break;
-            case 8:
+            case 7:
                 cadastrarItemMenu();
             break;
-            case 9:
+            case 8:
                 removerItemMenu();
             break;
-            case 10:
+            case 9:
                 cadastrarPedido();
             break;
-            case 11:
+            case 10:
                 cadastrarGarcom();
             break;
-            case 12:
+            case 11:
                 cadastrarCartao();
             break;
             default:
@@ -179,10 +175,6 @@ public class Principal {
         int quantidade = sc.nextInt();
         
         restaurante.cancelarReservaMesa(LocalDate.MAX, LocalTime.NOON, nome, quantidade);
-    }
-    
-    public static void verificarReserva(){
-        
     }
 
     public static void cadastrarMesa() {

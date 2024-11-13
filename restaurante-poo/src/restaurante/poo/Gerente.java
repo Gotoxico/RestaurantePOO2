@@ -82,13 +82,12 @@ public class Gerente extends Funcionario implements Administrador{
         output.display("Digite opcao desejada: ");
         output.display("1 - Cadastrar Reserva: ");
         output.display("2 - Verificar Disponibilidade: ");
-        output.display("3 - Verificar Reserva: ");
-        output.display("4 - Cancelar Reserva: ");
-        output.display("5 - Cadastrar Mesa: ");
-        output.display("6 - Remover Mesa: ");
-        output.display("7 - Cadastrar Item Menu: ");
-        output.display("8 - Remover Item Menu: ");
-        output.display("9 - Trocar Usuario: ");
+        output.display("3 - Cancelar Reserva: ");
+        output.display("4 - Cadastrar Mesa: ");
+        output.display("5 - Remover Mesa: ");
+        output.display("6 - Cadastrar Item Menu: ");
+        output.display("7 - Remover Item Menu: ");
+        output.display("8 - Trocar Usuario: ");
         int opc = sc.nextInt();
         while (true){
             switch (opc){
@@ -101,30 +100,26 @@ public class Gerente extends Funcionario implements Administrador{
                     break;
                     
                 case 3:
-                    principal.verificarReserva();
-                    break;
-                    
-                case 4:
                     principal.cancelarReserva();
                     break;
                     
-                case 5:
+                case 4:
                     principal.cadastrarMesa();
                     break;
                     
-                case 6:
+                case 5:
                     principal.removerMesa();
                     break;
                     
-                case 7:
+                case 6:
                     principal.cadastrarItemMenu();
                     break;
                     
-                case 8:
+                case 7:
                     principal.removerItemMenu();
                     break;
                     
-                case 9:
+                case 8:
                     //Sair
             }     
         }  
