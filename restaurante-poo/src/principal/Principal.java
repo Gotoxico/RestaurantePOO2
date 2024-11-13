@@ -8,6 +8,8 @@ import Controlador.Restaurante;
 import UISegregation.Administrador;
 import UISegregation.Editor;
 import UISegregation.Visualizador;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 import restaurante.poo.Atendente;
 import restaurante.poo.Constantes;
@@ -15,6 +17,8 @@ import restaurante.poo.Cozinheiro;
 import restaurante.poo.Garcom;
 import restaurante.poo.Gerador;
 import restaurante.poo.Gerente;
+import restaurante.poo.Cartao.Cartao;
+import restaurante.poo.Mesa;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -85,41 +89,56 @@ public class Principal {
         output.display("=================== MENU PRINCIPAL ========================");
         output.display("Selecione sua opção: ");
         //output.display("1 - Cadastrar Cliente"); //Desnecessário, pois agora toda vez que uma pessoa entra na fila a cada 30 segundos, o atendente cria o cliente
-        //output.display("2 - Cadastrar Reserva");
-        output.display("1 - Cadastrar Mesa");
-        output.display("2 - Remover Mesa");
-        output.display("3 - Imprimir Menu");
-        output.display("4 - Cadastrar ItemMenu");
-        output.display("5 - Remover ItemMenu");
-        output.display("6 - Cadastrar Pedido");
-        output.display("7 - Cadastrar Garçom");
-        output.display("8 - Cadastrar Cartão");
+        output.display("1 - Cadastrar Reserva");
+        output.display("2 - Verificar Disponibilidade");
+        output.display("3 - Verificar Reserva");
+        output.display("4 - Cancelar Reserva");
+        output.display("5 - Cadastrar Mesa");
+        output.display("6 - Remover Mesa");
+        output.display("7 - Imprimir Menu");
+        output.display("8 - Cadastrar ItemMenu");
+        output.display("9 - Remover ItemMenu");
+        output.display("10 - Cadastrar Pedido");
+        output.display("11 - Cadastrar Garçom");
+        output.display("12 - Cadastrar Cartão");
         opc = sc.nextInt();
         sc.nextLine();
 
         switch (opc) {
             case 1:
-                cadastrarMesa();
+                cadastrarReserva();
                 break;
             case 2:
-                removerMesa();
+                verificarDisponibilidade();
                 break;
             case 3:
-                imprimirMenu();
+                verificarReserva();
                 break;
             case 4:
-                cadastrarItemMenu();
+                cancelarReserva();
                 break;
             case 5:
-                removerItemMenu();
+                cadastrarMesa();
                 break;
             case 6:
-                cadastrarPedido();
+                removerMesa();
                 break;
             case 7:
-                cadastrarGarcom();
+                imprimirMenu();
             break;
             case 8:
+                cadastrarItemMenu();
+            break;
+            case 9:
+                removerItemMenu();
+            break;
+            case 10:
+                cadastrarPedido();
+            break;
+            case 11:
+                cadastrarGarcom();
+            break;
+            case 12:
                 cadastrarCartao();
             break;
             default:
@@ -130,18 +149,39 @@ public class Principal {
     }
 
     public static void cadastrarReserva() {
-       
+        output.display("Data da Reserva: ");
+        String data = sc.nextLine();
+
+        output.display("Horário: ");
+        String horario = sc.nextLine();
+
+        restaurante.cadastrarReserva(LocalDate.MAX, LocalTime.NOON, horario);
     }
     
     public static void verificarDisponibilidade(){
+        output.display("Quantidade máxima da mesa: ");
+        int maximoMesas = sc.nextInt();
         
-    }
-    
-    public static void verificarReserva(){
-        
+       restaurante.verificarDisponibilidade(maximoMesas, LocalDate.MAX, LocalTime.MIN);
     }
     
     public static void cancelarReserva(){
+        output.display("Data: ");
+        String data = sc.nextLine();
+        
+        output.display("Horário: ");
+        String horario = sc.nextLine();
+        
+        output.display("Nome: ");
+        String nome = sc.nextLine();
+        
+        output.display("Quantidade: ");
+        int quantidade = sc.nextInt();
+        
+        restaurante.cancelarReservaMesa(LocalDate.MAX, LocalTime.NOON, nome, quantidade);
+    }
+    
+    public static void verificarReserva(){
         
     }
 
@@ -217,6 +257,7 @@ public class Principal {
     }
    
     public static void cadastrarCartao(){
+        
     }
 
     public static void main(String[] args) {

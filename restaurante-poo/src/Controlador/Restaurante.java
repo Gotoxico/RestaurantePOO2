@@ -24,6 +24,7 @@ import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 import restaurante.poo.Pessoa;
 import restaurante.poo.SubjectQueue;
+import restaurante.poo.Cartao.Cartao;
 /**
  *
  * @author rodri
@@ -75,6 +76,14 @@ public class Restaurante implements SubjectQueue{
     //Classe Mesa
     public void adicionarMesa(String numeroMesa, int capacidadeMaxima){
         reserva.adicionarMesa(tipoOutput, capacidadeMaxima, numeroMesa);
+    }
+    
+    public void cadastrarReserva(LocalDate data, LocalTime horarioReserva, String nomeCliente){
+        reserva.reservarMesa(data, horarioReserva, nomeCliente, contadorMesas);
+    }
+    
+    public void verificarDisponibilidade(int maximoMesas, LocalDate data, LocalTime horario){
+        reserva.verificarDisponibilidade(maximoMesas, data, horario);
     }
     
     /**
@@ -224,6 +233,11 @@ public class Restaurante implements SubjectQueue{
                         
             } while (opcao != 3);
             scan.close();
+    }
+    
+    //Cartão
+    public void criarCartao(){
+        
     }
         
     /**
