@@ -1,15 +1,22 @@
-package restaurante.poo;
-
-import restaurante.poo.Cartao.ProxyAutenticacaoCartoes;
-import restaurante.poo.Cartao.Cartao;
-import java.util.UUID;
+package restaurante.poo.pagamento;
+//Classe PagamentoPedido: Classe para gerenciar pagamentos de pedidos
 import restaurante.poo.Output.OutputConsole;
-import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.UUID;
+//Métodos de pagamentos
+import restaurante.poo.Pagamentos.PagamentoDinheiro;
+import restaurante.poo.Pagamentos.PagamentoDebito;
+import restaurante.poo.Pagamentos.PagamentoCredito;
+import restaurante.poo.Pagamentos.PagamentoParcelado;
+import restaurante.poo.Pagamentos.PagamentoPix;
+import restaurante.poo.Pagamentos.MetodoPagamento;
 
 /**
- * Classe que representa o processo de pagamento de um pedido
- * Gerencia o valor total, a forma de pagamento e a autenticação pra pagamentos com cartão
+ * Classe que gerencia o pagamento de pedidos em um restaurante.
+ * Permite adicionar gorjetas, dividir a conta e usar diferentes métodos de pagamento.
  */
 public class PagamentoPedido {
     private final OutputInterface output;
@@ -17,153 +24,114 @@ public class PagamentoPedido {
     private Comanda comanda;
     private ClienteRestaurante cliente;
     private boolean pago;
-    private String formaPagamento;
-    private ProxyAutenticacaoCartoes proxy;
-    private double valorAPagar; // Considere esse no lugar de total
+    private double valorAPagar;
+    private double gorjeta;
+    private List<MetodoPagamento> metodosPagamento;
 
     /**
-     * @Brief: Construtor para inicializar um pagamento com base em um pedido e uma forma de pagamento
-     * @Brief: Gera um ID único para o pagamento e calcula o valor total do pedido
-     * 
-     * @Parameter: tipoOutput Tipo de saída para exibir mensagens
-     * @Parameter: pedido Pedido associado ao pagamento
-     * @Parameter: formaPagamento Forma de pagamento escolhida pelo cliente
+     * Construtor da classe PagamentoPedido.
+     * @param comanda Comanda associada ao pedido.
+     * @param cliente Cliente que realizou o pedido.
      */
-    public PagamentoPedido(String tipoOutput, Comanda comanda, String formaPagamento, ClienteRestaurante cliente, Double valorAPagar){  
-        this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
+    public PagamentoPedido(Comanda comanda, ClienteRestaurante cliente) {
+        this.output = new OutputConsole();
         this.idPagamento = UUID.randomUUID().toString();
         this.comanda = comanda;
-        this.formaPagamento = formaPagamento;
         this.cliente = cliente;
-        this.valorAPagar = valorAPagar;
-        this.pago = comanda.isPago();
+        this.pago = false;
+        this.valorAPagar = comanda.calcularTotal();
+        this.metodosPagamento = new ArrayList<>();
     }
 
     /**
-     * @Brief: Realiza o pagamento do pedido, com verificação de autenticidade caso seja realizado com cartão
-     * @Brief: Exibe uma mensagem de confirmação em caso de sucesso
-     * 
-     * @Return: true se o pagamento for realizado com sucesso, false caso contrário
+     * Adiciona 10% do valor do pedido como gorjeta do garçom
      */
-    public boolean realizarPagamento(){ // implementar mudanças para rachar conta, e considerar os 10%
-        if(!pago){
-            if(formaPagamento.equals("cartao")){
-                if(cliente.getCartao() != null){   
-                    Cartao c = cliente.getCartao();
-                    boolean a = proxy.checarCodigo(String.valueOf(c.getCodigo()));
-                    boolean b = proxy.checarNome(cliente.getNomeCliente() , cliente.getSobrenomeCliente(), c.getNome(), c.getSobrenome());
-                    boolean d = proxy.checarData(c.getVencimento());
-                    
-                    if(a && b && d){
-                        this.pago = true;
-                        return true;
-                    }
+    public void calcularGorjetaGarcom() {
+        this.gorjeta = valorAPagar * 0.10;
+        this.valorAPagar += gorjeta;
+        output.print("Gorjeta de 10% (R$ " + String.format("%.2f", gorjeta) + ") adicionada ao total.");
+    }
+
+    /**
+     * Define o método de pagamento do pedido
+     * @param metodoPagamento Objeto que implementa o método de pagamento.
+     */
+    public void definirMetodoPagamento(MetodoPagamento metodoPagamento) {
+        this.metodosPagamento.add(metodoPagamento);
+    }
+
+    /**
+     * Realiza o pagamento do pedido, com ou sem divisão
+     */
+    public void realizarPagamento() {
+        Scanner scanner = new Scanner(System.in);
+        output.print("Deseja dividir a conta? (sim / nao)");
+        String dividirConta = scanner.nextLine().toLowerCase();
+
+        if (dividirConta.equals("sim")) {
+            output.print("Quantas pessoas irá dividir a conta?");
+            int qtdPessoas = scanner.nextInt();
+            double valorPorPessoa = valorAPagar / qtdPessoas;
+            scanner.nextLine(); //Limpa o buffer
+
+            for (int i = 0; i < qtdPessoas; i++) {
+                output.print("Pessoa " + (i + 1) + ", escolha seu método de pagamento: 1)- Dinheiro, 2)- Débito, 3)- Crédito ou  4)- Pix");
+                int escolha = scanner.nextInt();
+                scanner.nextLine();
+
+                MetodoPagamento metodo = criarMetodoPagamento(escolha, scanner, valorPorPessoa);
+                if (metodo != null) {
+                    definirMetodoPagamento(metodo);
+                    metodo.pagar(valorPorPessoa);
                 }
             }
-            this.pago = true;
-            output.display("Pagamento de R$" + comanda.getValorTotal() + " realizado com sucesso."); 
-            return true;
-        }else{
-            output.display("O pagamento já foi realizado.");
-            return false;
+        } else {
+            output.print("Escolha o método de pagamento: 1)- Dinheiro, 2)- Débito, 3)- Crédito ou 4)-Pix");
+            int escolha = scanner.nextInt();
+            scanner.nextLine();
+
+            MetodoPagamento metodo = criarMetodoPagamento(escolha, scanner, valorAPagar);
+            if (metodo != null) {
+                definirMetodoPagamento(metodo);
+                pago = metodo.pagar(valorAPagar);
+            }
+        }
+
+        if (pago) {
+            output.print("Pagamento concluído, muito obrigado pela presensença! ID do pagamento: " + idPagamento);
+        } else {
+            output.print("Pagamento não realizado! Por favor, Tente novamente.");
         }
     }
 
     /**
-     * @Brief: verifica se o pedido já foi pago
-     * 
-     * @Return: true se o pedido estiver pago, false caso contrário
+     * Cria um objeto de método de pagamento com base na escolha do usuário.
+     * @param escolha Tipo de pagamento escolhido.
+     * @param scanner Scanner para entrada de dados adicionais.
+     * @param valor Valor a ser pago.
+     * @return Objeto que implementa MetodoPagamento.
      */
-    public boolean estaPago(){
-        return pago;
+    private MetodoPagamento criarMetodoPagamento(int escolha, Scanner scanner, double valor) {
+        switch (escolha) {
+            case 1:
+                return new PagamentoDinheiro(valor, scanner, output);
+            case 2:
+                return new PagamentoDebito(output);
+            case 3:
+                output.print("Deseja parcelar no crédito? (sim / nao)");
+                String parcelar = scanner.nextLine().toLowerCase();
+                if (parcelar.equals("sim")) {
+                    output.print("Em quantas vezes será parcelado?");
+                    int vezes = scanner.nextInt();
+                    scanner.nextLine();
+                    return new PagamentoParcelado(vezes, output);
+                }
+                return new PagamentoCredito(output);
+            case 4:
+                return new PagamentoPix(output);
+            default:
+                output.print("Opção inválida");
+                return null;
+        }
     }
-
-    /**
-     * @Brief: Obtém o ID único do pagamento
-     * 
-     * @Return: ID do pagamento
-     */
-    public String getIdPagamento(){
-        return idPagamento;
-    }
-
-    /**
-     * @Brief: Obtém o pedido associado a este pagamento
-     * 
-     * @Return: Comanda associada
-     */
-    public Comanda getComanda(){
-        return comanda;
-    }
-
-    /**
-     * @Brief: obtém o valor total do pagamento
-     * 
-     * @Return: Valor total do pedido
-     */
-    public double getValorAPagar(){
-        return valorAPagar;
-    }
-
-    /**
-     * @Brief: obtém a forma de pagamento utilizada
-     * 
-     * @Return: Forma de pagamento 
-     */
-    public String getFormaPagamento(){
-        return formaPagamento;
-    }
-
-    /**
-     * @Brief: Define a forma de pagamento a ser utilizada
-     * 
-     * @Parameter: formaPagamento Nova forma de pagamento
-     */
-    public void setFormaPagamento(String formaPagamento){
-        this.formaPagamento = formaPagamento;
-    }
-    
-    /**
-     * @Brief: retorna uma representação textual do pagamento
-     * 
-     * @Return: String contendo os detalhes do pagamento
-     */
-    @Override
-    public String toString(){
-        return "PagamentoPedido:\n" +
-               "idPagamento = " + idPagamento + "\n" +
-               "Valor Pago = " + valorAPagar + "\n" +
-               "Pago = " + pago + "\n" +
-               "Forma de Pagamento = " + formaPagamento + "\n";
-    }
-
-    public ClienteRestaurante getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteRestaurante cliente) {
-        this.cliente = cliente;
-    }
-
-    public boolean isPago() {
-        return pago;
-    }
-
-    public void setPago(boolean pago) {
-        this.pago = pago;
-    }
-
-    public ProxyAutenticacaoCartoes getProxy() {
-        return proxy;
-    }
-
-    public void setProxy(ProxyAutenticacaoCartoes proxy) {
-        this.proxy = proxy;
-    }
-    
-    public void setValorAPagar(double valorAPagar) {
-        this.valorAPagar = valorAPagar;
-    }
-    
-    
 }
