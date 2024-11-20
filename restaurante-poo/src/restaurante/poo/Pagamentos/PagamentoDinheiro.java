@@ -1,4 +1,4 @@
-package restaurante.poo.pagamento;
+package restaurante.poo.Pagamentos;
 //Classe PagamentoPedido: Classe para gerenciar pagamentos de pedidos.
 import restaurante.poo.Output.OutputInterface;
 import java.util.Scanner;
