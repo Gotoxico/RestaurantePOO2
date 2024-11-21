@@ -24,7 +24,8 @@ import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 import restaurante.poo.Pessoa;
 import restaurante.poo.SubjectQueue;
-import restaurante.poo.Cartao.Cartao;
+import restaurante.poo.Comanda;
+import restaurante.poo.PagamentoPedido;
 /**
  *
  * @author rodri
@@ -206,11 +207,11 @@ public class Restaurante implements SubjectQueue{
                 output.display("Digite opcao desejada: \n1 - Adicionar Item\n2 - Remover Item\n3 - Encerrar Ordem");
                 if (scan.hasNextInt()) {
                     opcao = scan.nextInt();
-                    scan.nextLine(); // Clear the newline character from the input buffer
+                    scan.nextLine(); 
                 } else {
                     output.display("Opcao inválida! Por favor, insira um número.");
-                    scan.nextLine(); // Clear invalid input
-                    continue; // Skip to the next iteration
+                    scan.nextLine(); 
+                    continue; 
                 }
                 String nomeItem;
                 int quantidadeItens;
@@ -252,18 +253,16 @@ public class Restaurante implements SubjectQueue{
                         
             } while (opcao != 3);
     }
-    
-    //Cartão
-    public void criarCartao(){
-        
-    }
         
     /**
      * 
      */    
     //Pagamento pedido
-    public void pagar(){
-        
+    public void pagar(String numeroMesa){
+        Mesa mesa = reserva.getMesa(numeroMesa);
+        Comanda comanda = mesa.getComandaAtiva();
+        PagamentoPedido pagamento = new PagamentoPedido(comanda);
+        pagamento.realizarPagamento();
     }
     
     /**

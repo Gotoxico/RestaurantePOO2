@@ -49,7 +49,7 @@ public class Principal2 {
         output.display("8 - Remover ItemMenu");
         output.display("9 - Cadastrar Pedido");
         output.display("10 - Cadastrar Garçom");
-        output.display("11 - Cadastrar Cartão");
+        output.display("11 - Pagar");
         opc = sc.nextInt();
         sc.nextLine();
 
@@ -85,7 +85,7 @@ public class Principal2 {
                 cadastrarGarcom();
             break;
             case 11:
-                cadastrarCartao();
+                pagar();
             break;
             default:
                 output.display("Opção invalida");
@@ -220,8 +220,11 @@ public class Principal2 {
         restaurante.adicionarGarcom(nome, email, registroGarcom, salarioBaseGarcom, gorjetaGarcom);
     }
    
-    public static void cadastrarCartao(){
+    public static void pagar(){
+        output.display("Numero da mesa: ");
+        String numeroMesa = sc.nextLine();
         
+        restaurante.pagar(numeroMesa);
     }
     
     public static void main(String[] args) {

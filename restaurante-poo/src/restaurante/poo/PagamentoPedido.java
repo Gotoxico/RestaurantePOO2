@@ -31,13 +31,11 @@ public class PagamentoPedido {
     /**
      * Construtor da classe PagamentoPedido.
      * @param comanda Comanda associada ao pedido.
-     * @param cliente Cliente que realizou o pedido.
      */
-    public PagamentoPedido(Comanda comanda, ClienteRestaurante cliente) {
+    public PagamentoPedido(Comanda comanda) {
         this.output = new OutputConsole();
         this.idPagamento = UUID.randomUUID().toString();
         this.comanda = comanda;
-        this.cliente = cliente;
         this.pago = false;
         this.valorAPagar = comanda.getValorTotal();
         this.metodosPagamento = new ArrayList<>();

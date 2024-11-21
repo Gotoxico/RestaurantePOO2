@@ -5,7 +5,6 @@
 package restaurante.poo;
 
 import Controlador.Restaurante;
-import UISegregation.Editor;
 import java.util.Scanner;
 import principal.Principal2;
 import restaurante.poo.Output.OutputFactory;
@@ -15,7 +14,7 @@ import restaurante.poo.Output.OutputInterface;
  *
  * @author rodri
  */
-public class Atendente extends Funcionario implements ObserverQueue, Editor{
+public class Atendente extends Funcionario implements ObserverQueue{
     Restaurante restaurante;
     private final OutputInterface output;
     private static Scanner sc = new Scanner(System.in);   
@@ -67,52 +66,4 @@ public class Atendente extends Funcionario implements ObserverQueue, Editor{
         ClienteRestaurante cliente = new ClienteRestaurante(pessoa.getNome(), pessoa.getSobrenome(), pessoa.getTelefone());
         restaurante.adicionarCliente(cliente);
     }
-    
-    @Override
-    public void visualizarConteudo(Principal2 principal){
-       output.display("Digite opcao desejada: ");
-        output.display("1 - Imprimir Menu: ");
-        output.display("2 - Trocar usuario: ");
-        int opc = sc.nextInt();
-        while (true){
-            switch (opc){
-                case 1:
-                    principal.imprimirMenu();
-                    break;
-                    
-                case 2:
-                    //Sair
-            }     
-        }
-    }
-    
-    @Override
-    public void editarConteudo(Principal2 principal){
-        output.display("Digite opcao desejada: ");
-        output.display("1 - Cadastrar Reserva: ");
-        output.display("2 - Verificar Disponibilidade: ");
-        output.display("3 - Cancelar Reserva: ");
-        output.display("4 - Trocar usuario: ");
-        int opc = sc.nextInt();
-        while (true){
-            switch (opc){
-                case 1:
-                    principal.cadastrarReserva();
-                    break;
-                    
-                case 2:
-                    principal.verificarDisponibilidade();
-                    break;
-                    
-                case 3:
-                    principal.cancelarReserva();
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    //Sair
-            }     
-        }
-    }
-    
 }

@@ -4,7 +4,6 @@
  */
 package restaurante.poo;
 
-import UISegregation.Editor;
 import java.util.ArrayList;
 import java.util.Scanner;
 import principal.Principal2;
@@ -18,7 +17,7 @@ import restaurante.poo.Output.OutputInterface;
  *
  * @author rodri
  */
-public class Garcom extends Funcionario implements Observer, Editor{
+public class Garcom extends Funcionario implements Observer{
     private String registroGarcom;
     private double gorjetaGarcom;
     private ArrayList<Mesa> mesasResponsavel;
@@ -168,42 +167,6 @@ public class Garcom extends Funcionario implements Observer, Editor{
             Mesa mesa =  (Mesa) s;
             mesa.fecharComanda();
             mesa.liberarMesa();                       
-        }
-    }
-    
-    @Override
-    public void visualizarConteudo(Principal2 principal){
-        output.display("Digite opcao desejada: ");
-        output.display("1 - Imprimir Menu: ");
-        output.display("2 - Trocar usuario: ");
-        int opc = sc.nextInt();
-        while (true){
-            switch (opc){
-                case 1:
-                    principal.imprimirMenu();
-                    break;
-                    
-                case 2:
-                    //Sair
-            }     
-        }
-    }
-    
-    @Override
-    public void editarConteudo(Principal2 principal){
-        output.display("Digite opcao desejada: ");
-        output.display("1 - Cadastrar Pedido: ");
-        output.display("2 - Trocar usuario: ");
-        int opc = sc.nextInt();
-        while (true){
-            switch (opc){
-                case 1:
-                    principal.cadastrarPedido();
-                    break;
-                    
-                case 2:
-                    //Sair
-            }     
         }
     }
     
