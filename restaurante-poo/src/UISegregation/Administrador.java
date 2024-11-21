@@ -4,7 +4,7 @@
  */
 package UISegregation;
 
-import principal.Principal;
+import principal.Principal2;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -13,5 +13,5 @@ import restaurante.poo.Output.OutputInterface;
  * @author rodri
  */
 public interface Administrador extends Editor{
-    void manejarUsuarios(Principal principal);
+    void manejarUsuarios(Principal2 principal);
 }

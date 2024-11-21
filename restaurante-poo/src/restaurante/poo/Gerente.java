@@ -6,7 +6,7 @@ package restaurante.poo;
 
 import UISegregation.Administrador;
 import java.util.Scanner;
-import principal.Principal;
+import principal.Principal2;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -60,7 +60,7 @@ public class Gerente extends Funcionario implements Administrador{
     }
     
     @Override
-    public void visualizarConteudo(Principal principal){
+    public void visualizarConteudo(Principal2 principal){
         output.display("Digite opcao desejada: ");
         output.display("1 - Imprimir Menu: ");
         output.display("2 - Trocar usuario: ");
@@ -78,7 +78,7 @@ public class Gerente extends Funcionario implements Administrador{
     }
     
     @Override
-    public void editarConteudo(Principal principal){
+    public void editarConteudo(Principal2 principal){
         output.display("Digite opcao desejada: ");
         output.display("1 - Cadastrar Reserva: ");
         output.display("2 - Verificar Disponibilidade: ");
@@ -126,7 +126,7 @@ public class Gerente extends Funcionario implements Administrador{
     }
     
     @Override
-    public void manejarUsuarios(Principal principal){
+    public void manejarUsuarios(Principal2 principal){
         output.display("Digite opcao desejada: ");
         output.display("1 - Cadastrar Garçom: ");
         output.display("2 - Trocar usuario: ");

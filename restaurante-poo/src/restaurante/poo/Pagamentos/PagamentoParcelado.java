@@ -23,7 +23,7 @@ public class PagamentoParcelado implements MetodoPagamento {
     @Override
     public boolean pagar(double valor) {
         double valorParcelado = valor / vezes;
-        output.print("Pagamento realizado com sucesso! Parcelado em " + vezes + " vezes de R$ " + valorParcelado);
+        output.display("Pagamento realizado com sucesso! Parcelado em " + vezes + " vezes de R$ " + valorParcelado);
         return true;
     }
 }

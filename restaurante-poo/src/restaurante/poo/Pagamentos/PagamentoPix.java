@@ -21,7 +21,7 @@ public class PagamentoPix implements MetodoPagamento {
     @Override
     public boolean pagar(double valor) {
         String codigoPix = UUID.randomUUID().toString();
-        output.print("Código para pagamento via pix: " + codigoPix);
+        output.display("Código para pagamento via pix: " + codigoPix);
         return true;
     }
 }

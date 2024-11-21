@@ -19,7 +19,7 @@ public class PagamentoDebito implements MetodoPagamento {
 
     @Override
     public boolean pagar(double valor) {
-        output.print("Pagamento via débito realizado com sucesso! Valor realizado R$ " + valor);
+        output.display("Pagamento via débito realizado com sucesso! Valor realizado R$ " + valor);
         return true;
     }
 }

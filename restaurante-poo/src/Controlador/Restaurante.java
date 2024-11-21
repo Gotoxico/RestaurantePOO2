@@ -30,8 +30,8 @@ import restaurante.poo.Cartao.Cartao;
  * @author rodri
  */
 public class Restaurante implements SubjectQueue{
-    private ArrayList<Garcom> garcoms;
-    private ArrayList<ClienteRestaurante> clientes;
+    private ArrayList<Garcom> garcoms = new ArrayList<>();
+    private ArrayList<ClienteRestaurante> clientes = new ArrayList<>();
     private Queue <Pessoa> fila = new LinkedList<>();
     private final ReservaMesa reserva;
     private Menu menu;
@@ -78,12 +78,18 @@ public class Restaurante implements SubjectQueue{
         reserva.adicionarMesa(tipoOutput, capacidadeMaxima, numeroMesa);
     }
     
-    public void cadastrarReserva(LocalDate data, LocalTime horarioReserva, String nomeCliente){
-        reserva.reservarMesa(data, horarioReserva, nomeCliente, contadorMesas);
+    public void cadastrarReserva(LocalDate data, LocalTime horarioReserva, String nomeCliente, int quantidadePessoas){
+        reserva.reservarMesa(data, horarioReserva, nomeCliente, quantidadePessoas);
     }
     
     public void verificarDisponibilidade(int maximoMesas, LocalDate data, LocalTime horario){
-        reserva.verificarDisponibilidade(maximoMesas, data, horario);
+        Mesa mesa = reserva.verificarDisponibilidade(maximoMesas, data, horario);
+        if(mesa != null){
+            output.display("Mesa " + mesa.getNumeroMesa() + " disponivel");
+        }
+        else{
+            output.display("Mesa indisponivel");
+        }
     }
     
     /**
@@ -144,7 +150,7 @@ public class Restaurante implements SubjectQueue{
      */
     //Classe Garcom (Marcos)
     public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
-        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom);
+        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom, output);
         this.garcoms.add(garcom);
     }
         
@@ -198,13 +204,21 @@ public class Restaurante implements SubjectQueue{
             Scanner scan = new Scanner(System.in);
             do {
                 output.display("Digite opcao desejada: \n1 - Adicionar Item\n2 - Remover Item\n3 - Encerrar Ordem");
-                opcao = scan.nextInt();
+                if (scan.hasNextInt()) {
+                    opcao = scan.nextInt();
+                    scan.nextLine(); // Clear the newline character from the input buffer
+                } else {
+                    output.display("Opcao inválida! Por favor, insira um número.");
+                    scan.nextLine(); // Clear invalid input
+                    continue; // Skip to the next iteration
+                }
                 String nomeItem;
                 int quantidadeItens;
                 ItemMenu item;
                        
                 switch (opcao) {
                     case 1:
+                        scan.nextLine();
                         output.display("Digite nome Item: ");
                         nomeItem = scan.nextLine();
                         output.display("Digite quantidade itens: ");
@@ -216,6 +230,7 @@ public class Restaurante implements SubjectQueue{
                         break;
                                 
                     case 2:
+                        scan.nextLine();
                         output.display("Digite nome Item: ");
                         nomeItem = scan.nextLine();
                         output.display("Digite quantidade itens: ");
@@ -225,14 +240,17 @@ public class Restaurante implements SubjectQueue{
                             mesa.getComandaAtiva().removerItemPedido(item);
                         }
                         break;                                
-                                
+                    
+                    case 3:
+                        output.display("Encerrando a ordem.\n");
+                        break;
+                        
                     default:
                         output.display("Opcao inválida!\n");
                         break;
                 }
                         
             } while (opcao != 3);
-            scan.close();
     }
     
     //Cartão

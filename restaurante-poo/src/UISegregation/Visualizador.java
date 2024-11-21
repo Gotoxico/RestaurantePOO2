@@ -4,7 +4,7 @@
  */
 package UISegregation;
 
-import principal.Principal;
+import principal.Principal2;
 import restaurante.poo.Output.OutputInterface;
 
 /**
@@ -12,5 +12,5 @@ import restaurante.poo.Output.OutputInterface;
  * @author rodri
  */
 public interface Visualizador {
-    void visualizarConteudo(Principal principal);
+    void visualizarConteudo(Principal2 principal);
 }

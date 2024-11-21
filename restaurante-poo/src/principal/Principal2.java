@@ -1,13 +1,11 @@
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package principal;
-
-import Controlador.Restaurante;
-import UISegregation.Administrador;
-import UISegregation.Editor;
-import UISegregation.Visualizador;
+import  Controlador.Restaurante;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -17,8 +15,6 @@ import restaurante.poo.Cozinheiro;
 import restaurante.poo.Garcom;
 import restaurante.poo.Gerador;
 import restaurante.poo.Gerente;
-import restaurante.poo.Cartao.Cartao;
-import restaurante.poo.Mesa;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -26,8 +22,7 @@ import restaurante.poo.Output.OutputInterface;
  *
  * @author rodri
  */
-public class Principal {
-
+public class Principal2 {
     static String tipoOutput = "console";
     static OutputInterface output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
     static Restaurante restaurante = new Restaurante("Restaurante FCT", OutputFactory.getInstance(), tipoOutput, 30, "Menu Normal", "Menu pensado para as operações cotidianas do Restaurante FCT", "11:00 - 14:00 e 17:00 - 22:00");
@@ -36,51 +31,6 @@ public class Principal {
     static Garcom garcom = new Garcom(Gerador.geradorAleatorioNome(), "qhejyqgtyeqtyugw@email.com", "Garcom1", Constantes.SALARIO_MINIMO, 10, output);
     static Gerente gerente = new Gerente(Constantes.SALARIO_MINIMO*2, Gerador.geradorAleatorioNome(), "ujquiqweyuqguyeq@email.com", output);
     static Scanner sc = new Scanner(System.in);
-    
-    /**
-     * 
-     * @return 
-     */
-    public static Visualizador menuSelecaoTipoUsuario(){
-        output.display("Digite tipo de usuário: ");
-        output.display("1 - Cozinheiro");
-        output.display("2 - Chef");
-        output.display("3 - Garçom");
-        output.display("4 - Atendente");
-        output.display("5 - Gerente");
-        int opc = sc.nextInt();
-        if(opc == 1){ 
-            return cozinheiro;
-        }
-        if(opc == 2){
-            
-        }
-        if(opc == 3){
-            return garcom;
-        }
-        
-        if(opc == 4){
-            return atendente;
-        }
-        
-        return gerente;
-    }
-    
-    /**
-     * 
-     * @param usuario 
-     */
-    public static void mostrarUI(Visualizador usuario){
-        usuario.visualizarConteudo(new Principal());
-        
-        if(usuario instanceof Editor){
-            ((Editor) usuario).editarConteudo(new Principal());
-        }
-        
-        if(usuario instanceof Administrador){
-            ((Administrador) usuario).manejarUsuarios(new Principal());
-        }
-    }
     
     public static void menuPrincipal() {
         int opc = 0;
@@ -143,38 +93,60 @@ public class Principal {
                 break;
         }
     }
-
+    
+    
     public static void cadastrarReserva() {
-        output.display("Data da Reserva: ");
-        String data = sc.nextLine();
+        output.display("Data da Reserva (formato: yyyy-MM-dd): ");
+        String dataInput = sc.nextLine(); 
 
-        output.display("Horário: ");
-        String horario = sc.nextLine();
+        output.display("Horário (formato: HH:mm): ");
+        String horarioInput = sc.nextLine(); 
 
-        restaurante.cadastrarReserva(LocalDate.MAX, LocalTime.NOON, horario);
+        output.display("Nome do Cliente: ");
+        String nomeCliente = sc.nextLine(); 
+        
+        output.display("Quantidade de Pessoas: ");
+        int quantidadePessoas = sc.nextInt();
+        
+        LocalDate data = LocalDate.parse(dataInput); 
+        LocalTime horario = LocalTime.parse(horarioInput);
+        
+        restaurante.cadastrarReserva(data, horario, nomeCliente, quantidadePessoas);
     }
     
     public static void verificarDisponibilidade(){
+        output.display("Data (formato: yyyy-MM-dd): ");
+        String dataInput = sc.nextLine(); 
+
+        output.display("Horário (formato: HH:mm): ");
+        String horarioInput = sc.nextLine();
+        
         output.display("Quantidade máxima da mesa: ");
         int maximoMesas = sc.nextInt();
         
-       restaurante.verificarDisponibilidade(maximoMesas, LocalDate.MAX, LocalTime.MIN);
+        LocalDate data = LocalDate.parse(dataInput); 
+        LocalTime horario = LocalTime.parse(horarioInput);
+        
+       restaurante.verificarDisponibilidade(maximoMesas, data, horario);
     }
     
     public static void cancelarReserva(){
-        output.display("Data: ");
-        String data = sc.nextLine();
+        output.display("Data da Reserva (formato: yyyy-MM-dd): ");
+        String dataInput = sc.nextLine(); 
+
+        output.display("Horário (formato: HH:mm): ");
+        String horarioInput = sc.nextLine(); 
+
+        output.display("Nome do Cliente: ");
+        String nomeCliente = sc.nextLine(); 
         
-        output.display("Horário: ");
-        String horario = sc.nextLine();
+        output.display("Quantidade de Pessoas: ");
+        int quantidadePessoas = sc.nextInt();
         
-        output.display("Nome: ");
-        String nome = sc.nextLine();
+        LocalDate data = LocalDate.parse(dataInput); 
+        LocalTime horario = LocalTime.parse(horarioInput);
         
-        output.display("Quantidade: ");
-        int quantidade = sc.nextInt();
-        
-        restaurante.cancelarReservaMesa(LocalDate.MAX, LocalTime.NOON, nome, quantidade);
+        restaurante.cancelarReservaMesa(data, horario, nomeCliente, quantidadePessoas);
     }
 
     public static void cadastrarMesa() {
@@ -251,12 +223,15 @@ public class Principal {
     public static void cadastrarCartao(){
         
     }
-
+    
     public static void main(String[] args) {
+        restaurante.adicionarMesa("1", 6);
+        restaurante.adicionarMesa("2", 10);
+        restaurante.adicionarItemMenu("Feijoada", "Feijão preto com derivados de porco", 10);
+        restaurante.adicionarItemMenu("Lasanha", "Massa de farinha com molho de tomate, carne moída, presunto e queijo assados", 10);
         while (true) {
-            Visualizador usuario = menuSelecaoTipoUsuario();
-            mostrarUI(usuario);
+            menuPrincipal();
         }
     }
+    
 }
-

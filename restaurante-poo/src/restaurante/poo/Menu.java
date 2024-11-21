@@ -5,8 +5,8 @@
 package restaurante.poo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import restaurante.poo.Output.OutputConsole;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -149,9 +149,11 @@ public class Menu {
      * @Parameter: preco    Preço do item que sera removido
      */
     public void removerItem(String nomeItem, double preco) {
-        for(ItemMenu item : itensMenu){
-            if(item.getNome().equals(nomeItem) && item.getPreco() == preco){
-                itensMenu.remove(item);
+        Iterator<ItemMenu> iterator = itensMenu.iterator();
+        while (iterator.hasNext()) {
+            ItemMenu item = iterator.next();
+            if (item.getNome().equals(nomeItem) && item.getPreco() == preco) {
+                iterator.remove(); // Safely removes the item
             }
         }
     }

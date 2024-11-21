@@ -36,7 +36,7 @@ public class Comanda implements RegistroConsumo{
      * @param mesaAssociada Mesa associada à comanda
      */
     public Comanda(Mesa mesaAssociada) {
-        this.output = OutputFactory.getInstance().getTipoOutput(null);;
+        this.output = OutputFactory.getInstance().getTipoOutput("console");;
         this.numeroComanda = gerarIdComanda();
         this.mesaAssociada = mesaAssociada;
         this.pedido = new Pedido();

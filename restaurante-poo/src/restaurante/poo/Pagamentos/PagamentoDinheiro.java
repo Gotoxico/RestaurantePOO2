@@ -26,16 +26,16 @@ public class PagamentoDinheiro implements MetodoPagamento {
 
     @Override
     public boolean pagar(double valor) {
-        output.print("Digite o valor pago em dinheiro: ");
+        output.display("Digite o valor pago em dinheiro: ");
         double valorPago = scanner.nextDouble();
         
         if (valorPago < valor) {
-            output.print("Valor insuficiente! Ainda faltam R$ " + (valor - valorPago));
+            output.display("Valor insuficiente! Ainda faltam R$ " + (valor - valorPago));
             return false;
         }
         
         double troco = valorPago - valor;
-        output.print("Pagamento efetuado! Troco: R$ " + troco);
+        output.display("Pagamento efetuado! Troco: R$ " + troco);
         return true;
     }
 }

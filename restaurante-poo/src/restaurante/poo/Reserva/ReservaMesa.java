@@ -89,11 +89,9 @@ public class ReservaMesa {
     public void adicionarMesa(String tipoOutput, int capacidade, String numero) {
         if(quantidadeAtual < quantidadeMaxima){
             Mesa mesa = new Mesa(tipoOutput, numero, capacidade);
-            quantidadeAtual++;
             mesas[quantidadeAtual] = mesa;
-            return;
+            quantidadeAtual++;
         }
-        return;
     }
     
     /*
@@ -104,16 +102,16 @@ public class ReservaMesa {
     @Return none
     */
     public void removerMesa(String numero) {
-        for(int i = 0; i < quantidadeAtual; i++){
-            if(mesas[i].getNumeroMesa().equals(numero)){
-                for(int j = i; j < quantidadeAtual; j++){
-                    mesas[j] = mesas[j+1];
+        for (int i = 0; i < quantidadeAtual; i++) {
+            if (mesas[i].getNumeroMesa().equals(numero)) {
+                for (int j = i; j < quantidadeAtual - 1; j++) {
+                    mesas[j] = mesas[j + 1];
                 }
+                mesas[quantidadeAtual - 1] = null;
                 quantidadeAtual--;
                 return;
             }
         }
-        return;
     }
     
     /*
@@ -128,7 +126,7 @@ public class ReservaMesa {
     //Chamador metodos de verificacao de disponibilidade da classe Mesa
     public Mesa verificarDisponibilidade(int capacidade, LocalDate data, LocalTime hora) {
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, null) && mesas[i].getCapacidadeMaxima() >= capacidade){
+            if(mesas[i] != null && mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, null) && mesas[i].getCapacidadeMaxima() >= capacidade){
                 return mesas[i];
             }
         }
@@ -147,7 +145,7 @@ public class ReservaMesa {
     */
     public Mesa verificarReserva(int capacidade, LocalDate data, LocalTime hora, String nome){
         for(int i = 0; i < quantidadeMaxima; i++){
-            if(mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, nome) == false && mesas[i].getCapacidadeMaxima() >= capacidade){
+            if(mesas[i] != null && mesas[i].verificarDisponibilidadeDataHorarioNome(data, hora, nome) == false && mesas[i].getCapacidadeMaxima() >= capacidade){
                 return mesas[i];
             }
         }
@@ -164,7 +162,7 @@ public class ReservaMesa {
     
     @Return none
     */
-    public void reservarMesa(LocalDate data, LocalTime hora, String nome, int quantidadePessoas) {
+    public void reservarMesa(LocalDate data, LocalTime hora, String nome, int quantidadePessoas) { 
         Mesa mesa = verificarDisponibilidade(quantidadePessoas, data, hora);
         if(mesa != null){
             mesa.adicionarReserva(data, hora, nome);

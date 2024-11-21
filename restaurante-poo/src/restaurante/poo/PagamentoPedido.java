@@ -1,4 +1,4 @@
-package restaurante.poo.pagamento;
+package restaurante.poo;
 //Classe PagamentoPedido: Classe para gerenciar pagamentos de pedidos
 import restaurante.poo.Output.OutputConsole;
 import restaurante.poo.Output.OutputInterface;
@@ -39,7 +39,7 @@ public class PagamentoPedido {
         this.comanda = comanda;
         this.cliente = cliente;
         this.pago = false;
-        this.valorAPagar = comanda.calcularTotal();
+        this.valorAPagar = comanda.getValorTotal();
         this.metodosPagamento = new ArrayList<>();
     }
 
@@ -49,7 +49,7 @@ public class PagamentoPedido {
     public void calcularGorjetaGarcom() {
         this.gorjeta = valorAPagar * 0.10;
         this.valorAPagar += gorjeta;
-        output.print("Gorjeta de 10% (R$ " + String.format("%.2f", gorjeta) + ") adicionada ao total.");
+        output.display("Gorjeta de 10% (R$ " + String.format("%.2f", gorjeta) + ") adicionada ao total.");
     }
 
     /**
@@ -65,17 +65,17 @@ public class PagamentoPedido {
      */
     public void realizarPagamento() {
         Scanner scanner = new Scanner(System.in);
-        output.print("Deseja dividir a conta? (sim / nao)");
+        output.display("Deseja dividir a conta? (sim / nao)");
         String dividirConta = scanner.nextLine().toLowerCase();
 
         if (dividirConta.equals("sim")) {
-            output.print("Quantas pessoas irá dividir a conta?");
+            output.display("Quantas pessoas irá dividir a conta?");
             int qtdPessoas = scanner.nextInt();
             double valorPorPessoa = valorAPagar / qtdPessoas;
             scanner.nextLine(); //Limpa o buffer
 
             for (int i = 0; i < qtdPessoas; i++) {
-                output.print("Pessoa " + (i + 1) + ", escolha seu método de pagamento: 1)- Dinheiro, 2)- Débito, 3)- Crédito ou  4)- Pix");
+                output.display("Pessoa " + (i + 1) + ", escolha seu método de pagamento: 1)- Dinheiro, 2)- Débito, 3)- Crédito ou  4)- Pix");
                 int escolha = scanner.nextInt();
                 scanner.nextLine();
 
@@ -86,7 +86,7 @@ public class PagamentoPedido {
                 }
             }
         } else {
-            output.print("Escolha o método de pagamento: 1)- Dinheiro, 2)- Débito, 3)- Crédito ou 4)-Pix");
+            output.display("Escolha o método de pagamento: 1)- Dinheiro, 2)- Débito, 3)- Crédito ou 4)-Pix");
             int escolha = scanner.nextInt();
             scanner.nextLine();
 
@@ -98,9 +98,9 @@ public class PagamentoPedido {
         }
 
         if (pago) {
-            output.print("Pagamento concluído, muito obrigado pela presensença! ID do pagamento: " + idPagamento);
+            output.display("Pagamento concluído, muito obrigado pela presensença! ID do pagamento: " + idPagamento);
         } else {
-            output.print("Pagamento não realizado! Por favor, Tente novamente.");
+            output.display("Pagamento não realizado! Por favor, Tente novamente.");
         }
     }
 
@@ -118,10 +118,10 @@ public class PagamentoPedido {
             case 2:
                 return new PagamentoDebito(output);
             case 3:
-                output.print("Deseja parcelar no crédito? (sim / nao)");
+                output.display("Deseja parcelar no crédito? (sim / nao)");
                 String parcelar = scanner.nextLine().toLowerCase();
                 if (parcelar.equals("sim")) {
-                    output.print("Em quantas vezes será parcelado?");
+                    output.display("Em quantas vezes será parcelado?");
                     int vezes = scanner.nextInt();
                     scanner.nextLine();
                     return new PagamentoParcelado(vezes, output);
@@ -130,7 +130,7 @@ public class PagamentoPedido {
             case 4:
                 return new PagamentoPix(output);
             default:
-                output.print("Opção inválida");
+                output.display("Opção inválida");
                 return null;
         }
     }

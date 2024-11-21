@@ -6,7 +6,7 @@ package restaurante.poo;
 
 import UISegregation.Visualizador;
 import java.util.Scanner;
-import principal.Principal;
+import principal.Principal2;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -78,7 +78,7 @@ public class Cozinheiro extends Funcionario implements Visualizador{
     }
     
     @Override
-    public void visualizarConteudo(Principal principal){
+    public void visualizarConteudo(Principal2 principal){
         output.display("Digite opcao desejada: ");
         output.display("1 - Imprimir Menu: ");
         output.display("2 - Trocar usuario: ");

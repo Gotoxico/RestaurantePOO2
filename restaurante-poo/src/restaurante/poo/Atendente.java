@@ -7,7 +7,7 @@ package restaurante.poo;
 import Controlador.Restaurante;
 import UISegregation.Editor;
 import java.util.Scanner;
-import principal.Principal;
+import principal.Principal2;
 import restaurante.poo.Output.OutputFactory;
 import restaurante.poo.Output.OutputInterface;
 
@@ -69,7 +69,7 @@ public class Atendente extends Funcionario implements ObserverQueue, Editor{
     }
     
     @Override
-    public void visualizarConteudo(Principal principal){
+    public void visualizarConteudo(Principal2 principal){
        output.display("Digite opcao desejada: ");
         output.display("1 - Imprimir Menu: ");
         output.display("2 - Trocar usuario: ");
@@ -87,7 +87,7 @@ public class Atendente extends Funcionario implements ObserverQueue, Editor{
     }
     
     @Override
-    public void editarConteudo(Principal principal){
+    public void editarConteudo(Principal2 principal){
         output.display("Digite opcao desejada: ");
         output.display("1 - Cadastrar Reserva: ");
         output.display("2 - Verificar Disponibilidade: ");

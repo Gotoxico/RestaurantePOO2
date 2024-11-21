@@ -19,7 +19,7 @@ public class PagamentoCredito implements MetodoPagamento {
 
     @Override
     public boolean pagar(double valor) {
-        output.print("Pagamento via crédito realizado com sucesso! Valor realizado R$ " + valor);
+        output.display("Pagamento via crédito realizado com sucesso! Valor realizado R$ " + valor);
         return true;
     }
 }
