@@ -101,6 +101,10 @@ public class Restaurante implements SubjectQueue{
         reserva.removerMesa(numeroMesa);
     }
     
+    public void exibirMesas(){
+        reserva.exibirMesas();
+    }
+    
     /**
      * 
      * @param numeroMesa 
@@ -130,6 +134,10 @@ public class Restaurante implements SubjectQueue{
      */
     public void cancelarReservaMesa(LocalDate data, LocalTime hora, String nome, int quantidade){
         reserva.cancelarReserva(data, hora, nome, quantidade);
+    }
+    
+    public void exibirReservas(){
+        reserva.exibirReservas();
     }
     
     public void adicionarCliente(ClienteRestaurante clienteRestaurante){

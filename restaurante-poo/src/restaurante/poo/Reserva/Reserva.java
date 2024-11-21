@@ -299,4 +299,15 @@ public class Reserva{
             }
         }
     }
+    
+    public String getNomeClienteReservou(LocalTime horario){
+        for(Horario hora : horarios){
+            if(hora.getHorario().equals(horario) && hora.isDisponibilidade()){
+                int i = 0;
+                int proximoIndex = horarios.indexOf(hora) + (i/15);
+                return horarios.get(i).getNome();
+            }
+        }
+        return null;
+    }
 }

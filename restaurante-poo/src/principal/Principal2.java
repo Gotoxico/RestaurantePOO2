@@ -42,14 +42,16 @@ public class Principal2 {
         output.display("1 - Cadastrar Reserva");
         output.display("2 - Verificar Disponibilidade");
         output.display("3 - Cancelar Reserva");
-        output.display("4 - Cadastrar Mesa");
-        output.display("5 - Remover Mesa");
-        output.display("6 - Imprimir Menu");
-        output.display("7 - Cadastrar ItemMenu");
-        output.display("8 - Remover ItemMenu");
-        output.display("9 - Cadastrar Pedido");
-        output.display("10 - Cadastrar Garçom");
-        output.display("11 - Pagar");
+        output.display("4 - Exibir Reservas"); //Com problema, consertar
+        output.display("5 - Cadastrar Mesa");
+        output.display("6 - Remover Mesa");
+        output.display("7 - Exibir Mesas");
+        output.display("8 - Imprimir Menu");
+        output.display("9 - Cadastrar ItemMenu");
+        output.display("10 - Remover ItemMenu");
+        output.display("11 - Cadastrar Pedido");
+        output.display("12 - Cadastrar Garçom");
+        output.display("13 - Pagar");
         opc = sc.nextInt();
         sc.nextLine();
 
@@ -64,27 +66,33 @@ public class Principal2 {
                 cancelarReserva();
                 break;
             case 4:
-                cadastrarMesa();
+                exibirReservas();
                 break;
             case 5:
-                removerMesa();
+                cadastrarMesa();
                 break;
             case 6:
+                removerMesa();
+                break;
+            case 7:
+                exibirMesas();
+                break;
+            case 8:
                 imprimirMenu();
             break;
-            case 7:
+            case 9:
                 cadastrarItemMenu();
             break;
-            case 8:
+            case 10:
                 removerItemMenu();
             break;
-            case 9:
+            case 11:
                 cadastrarPedido();
             break;
-            case 10:
+            case 12:
                 cadastrarGarcom();
             break;
-            case 11:
+            case 13:
                 pagar();
             break;
             default:
@@ -148,6 +156,10 @@ public class Principal2 {
         
         restaurante.cancelarReservaMesa(data, horario, nomeCliente, quantidadePessoas);
     }
+    
+    public static void exibirReservas(){
+        restaurante.exibirReservas();
+    }
 
     public static void cadastrarMesa() {
         output.display("Número da mesa: ");
@@ -164,6 +176,10 @@ public class Principal2 {
         String numeroMesa = sc.nextLine();
 
         restaurante.removerMesa(numeroMesa);
+    }
+    
+    public static void exibirMesas(){
+        restaurante.exibirMesas();
     }
 
     public static void imprimirMenu() {

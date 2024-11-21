@@ -6,7 +6,9 @@ package restaurante.poo.Reserva;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import restaurante.poo.ClienteRestaurante;
 import restaurante.poo.Mesa;
@@ -190,6 +192,31 @@ public class ReservaMesa {
         for(int i = 0; i < quantidadeAtual; i++){
             if(mesas[i].getNumeroMesa().equals(numeroMesa)){
                 mesas[i].liberarMesa();
+            }
+        }
+    }
+    
+    //Com problema, consertar
+    public void exibirReservas(){
+        for(int i = 0; i < quantidadeAtual; i++){
+            Mesa mesa = mesas[i];
+            List<Reserva> reservas = mesa.getReservasMarcadas();
+            
+            for (Reserva reserva : reservas){
+                String nome = reserva.getNomeClienteReservou(reserva.getHorarioInicio());
+                output.display("Horario Inicial: " + reserva.getHorarioInicio());
+                output.display("Horario Final: " + reserva.getHorarioFinal());
+                output.display("Número Mesa: " + mesa.getNumeroMesa());
+                output.display("Quantidade Máxima Pessoas: " + mesa.getCapacidadeMaxima());
+                output.display("Nome Cliente: " + nome);
+            }
+        }
+    }
+    
+    public void exibirMesas(){
+        for(Mesa mesa : mesas){
+            if(mesa != null){
+                output.display("Número Mesa: " + mesa.getNumeroMesa() + " Capacidade da Mesa: " + mesa.getCapacidadeMaxima());
             }
         }
     }
