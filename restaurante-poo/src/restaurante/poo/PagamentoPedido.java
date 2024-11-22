@@ -29,8 +29,8 @@ public class PagamentoPedido {
     private List<MetodoPagamento> metodosPagamento;
 
     /**
-     * Construtor da classe PagamentoPedido.
-     * @param comanda Comanda associada ao pedido.
+     * @Brief: Construtor da classe PagamentoPedido
+     * @Parameter: comanda - Comanda associada ao pedido
      */
     public PagamentoPedido(Comanda comanda) {
         this.output = new OutputConsole();
@@ -42,7 +42,7 @@ public class PagamentoPedido {
     }
 
     /**
-     * Adiciona 10% do valor do pedido como gorjeta do garçom
+     * @Brief: Adiciona 10% do valor do pedido como gorjeta do garçom
      */
     public void calcularGorjetaGarcom() {
         this.gorjeta = valorAPagar * 0.10;
@@ -51,15 +51,15 @@ public class PagamentoPedido {
     }
 
     /**
-     * Define o método de pagamento do pedido
-     * @param metodoPagamento Objeto que implementa o método de pagamento.
+     * @Brief: Define o método de pagamento do pedido
+     * @Parameter: metodoPagamento - Objeto que implementa o método de pagamento
      */
     public void definirMetodoPagamento(MetodoPagamento metodoPagamento) {
         this.metodosPagamento.add(metodoPagamento);
     }
 
     /**
-     * Realiza o pagamento do pedido, com ou sem divisão
+     * @Brief: Realiza o pagamento do pedido, permitindo a divisão entre várias pessoas
      */
     public void realizarPagamento() {
         Scanner scanner = new Scanner(System.in);
@@ -103,11 +103,11 @@ public class PagamentoPedido {
     }
 
     /**
-     * Cria um objeto de método de pagamento com base na escolha do usuário.
-     * @param escolha Tipo de pagamento escolhido.
-     * @param scanner Scanner para entrada de dados adicionais.
-     * @param valor Valor a ser pago.
-     * @return Objeto que implementa MetodoPagamento.
+     * @Brief: Cria um objeto de método de pagamento com base na escolha do usuário
+     * @Parameter: escolha - Tipo de pagamento escolhido
+     * @Parameter: scanner - Scanner para entrada de dados adicionais
+     * @Parameter: valor - Valor a ser pago
+     * @Return: Objeto que implementa MetodoPagamento
      */
     private MetodoPagamento criarMetodoPagamento(int escolha, Scanner scanner, double valor) {
         switch (escolha) {

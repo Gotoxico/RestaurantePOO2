@@ -12,10 +12,10 @@ public class Pessoa {
     private String nome, sobrenome, telefone;
     
     /**
-     * 
-     * @param nome
-     * @param sobrenome
-     * @param telefone 
+     * @Brief: Construtor da classe Pessoa
+     * @Parameter: nome
+     * @Parameter: sobrenome
+     * @Parameter: telefone 
      */
     public Pessoa() {
         this.nome = Gerador.geradorAleatorioNome();
@@ -24,24 +24,24 @@ public class Pessoa {
     }
     
     /**
-     * 
-     * @return 
+     * @Brief: Retorna o nome da pessoa
+     * @Return: String representando o nome
      */
     public String getNome() {
         return nome;
     }
     
     /**
-     * 
-     * @return 
+     * @Brief: Retorna o sobrenome da pessoa
+     * @Return: String representando o sobrenome
      */
     public String getSobrenome() {
         return sobrenome;
     }
 
     /**
-     * 
-     * @return 
+     * @Brief: Retorna o telefone da pessoa
+     * @Return: String representando o telefone
      */
     public String getTelefone() {
         return telefone;

@@ -29,11 +29,11 @@ public class Comanda implements RegistroConsumo{
 
 
     /**
-     * Construtor da comanda.
-     * Inicializa uma comanda com um número e uma mesa associada.
-     * A comanda começa aberta e o valor total e quitado são inicializados como zero.
+     * @Brief: Construtor da comanda.
+     * @Brief: Inicializa uma comanda com um número e uma mesa associada.
+     * @Brief: A comanda começa aberta e o valor total e quitado são inicializados como zero.
      * 
-     * @param mesaAssociada Mesa associada à comanda
+     * @Parameter: mesaAssociada Mesa associada à comanda
      */
     public Comanda(Mesa mesaAssociada) {
         this.output = OutputFactory.getInstance().getTipoOutput("console");;
@@ -47,9 +47,9 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Remove um item do pedido da comanda.
+     * @Brief: Remove um item do pedido da comanda
      * 
-     * @param item Item do pedido a ser removido
+     * @Parameter: item Item do pedido a ser removido
      */
     public void removerItemPedido(ItemMenu item) {
         if(pedido.removerItem(item.getNome())) {
@@ -60,10 +60,10 @@ public class Comanda implements RegistroConsumo{
     }
     
     /**
-     * Transfere os itens de um pedido para a comanda.
-     * Se o pedido transferido contiver itens, estes serão adicionados à comanda.
+     * @Brief: Transfere os itens de um pedido para a comanda.
+     * @Brief: Se o pedido transferido contiver itens, estes serão adicionados à comanda
      * 
-     * @param pedidoTransferido O pedido contendo os itens a serem transferidos para a comanda.
+     * @Parameter: pedidoTransferido O pedido contendo os itens a serem transferidos para a comanda
      */
     public void adicionarPedido(Pedido pedidoTransferido) {
         if(!aberta) {
@@ -82,8 +82,8 @@ public class Comanda implements RegistroConsumo{
     }
     
     /**
-     * Calcula o valor total da comanda com base nos itens do pedido.
-     * O valor total é atualizado e exibido.
+     * @Brief: Calcula o valor total da comanda com base nos itens do pedido
+     * @Brief: O valor total é atualizado e exibido
      */
     private void calcularValorComanda() {
         // Atribui o valor do pedido ao valor total da comanda        
@@ -92,7 +92,7 @@ public class Comanda implements RegistroConsumo{
     }
     
     /**
-     * Retorna o valor que ainda falta ser pago na comanda.
+     * @Brief: Retorna o valor que ainda falta ser pago na comanda
      * 
      * @return O valor restante para pagamento
      */
@@ -101,10 +101,10 @@ public class Comanda implements RegistroConsumo{
     }
     
     /**
-     * Realiza o pagamento de uma parte ou total da comanda.
-     * Atualiza o valor quitado e verifica se o pagamento está completo.
+     * @Brief: Realiza o pagamento de uma parte ou total da comanda
+     * @Brief: Atualiza o valor quitado e verifica se o pagamento está completo
      * 
-     * @param valor O valor a ser pago
+     * @Parameter: valor O valor a ser pago
      */
     public void pagar(double valor) {
         double valorRestante = valorParaPagar();
@@ -124,7 +124,7 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Fecha a comanda, impedindo novas alterações (como adicionar itens).
+     * @Brief: Fecha a comanda, impedindo novas alterações (como adicionar itens)
      */
     public void fecharComanda() {
         this.aberta = false;
@@ -133,7 +133,7 @@ public class Comanda implements RegistroConsumo{
     // Getters e Setters
     
     /**
-     * Retorna o número da comanda.
+     * @Brief: Retorna o número da comanda
      * 
      * @return O número da comanda
      */
@@ -142,10 +142,10 @@ public class Comanda implements RegistroConsumo{
     }
 
       /**
-     * Gera um ID único para a comanda.
-     * O ID é gerado a partir de um contador sequencial que incrementa a cada nova comanda criada.
+     * @Brief: Gera um ID único para a comanda
+     * @Brief: O ID é gerado a partir de um contador sequencial que incrementa a cada nova comanda criada
      * 
-     * @return O ID gerado para a comanda.
+     * @return O ID gerado para a comanda
      */
     public static String gerarIdComanda() {
         // Incrementa o contador e retorna o ID como uma string
@@ -153,7 +153,7 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Retorna a mesa associada à comanda.
+     * @Brief: Retorna a mesa associada a comanda
      * 
      * @return A mesa associada
      */
@@ -162,16 +162,16 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Define a mesa associada à comanda.
+     * @Brief: Define a mesa associada à comanda
      * 
-     * @param mesaAssociada A mesa associada
+     * @Parameter: mesaAssociada A mesa associada
      */
     public void setMesaAssociada(Mesa mesaAssociada) {
         this.mesaAssociada = mesaAssociada;
     }
 
     /**
-     * Retorna o pedido associado à comanda.
+     * @Brief: Retorna o pedido associado à comanda
      * 
      * @return O pedido associado
      */
@@ -180,8 +180,8 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Retorna o valor total da comanda. 
-     * O valor é calculado a partir dos itens do pedido.
+     * @Brief: Retorna o valor total da comanda
+     * @Brief: O valor é calculado a partir dos itens do pedido
      * 
      * @return O valor total da comanda
      */
@@ -191,16 +191,16 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Define o valor total da comanda.
+     * @Brief: Define o valor total da comanda
      * 
-     * @param valorTotal O valor total da comanda
+     * @Parameter: valorTotal O valor total da comanda
      */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
     /**
-     * Retorna o valor já pago da comanda.
+     * @Brief: Retorna o valor já pago da comanda
      * 
      * @return O valor já pago
      */
@@ -209,7 +209,7 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Retorna se a comanda está aberta ou fechada.
+     * @Brief: Retorna se a comanda está aberta ou fechada
      * 
      * @return true se a comanda estiver aberta, false caso contrário
      */
@@ -218,7 +218,7 @@ public class Comanda implements RegistroConsumo{
     }
 
     /**
-     * Retorna se a comanda foi paga ou não.
+     * @Brief: Retorna se a comanda foi paga ou não
      * 
      * @return true se a comanda foi paga, false caso contrário
      */
@@ -227,17 +227,17 @@ public class Comanda implements RegistroConsumo{
     }
     
     /**
-    * Método que emula a impressão da comanda de um cliente no restaurante.
+    * Método que emula a impressão da comanda de um cliente no restaurante
     * 
     * Este método gera uma string formatada contendo todos os detalhes relacionados à comanda,
     * como o número da comanda, mesa associada, status de pagamento, valor total, valor quitado,
-    * valor restante, e os itens do pedido.
+    * valor restante, e os itens do pedido
     * 
     * A string gerada pode ser usada para exibir a comanda de forma legível para o cliente ou para
-    * registros internos.
+    * registros internos
     * 
     * @return Uma string formatada representando a comanda, incluindo todos os itens do pedido
-    *         e o estado atual da comanda (valor total, quitado e restante).
+    *         e o estado atual da comanda (valor total, quitado e restante)
     */
     public String imprimirComanda(){
         StringBuilder sb = new StringBuilder();
@@ -264,11 +264,11 @@ public class Comanda implements RegistroConsumo{
         }
     
     /**
-    * Adiciona um item diretamente ao pedido da comanda.
-    * O item será adicionado com uma quantidade especificada.
+    * @Brief: Adiciona um item diretamente ao pedido da comanda.
+    * @Brief: O item será adicionado com uma quantidade especificada.
     * 
-    * @param item O item do menu a ser adicionado ao pedido.
-    * @param quantidade A quantidade do item a ser adicionada.
+    * @Parameter: item O item do menu a ser adicionado ao pedido.
+    * @Parameter: quantidade A quantidade do item a ser adicionada.
     */
     public void adicionarItem(ItemMenu item) {
         if (!aberta) {

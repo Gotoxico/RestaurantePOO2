@@ -13,10 +13,10 @@ public class PagamentoDinheiro implements MetodoPagamento {
     private OutputInterface output;
 
     /**
-     * Construtor para inicializar o valor e o scanner
-     * @param valor Valor a ser pago
-     * @param scanner Scanner para entrada de dados
-     * @param output Interface para exibir informações de saída
+     * @Brief: Construtor para inicializar o valor e o scanner
+     * @Parameter: valor Valor a ser pago
+     * @Parameter: scanner Scanner para entrada de dados
+     * @Parameter: output Interface para exibir informações de saída
      */
     public PagamentoDinheiro(double valor, Scanner scanner, OutputInterface output) {
         this.valorAPagar = valor;

@@ -10,8 +10,8 @@ public class PagamentoDebito implements MetodoPagamento {
     private OutputInterface output;
 
     /**
-     * Construtor para inicializar a interface de saída
-     * @param output Interface para exibir informações de saída
+     * @Brief: Construtor para inicializar a interface de saída
+     * @Parameter: output Interface para exibir informações de saída
      */
     public PagamentoDebito(OutputInterface output) {
         this.output = output;

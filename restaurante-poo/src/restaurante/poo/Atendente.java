@@ -57,7 +57,7 @@ public class Atendente extends Funcionario implements ObserverQueue{
     
     /**
      * 
-     * @param pessoa 
+     * @Parameter pessoa Cliente 
      * 
      * @Brief: Cria um novo cliente quando é notificado de uma pessoa na fila de pessoas do restaurante e adiciona-o ao arraylist de clientes do restaurante
      */

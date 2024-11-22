@@ -18,28 +18,27 @@ public class Subject {
     private List<Observer> observers = new ArrayList<Observer>();
     
     /**
-     * Adciona observadores ao sujeito
+     * @Brief: Adciona observadores ao sujeito
      * 
-     * @param obs observador do sujeito
+     * @Parameter: obs observador do sujeito
      */
     public void addObserver(Observer obs){
         observers.add(obs);
     }
     
      /**
-     * Remove observador especificado do sujeito
+     * @Brief: Remove observador especificado do sujeito
      * 
-     * @param obs observador do sujeito
+     * @Parameter: obs observador do sujeito
      */
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
     
      /**
-     * Notifica todos os observadores do sujeito 
-     * e chama função update para cada um
+     * @Brief: Notifica todos os observadores do sujeito e chama função update para cada um
      * 
-     * @param obs observador do sujeito
+     * @Parameter: obs observador do sujeito
      */
     public void notifyObserver(){
         Iterator<Observer> it = observers.iterator();

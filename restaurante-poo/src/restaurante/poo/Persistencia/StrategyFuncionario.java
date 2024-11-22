@@ -15,7 +15,7 @@ public interface StrategyFuncionario {
      * Salva um documento emitido de acordo com a estratégia de persistência implementada.
      * O método pode ser utilizado para armazenar as informações do funcionario em um banco de dados, arquivo, etc.
      * 
-     * @param funcionario O documento a ser salvo.
+     * @Parameter: funcionario O documento a ser salvo.
      */
     void salvar(Funcionario funcionario);
     
@@ -23,7 +23,7 @@ public interface StrategyFuncionario {
      * Verifica se um documento com o ID especificado existe.
      * O método pode ser utilizado para verificar a existência de um documento antes de tentar recuperá-lo ou atualizá-lo.
      * 
-     * @param documentoId O ID do documento a ser verificado.
+     * @Parameter: documentoId O ID do documento a ser verificado.
      * @return true se o documento existe, false caso contrário.
      */
     boolean existe(String email);

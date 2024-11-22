@@ -32,6 +32,9 @@ public class Principal2 {
     static Gerente gerente = new Gerente(Constantes.SALARIO_MINIMO*2, Gerador.geradorAleatorioNome(), "ujquiqweyuqguyeq@email.com", output);
     static Scanner sc = new Scanner(System.in);
     
+    /**
+     * @Brief: Exibe o menu principal e executa as opções escolhidas pelo usuário
+     */
     public static void menuPrincipal() {
         int opc = 0;
         restaurante.adicionarObserver(atendente);
@@ -102,7 +105,9 @@ public class Principal2 {
         }
     }
     
-    
+    /**
+     * @Brief: Realiza o cadastro de uma reserva
+     */
     public static void cadastrarReserva() {
         output.display("Data da Reserva (formato: yyyy-MM-dd): ");
         String dataInput = sc.nextLine(); 
@@ -122,6 +127,9 @@ public class Principal2 {
         restaurante.cadastrarReserva(data, horario, nomeCliente, quantidadePessoas);
     }
     
+    /**
+     * @Brief: Verifica a disponibilidade de mesas no restaurante
+     */
     public static void verificarDisponibilidade(){
         output.display("Data (formato: yyyy-MM-dd): ");
         String dataInput = sc.nextLine(); 
@@ -138,6 +146,9 @@ public class Principal2 {
        restaurante.verificarDisponibilidade(maximoMesas, data, horario);
     }
     
+    /**
+     * @Brief: Cancela uma reserva existente
+     */
     public static void cancelarReserva(){
         output.display("Data da Reserva (formato: yyyy-MM-dd): ");
         String dataInput = sc.nextLine(); 
@@ -157,10 +168,16 @@ public class Principal2 {
         restaurante.cancelarReservaMesa(data, horario, nomeCliente, quantidadePessoas);
     }
     
+    /**
+     * @Brief: Exibe todas as reservas do restaurante
+     */
     public static void exibirReservas(){
         restaurante.exibirReservas();
     }
 
+    /**
+     * @Brief: Cadastra uma nova mesa no restaurante
+     */
     public static void cadastrarMesa() {
         output.display("Número da mesa: ");
         String numeroMesa = sc.nextLine();
@@ -171,6 +188,9 @@ public class Principal2 {
         restaurante.adicionarMesa(numeroMesa, capacidade);
     }
    
+    /**
+     * @Brief: Remove uma mesa existente no restaurante
+     */
     public static void removerMesa() {
         output.display("Número da mesa: ");
         String numeroMesa = sc.nextLine();
@@ -178,15 +198,24 @@ public class Principal2 {
         restaurante.removerMesa(numeroMesa);
     }
     
+    /**
+     * @Brief: Exibe todas as mesas cadastradas no restaurante
+     */
     public static void exibirMesas(){
         restaurante.exibirMesas();
     }
 
+    /**
+     * @Brief: Exibe o menu de itens disponíveis no restaurante
+     */
     public static void imprimirMenu() {
         output.display("Menu: ");
         restaurante.exibirMenu();
     }
 
+    /**
+     * @Brief: Cadastra um novo item no menu do restaurante
+     */
     public static void cadastrarItemMenu() {
         output.display("Nome: ");
         String nomeItem = sc.nextLine();
@@ -200,6 +229,9 @@ public class Principal2 {
         restaurante.adicionarItemMenu(nomeItem, descricaoItem, preco);
     }
 
+    /**
+     * @Brief: Remove um item do menu do restaurante
+     */
     public static void removerItemMenu() {
         output.display("Nome: ");
         String nomeItem = sc.nextLine();
@@ -210,6 +242,9 @@ public class Principal2 {
         restaurante.removerItemMenu(nomeItem, preco);
     }
 
+    /**
+     * @Brief: Cadastra um novo pedido associado a uma mesa
+     */
     public static void cadastrarPedido() {
         output.display("Numero da mesa: ");
         String numeroMesa = sc.nextLine();
@@ -217,6 +252,9 @@ public class Principal2 {
         restaurante.adicionarPedido(numeroMesa);
     }
    
+    /**
+     * @Brief: Cadastra um novo garçom no restaurante
+     */
     public static void cadastrarGarcom(){
         output.display("Nome: ");
         String nome = sc.nextLine();
@@ -236,6 +274,9 @@ public class Principal2 {
         restaurante.adicionarGarcom(nome, email, registroGarcom, salarioBaseGarcom, gorjetaGarcom);
     }
    
+    /**
+     * @Brief: Realiza o pagamento associado a uma mesa
+     */
     public static void pagar(){
         output.display("Numero da mesa: ");
         String numeroMesa = sc.nextLine();
@@ -243,6 +284,9 @@ public class Principal2 {
         restaurante.pagar(numeroMesa);
     }
     
+    /**
+     * @Brief: Método principal que inicializa o sistema do restaurante
+     */
     public static void main(String[] args) {
         restaurante.adicionarMesa("1", 6);
         restaurante.adicionarMesa("2", 10);

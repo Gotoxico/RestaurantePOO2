@@ -30,7 +30,7 @@ public class DataBaseFuncionarios {
      * Adiciona um funcionário à lista e o salva usando a estratégia de persistência configurada.
      * Verifica se um funcionário com o mesmo email já existe antes de adicionar.
      * 
-     * @param f O funcionário a ser adicionado.
+     * @Parameter: f O funcionário a ser adicionado.
      * @return true se o funcionário foi adicionado, false se já existia um funcionário com o mesmo email.
      */
     public boolean addFuncionario(Funcionario f){
@@ -46,7 +46,7 @@ public class DataBaseFuncionarios {
     /**
      * Busca um funcionário na lista pelo email.
      * 
-     * @param email O email do funcionário a ser buscado.
+     * @Parameter: email O email do funcionário a ser buscado.
      * @return O funcionário correspondente ao email ou null se não encontrado.
      */
     public Funcionario buscaPorEmail(String email){
@@ -61,7 +61,7 @@ public class DataBaseFuncionarios {
     /**
      * Busca um funcionário na lista pelo nome.
      * 
-     * @param nome O nome do funcionário a ser buscado.
+     * @Parameter: nome O nome do funcionário a ser buscado.
      * @return O funcionário correspondente ao nome ou null se não encontrado.
      */
     public Funcionario buscaPorNome(String nome){
@@ -77,7 +77,7 @@ public class DataBaseFuncionarios {
      * Define a estratégia de persistência a ser utilizada.
      * Pode ser configurada para diferentes formas de armazenamento, como banco de dados, arquivos binários, etc.
      * 
-     * @param strategy A nova estratégia de persistência.
+     * @Parameter: strategy A nova estratégia de persistência.
      */
     public void setStrategy(StrategyFuncionario strategy){
         this.strategy = strategy;
@@ -95,7 +95,7 @@ public class DataBaseFuncionarios {
     /**
      * Substitui a lista atual de funcionários por uma nova lista.
      * 
-     * @param lista_Funcionarios A nova lista de funcionários.
+     * @Parameter: lista_Funcionarios A nova lista de funcionários.
      */
     public void setLista_Funcionarios(List<Funcionario> lista_Funcionarios) {
         this.lista_Funcionarios = lista_Funcionarios;

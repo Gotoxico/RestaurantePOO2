@@ -17,7 +17,7 @@ public class StrategyArcBin implements StrategyFuncionario {
 
     /**
      * Salva as informações de um funcionário no arquivo binário.
-     * @param funcionario O funcionário a ser salvo no arquivo.
+     * @Parameter: funcionario O funcionário a ser salvo no arquivo.
      */
     @Override
     public void salvar(Funcionario funcionario) {
@@ -34,7 +34,7 @@ public class StrategyArcBin implements StrategyFuncionario {
      * O método percorre o arquivo binário, lendo cada objeto de funcionário e 
      * comparando o e-mail.
      * 
-     * @param email O e-mail do funcionário a ser verificado.
+     * @Parameter: email O e-mail do funcionário a ser verificado.
      * @return true se o funcionário com o e-mail existe, false caso contrário.
      */
     @Override

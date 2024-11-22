@@ -44,14 +44,14 @@ public class Restaurante implements SubjectQueue{
     private ArrayList<ObserverQueue> observers = new ArrayList<>();
     
     /**
-     * 
-     * @param nomeRestaurante
-     * @param outputFactory
-     * @param tipoOutput
-     * @param maximoMesas
-     * @param nomeMenu
-     * @param descricaoMenu
-     * @param horarioDisponibilidade 
+     * @Brief: Construtor da classe Restaurante
+     * @Parameter: nomeRestaurante Nome do restaurante
+     * @Parameter: outputFactory Fábrica de saídas
+     * @Parameter: tipoOutput Tipo de saída
+     * @Parameter: maximoMesas Número máximo de mesas no restaurante
+     * @Parameter: nomeMenu Nome do menu
+     * @Parameter: descricaoMenu Descrição do menu
+     * @Parameter: horarioDisponibilidade Horário de disponibilidade do menu
      */
     public Restaurante(String nomeRestaurante, OutputFactory outputFactory, String tipoOutput, int maximoMesas, String nomeMenu, String descricaoMenu, String horarioDisponibilidade){
         this.nomeRestaurante = nomeRestaurante;
@@ -70,19 +70,34 @@ public class Restaurante implements SubjectQueue{
     }
         
     /**
-     * 
-     * @param numeroMesa
-     * @param capacidadeMaxima 
+     * @Brief: Adiciona uma nova mesa ao restaurante
+     * @Parameter: numeroMesa Número identificador da mesa
+     * @Parameter: capacidadeMaxima Capacidade máxima de pessoas da mesa
+     * @Return: none
      */
-    //Classe Mesa
     public void adicionarMesa(String numeroMesa, int capacidadeMaxima){
         reserva.adicionarMesa(tipoOutput, capacidadeMaxima, numeroMesa);
     }
     
+    /**
+     * @Brief: Cadastra uma nova reserva no restaurante
+     * @Parameter: data Data da reserva
+     * @Parameter: horarioReserva Horário da reserva
+     * @Parameter: nomeCliente Nome do cliente
+     * @Parameter: quantidadePessoas Número de pessoas na reserva
+     * @Return: none
+     */
     public void cadastrarReserva(LocalDate data, LocalTime horarioReserva, String nomeCliente, int quantidadePessoas){
         reserva.reservarMesa(data, horarioReserva, nomeCliente, quantidadePessoas);
     }
     
+    /**
+     * @Brief: Verifica a disponibilidade de mesas
+     * @Parameter: maximoMesas Número máximo de mesas a verificar
+     * @Parameter: data Data de verificação
+     * @Parameter: horario Horário de verificação
+     * @Return: none
+     */
     public void verificarDisponibilidade(int maximoMesas, LocalDate data, LocalTime horario){
         Mesa mesa = reserva.verificarDisponibilidade(maximoMesas, data, horario);
         if(mesa != null){
@@ -94,8 +109,9 @@ public class Restaurante implements SubjectQueue{
     }
     
     /**
-     * 
-     * @param numeroMesa 
+     * @Brief: Remove uma mesa pelo número
+     * @Parameter: numeroMesa Número identificador da mesa
+     * @Return: none
      */    
     public void removerMesa(String numeroMesa){
         reserva.removerMesa(numeroMesa);
@@ -106,31 +122,31 @@ public class Restaurante implements SubjectQueue{
     }
     
     /**
-     * 
-     * @param numeroMesa 
+     * @Brief: Libera uma mesa ocupada
+     * @Parameter: numeroMesa Número identificador da mesa
+     * @Return: none
      */
     public void liberarMesa(String numeroMesa){
         reserva.liberarMesa(numeroMesa);
     }
     
     /**
-     * 
-     * @param data
-     * @param hora
-     * @param nome
-     * @param quantidade 
+     * @Brief: Reserva uma mesa para o cliente
+     * @Parameter: data Data da reserva
+     * @Parameter: hora Horário da reserva
+     * @Parameter: nome Nome do cliente
+     * @Parameter: quantidade Quantidade de pessoas
      */
-    //Classe ReservaMesa
     public void reservarMesa(LocalDate data, LocalTime hora, String nome, int quantidade){
         reserva.reservarMesa(data, hora, nome, quantidade);
     }
         
     /**
-     * 
-     * @param data
-     * @param hora
-     * @param nome
-     * @param quantidade 
+     * @Brief: Cancela uma reserva de mesa
+     * @Parameter: data Data da reserva
+     * @Parameter: hora Horário da reserva
+     * @Parameter: nome Nome do cliente
+     * @Parameter: quantidade Quantidade de pessoas
      */
     public void cancelarReservaMesa(LocalDate data, LocalTime hora, String nome, int quantidade){
         reserva.cancelarReserva(data, hora, nome, quantidade);
@@ -140,6 +156,10 @@ public class Restaurante implements SubjectQueue{
         reserva.exibirReservas();
     }
     
+    /**
+     * @Brief: Adiciona um cliente à lista de clientes do restaurante
+     * @Parameter: clienteRestaurante Objeto ClienteRestaurante a ser adicionado
+     */
     public void adicionarCliente(ClienteRestaurante clienteRestaurante){
         clientes.add(clienteRestaurante);
         aumentarContadorClientes();
@@ -150,63 +170,57 @@ public class Restaurante implements SubjectQueue{
     }
         
     /**
-     * 
-     * @param nome
-     * @param email
-     * @param registroGarcom
-     * @param salarioBaseGarcom
-     * @param gorjetaGarcom 
+     * @Brief: Adiciona um novo garçom ao restaurante
+     * @Parameter: nome Nome do garçom
+     * @Parameter: email Email do garçom
+     * @Parameter: registroGarcom Registro identificador do garçom
+     * @Parameter: salarioBaseGarcom Salário base do garçom
+     * @Parameter: gorjetaGarcom Gorjeta recebida pelo garçom
      */
-    //Classe Garcom (Marcos)
     public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
         Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom, output);
         this.garcoms.add(garcom);
     }
         
     /**
-     * 
-     * @param nomeItem
-     * @param descricaoItem
-     * @param preco 
+     * @Brief: Adiciona um novo item ao menu do restaurante
+     * @Parameter: nomeItem Nome do item
+     * @Parameter: descricaoItem Descrição do item
+     * @Parameter: preco Preço do item
      */
-    //Classe Menu
     public void adicionarItemMenu(String nomeItem, String descricaoItem, double preco){
         ItemMenu item = new ItemMenu(nomeItem, descricaoItem, preco);
         menu.adicionarItem(item);
     }
     
     /**
-     * 
-     * @param nomeItem
-     * @param preco 
+     * @Brief: Remove um item do menu do restaurante
+     * @Parameter: nomeItem Nome do item
+     * @Parameter: preco Preço do item
      */
     public void removerItemMenu(String nomeItem, double preco){
         menu.removerItem(nomeItem, preco);
     }
         
     /**
-     * 
-     * @param nomeItem
-     * @param descricaoItem
-     * @param preco 
+     * @Brief: Altera o preço de um item do menu do restaurante
+     * @Parameter: nomeItem Nome do item
+     * @Parameter: descricaoItem Descrição do item
+     * @Parameter: preco Novo preço do item
      */
     public void alterarPrecoItemMenu(String nomeItem, String descricaoItem, double preco){
         ItemMenu itemAtualizado = new ItemMenu(nomeItem, descricaoItem, preco);
         menu.atualizarItem(itemAtualizado);
     }
     
-    /**
-     * 
-     */
     public void exibirMenu(){
         menu.exibirMenu();
     }
         
     /**
-     * 
-     * @param numeroMesa 
+     * @Brief: Adiciona um pedido a uma mesa
+     * @Parameter: numeroMesa Número identificador da mesa
      */
-    //Pedido
     public void adicionarPedido(String numeroMesa){
         Mesa mesa = reserva.getMesa(numeroMesa);
             int opcao = 0;
@@ -263,9 +277,9 @@ public class Restaurante implements SubjectQueue{
     }
         
     /**
-     * 
-     */    
-    //Pagamento pedido
+     * @Brief: Realiza o pagamento de um pedido para uma mesa
+     * @Parameter: numeroMesa Número identificador da mesa
+     */
     public void pagar(String numeroMesa){
         Mesa mesa = reserva.getMesa(numeroMesa);
         Comanda comanda = mesa.getComandaAtiva();
@@ -274,10 +288,8 @@ public class Restaurante implements SubjectQueue{
     }
     
     /**
-     * 
-     * @param observerQueue 
-     * 
-     * @Brief: Adiciona um atendente como observador da fila
+     * @Brief: Adiciona um observador a fila
+     * @Parameter: observerQueue Observador da fila
      */
     @Override
     public void adicionarObserver(ObserverQueue observerQueue){
@@ -285,9 +297,7 @@ public class Restaurante implements SubjectQueue{
     }
     
     /**
-     * 
-     * @param observerQueue 
-     * 
+     * @Parameter: observerQueue Observador da fila
      * @Brief: Remove um atendente como observador da fila
      */
     @Override
@@ -296,9 +306,7 @@ public class Restaurante implements SubjectQueue{
     }
     
     /**
-     * 
-     * @param pessoa 
-     * 
+     * @Parameter: pessoa Objeto Pessoa adicionado a fila
      * @Brief: Avisa os atendentes sobre uma pessoa na fila
      */
     @Override
@@ -309,7 +317,7 @@ public class Restaurante implements SubjectQueue{
     }
     
     /**
-     * Brief: Parar Scheduler
+     * @Brief: Parar o scheduler de adicionar pessoas a fila
      */
     public void pararScheduler() {
         scheduler.shutdown();

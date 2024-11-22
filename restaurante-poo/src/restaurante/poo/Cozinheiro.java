@@ -17,12 +17,16 @@ public class Cozinheiro extends Funcionario{
     private String Funcao;
     private final OutputInterface output;
     private static Scanner sc = new Scanner(System.in);    
+    
     /**
+     * @Brief: Construtor da classe Cozinheiro
      * 
-     * @param Funcao
-     * @param salario
-     * @param nome
-     * @param email 
+     * @Parameter: Funcao Função desempenhada pelo cozinheiro
+     * @Parameter: salario Salário do cozinheiro
+     * @Parameter: nome Nome do cozinheiro
+     * @Parameter: email Email do cozinheiro
+     * @Parameter: outputInterface Interface de saída utilizada
+     * @Parameter: tipoOutput Tipo de saída definida
      */
     public Cozinheiro(String Funcao, double salario, String nome, String email, OutputInterface outputInterface, String tipoOutput) {
         super(salario, nome, email);
@@ -31,34 +35,32 @@ public class Cozinheiro extends Funcionario{
     }
 
     /**
-     * 
-     * @return: Função do Cozinheiro
+     * @Brief: Retorna a função do cozinheiro
+     * @Return: String representando a função do cozinheiro
      */
     public String getFuncao() {
         return Funcao;
     }
     
     /**
-     * 
-     * @param Funcao 
+     * @Brief: Define a função do cozinheiro
+     * @Parameter: Funcao Nova função a ser atribuída ao cozinheiro
      */
     public void setFuncao(String Funcao) {
         this.Funcao = Funcao;
     }
     
     @Override
-    /**
-     * @Brief: Reimplementa método abstrato da classe abstrata Funcionario
-     * 
-     * @Return: Valor do desconto
+     /**
+     * @Brief: Calcula os descontos de previdência
+     * @Return: Valor do desconto de previdência
      */
     double calcDescontosPrevidencia(){
         return (this.salario/100) * 7.5;
     }
     
     /**
-     * @Brief: Reimplementa método abstrato da classe abstrata Funcionario
-     * 
+     * @Brief: Calcula os descontos do plano de saúde
      * @Return: Valor do desconto
      */
     @Override
@@ -67,8 +69,7 @@ public class Cozinheiro extends Funcionario{
     }
     
     /**
-     * @Brief: Reimplementa método abstrato da classe abstrata Funcionario
-     * 
+     * @Brief: Calcula outros descontos
      * @Return: Valor do desconto
      */
     @Override

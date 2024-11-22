@@ -25,12 +25,12 @@ public abstract class Funcionario {
   protected String email;
 
   /**
-   * Construtor da classe Funcionario.
-   * 
-   * @param salario O salário base do funcionário.
-   * @param nome O nome do funcionário.
-   * @param email O e-mail do funcionário.
-   */
+     * @Brief: Construtor da classe Funcionario
+     * 
+     * @Parameter: salario O salário base do funcionário
+     * @Parameter: nome O nome do funcionário
+     * @Parameter: email O e-mail do funcionário
+     */
   public Funcionario(double salario, String nome, String email) {
     this.salario = salario;
     this.nome = nome;
@@ -39,63 +39,86 @@ public abstract class Funcionario {
 
   // Métodos get e set para os atributos
 
+  /**
+     * @Brief: Retorna o salário do funcionário
+     * @Return: Salário do funcionário
+     */
   public double getSalario() {
       return salario;
   }
 
+  /**
+     * @Brief: Retorna o nome do funcionário
+     * @Return: Nome do funcionário
+     */
   public String getNome() {
       return nome;
   }
 
+  /**
+     * @Brief: Retorna o e-mail do funcionário
+     * @Return: E-mail do funcionário
+     */
   public String getEmail() {
       return email;
   }
 
+  /**
+     * @Brief: Define o salário do funcionário
+     * @Parameter: salario Novo salário do funcionário
+     */
   public void setSalario(double salario) {
       this.salario = salario;
   }
 
+  /**
+     * @Brief: Define o nome do funcionário
+     * @Parameter: nome Novo nome do funcionário
+     */
   public void setNome(String nome) {
       this.nome = nome;
   }
 
+  /**
+     * @Brief: Define o e-mail do funcionário
+     * @Parameter: email Novo e-mail do funcionário
+     */
   public void setEmail(String email) {
       this.email = email;
   }
 
   /**
-   * Método abstrato que calcula os descontos previdenciários.
-   * Este método deve ser implementado por subclasses para definir a lógica específica do desconto previdenciário.
-   * 
-   * @return Valor do desconto previdenciário.
+   * Método abstrato que calcula os descontos previdenciários
+   * Este método deve ser implementado por subclasses para definir a lógica específica do desconto previdenciário
+   * @Return: Valor do desconto previdenciário
    */
   abstract double calcDescontosPrevidencia();
 
   /**
-   * Método abstrato que calcula os descontos referentes ao plano de saúde.
-   * Este método deve ser implementado por subclasses para definir a lógica específica do desconto de plano de saúde.
+   * Método abstrato que calcula os descontos referentes ao plano de saúde
+   * Este método deve ser implementado por subclasses para definir a lógica específica do desconto de plano de saúde
    * 
-   * @return Valor do desconto do plano de saúde.
+   * @Return: Valor do desconto do plano de saúde
    */
   abstract double calcDescontosPlanoSaude();
 
   /**
-   * Método abstrato que calcula outros descontos aplicáveis ao funcionário.
-   * Este método deve ser implementado por subclasses para definir outros descontos específicos.
+   * Método abstrato que calcula outros descontos aplicáveis ao funcionário
+   * Este método deve ser implementado por subclasses para definir outros descontos específicos
    * 
-   * @return Valor de outros descontos.
+   * @Return: Valor de outros descontos
    */
   abstract double calcOutrosDescontos();
 
   /**
-   * Método que calcula o salário líquido do funcionário aplicando o Template Method.
+   * Método que calcula o salário líquido do funcionário aplicando o Template Method
    * O cálculo do salário líquido segue o seguinte fluxo:
-   * 1. Calcula o desconto previdenciário.
-   * 2. Calcula o desconto do plano de saúde.
-   * 3. Calcula outros descontos.
-   * 4. Subtrai todos os descontos do salário base.
+   * 1. Calcula o desconto previdenciário
+   * 2. Calcula o desconto do plano de saúde
+   * 3. Calcula outros descontos
+   * 4. Subtrai todos os descontos do salário base
    * 
-   * @return Salário líquido após aplicação de todos os descontos.
+   * @Return: Salário líquido após aplicação de todos os descontos
    */
   public double calcSalarioLiquido() {
     double prev = calcDescontosPrevidencia();

@@ -11,9 +11,9 @@ public class PagamentoParcelado implements MetodoPagamento {
     private OutputInterface output;
 
     /**
-     * Construtor para inicializar o número de parcelas
-     * @param vezes Número de parcelas
-     * @param output Interface para exibir informações de saída
+     * @Brief: Construtor para inicializar o número de parcelas
+     * @Parameter: vezes Número de parcelas
+     * @Parameter: output Interface para exibir informações de saída
      */
     public PagamentoParcelado(int vezes, OutputInterface output) {
         this.vezes = vezes;
