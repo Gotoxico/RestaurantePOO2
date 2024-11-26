@@ -65,5 +65,6 @@ public class Atendente extends Funcionario implements ObserverQueue{
     public void update(Pessoa pessoa) {
         ClienteRestaurante cliente = new ClienteRestaurante(pessoa.getNome(), pessoa.getSobrenome(), pessoa.getTelefone());
         restaurante.adicionarCliente(cliente);
+        output.display("Cliente na fila");
     }
 }

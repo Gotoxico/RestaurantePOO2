@@ -45,7 +45,7 @@ public class Principal2 {
         output.display("1 - Cadastrar Reserva");
         output.display("2 - Verificar Disponibilidade");
         output.display("3 - Cancelar Reserva");
-        output.display("4 - Exibir Reservas"); //Com problema, consertar
+        output.display("4 - Cadastrar Reserva Clientes Fila");
         output.display("5 - Cadastrar Mesa");
         output.display("6 - Remover Mesa");
         output.display("7 - Exibir Mesas");
@@ -69,7 +69,7 @@ public class Principal2 {
                 cancelarReserva();
                 break;
             case 4:
-                exibirReservas();
+                cadastrarReservaClientesFila();
                 break;
             case 5:
                 cadastrarMesa();
@@ -169,10 +169,29 @@ public class Principal2 {
     }
     
     /**
-     * @Brief: Exibe todas as reservas do restaurante
+     * @Brief: Exibe todas os clientes na fila do restaurante
      */
-    public static void exibirReservas(){
-        restaurante.exibirReservas();
+    public static void exibirClientesFila(){
+        restaurante.exibirClientesFila();
+    }
+    
+    /**
+     * @Brief: Cadastra reserva para os clientes na fila do restaurante
+     */
+    public static void cadastrarReservaClientesFila(){
+        exibirClientesFila();
+        output.display("Nome Cliente");
+        String nomeCliente = sc.nextLine();
+
+        output.display("Horário (formato: HH:mm): ");
+        String horarioInput = sc.nextLine(); 
+
+        output.display("Quantidade de Pessoas: ");
+        int quantidadePessoas = sc.nextInt();
+
+        LocalTime horario = LocalTime.parse(horarioInput);
+
+        restaurante.cadastrarReservaClienteFila(LocalDate.now(), horario, nomeCliente, quantidadePessoas);
     }
 
     /**
