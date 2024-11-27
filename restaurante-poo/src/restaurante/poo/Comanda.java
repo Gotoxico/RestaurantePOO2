@@ -26,6 +26,7 @@ public class Comanda implements RegistroConsumo{
     private double valorQuitado;
     private boolean aberta;                             // Flag para saber se a comanda está aberta ou fechada
     private boolean pago;
+   
 
 
     /**
@@ -281,3 +282,4 @@ public class Comanda implements RegistroConsumo{
         output.display("Item " + item.getNome() + " adicionado ao pedido da comanda " + numeroComanda + ".");
     }
 }
+

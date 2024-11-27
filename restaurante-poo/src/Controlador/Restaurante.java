@@ -316,11 +316,12 @@ public class Restaurante implements SubjectQueue{
      * @Brief: Realiza o pagamento de um pedido para uma mesa
      * @Parameter: numeroMesa Número identificador da mesa
      */
-    public void pagar(String numeroMesa){
+    public void pagar(String numeroMesa, boolean booleanGorjeta){
         Mesa mesa = reserva.getMesa(numeroMesa);
         Comanda comanda = mesa.getComandaAtiva();
         PagamentoPedido pagamento = new PagamentoPedido(comanda);
-        pagamento.realizarPagamento();
+        
+        pagamento.realizarPagamento(booleanGorjeta);
     }
     
     /**

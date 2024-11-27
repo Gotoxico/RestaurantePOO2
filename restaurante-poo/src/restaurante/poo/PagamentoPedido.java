@@ -26,6 +26,7 @@ public class PagamentoPedido {
     private boolean pago;
     private double valorAPagar;
     private double gorjeta;
+    private boolean pagarGorjeta;
     private List<MetodoPagamento> metodosPagamento;
 
     /**
@@ -37,7 +38,8 @@ public class PagamentoPedido {
         this.idPagamento = UUID.randomUUID().toString();
         this.comanda = comanda;
         this.pago = false;
-        this.valorAPagar = comanda.getValorTotal();
+        this.pagarGorjeta = true;
+        this.valorAPagar = calcularValorAPagar();
         this.metodosPagamento = new ArrayList<>();
     }
 
@@ -45,9 +47,30 @@ public class PagamentoPedido {
      * @Brief: Adiciona 10% do valor do pedido como gorjeta do garçom
      */
     public void calcularGorjetaGarcom() {
-        this.gorjeta = valorAPagar * 0.10;
-        this.valorAPagar += gorjeta;
-        output.display("Gorjeta de 10% (R$ " + String.format("%.2f", gorjeta) + ") adicionada ao total.");
+        double gorjeta = 0;
+        
+        if(pagarGorjeta == true){
+            gorjeta = valorAPagar - valorAPagar/1.1;
+            output.display("Gorjeta de 10% (R$ " + String.format("%.2f", gorjeta) + ").");
+        }else{
+            output.display("Sem gorjeta.");
+        }
+        this.gorjeta = gorjeta;        
+    }
+    
+    /**
+     * @Brief: Método privado que calcula valor a se pagar, através de
+     * método da comanda + 10% se a flag pagarGorjeta for verdadeira
+     * @return: Valor a pagar do pedido, sendo total + taxa
+     */
+    private double calcularValorAPagar(){
+        double taxa = 0;
+        if(pagarGorjeta == true){
+            taxa = 0.1;
+        }
+        double valor = comanda.getValorTotal();
+        
+        return valor + valor * taxa;
     }
 
     /**
@@ -61,7 +84,11 @@ public class PagamentoPedido {
     /**
      * @Brief: Realiza o pagamento do pedido, permitindo a divisão entre várias pessoas
      */
-    public void realizarPagamento() {
+    public void realizarPagamento(Boolean booleanGorjeta) {
+        if(booleanGorjeta == false){
+            NaoPagarGorjeta();
+        }
+        comanda.setValorTotal(calcularValorAPagar());
         Scanner scanner = new Scanner(System.in);
         output.display("Deseja dividir a conta? (sim / nao)");
         String dividirConta = scanner.nextLine().toLowerCase();
@@ -132,4 +159,18 @@ public class PagamentoPedido {
                 return null;
         }
     }
+
+    public boolean isPagarGorjeta() {
+        return pagarGorjeta;
+    }
+    
+    /**
+     * @Brief: Método para recalcular pedido desconsiderando taxa de serviço
+     */
+    public void NaoPagarGorjeta() {
+        this.pagarGorjeta = false;
+    }
+    
+    
+    
 }
