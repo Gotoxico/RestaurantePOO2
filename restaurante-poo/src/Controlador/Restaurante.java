@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -71,7 +72,7 @@ public class Restaurante implements SubjectQueue{
             }
         }, 0, 10, TimeUnit.SECONDS);
     }
-        
+    
     /**
      * @Brief: Adiciona uma nova mesa ao restaurante
      * @Parameter: numeroMesa Número identificador da mesa
@@ -212,11 +213,11 @@ public class Restaurante implements SubjectQueue{
      * @Parameter: salarioBaseGarcom Salário base do garçom
      * @Parameter: gorjetaGarcom Gorjeta recebida pelo garçom
      */
-    public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
-        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom, output);
+    public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom){
+        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, output);
         this.garcoms.add(garcom);
     }
-        
+    
     /**
      * @Brief: Adiciona um novo item ao menu do restaurante
      * @Parameter: nomeItem Nome do item

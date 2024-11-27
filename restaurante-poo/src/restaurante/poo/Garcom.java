@@ -33,11 +33,10 @@ public class Garcom extends Funcionario implements Observer{
      * @Parameter: salarioBaseGarcom Salário base do garçom
      * @Parameter: gorjetaGarcom     Valor inicial das gorjetas do garçom
      */
-    public Garcom(String nome, String email, String registroGarcom, double salario, double gorjetaGarcom, OutputInterface outputInterface){
+    public Garcom(String nome, String email, String registroGarcom, double salario, OutputInterface outputInterface){
         super(salario, nome, email);
         this.output = outputInterface;        
         this.registroGarcom = registroGarcom;
-        this.gorjetaGarcom = gorjetaGarcom;
         this.mesasResponsavel = new ArrayList<>();
     }
 
@@ -74,7 +73,7 @@ public class Garcom extends Funcionario implements Observer{
      * @Parameter: gorjetaGarcom Novo valor das gorjetas
      */
     public void setGorjetaGarcom(double gorjetaGarcom) {
-        this.gorjetaGarcom = gorjetaGarcom;
+        this.gorjetaGarcom += gorjetaGarcom;
     }
     
     /**
