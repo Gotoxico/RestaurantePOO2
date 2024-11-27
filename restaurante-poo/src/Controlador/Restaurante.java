@@ -70,7 +70,7 @@ public class Restaurante implements SubjectQueue{
                 fila.add(pessoa);
                 notifyObservers(pessoa);
             }
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 0, 30, TimeUnit.SECONDS);
     }
     
     /**
