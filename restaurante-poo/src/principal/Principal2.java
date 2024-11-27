@@ -297,7 +297,18 @@ public class Principal2 {
         output.display("Numero da mesa: ");
         String numeroMesa = sc.nextLine();
         
-        restaurante.pagar(numeroMesa);
+        output.display("Pagar gorjeta? (sim/nao): ");
+        String booleanGorjetaString = sc.nextLine();
+        
+        Boolean booleanGorjeta;
+        if(booleanGorjetaString.equals("sim")){
+            booleanGorjeta = true;
+        }
+        else{
+            booleanGorjeta = false;
+        }
+        
+        restaurante.pagar(numeroMesa, booleanGorjeta);
     }
     
     /**
