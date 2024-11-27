@@ -1,0 +1,42 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" version="24.9.1">
+  <diagram name="Página-1" id="DaDa5ubh5nD4zTThyvjr">
+    <mxGraphModel dx="3675" dy="1913" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-1" value="&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;div&gt;Funcionario&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=38;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#BAC8D3;" vertex="1" parent="1">
+          <mxGeometry x="-1720" y="-90" width="250" height="303" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-2" value="- salario: double&lt;div&gt;- nome: String&amp;nbsp;&lt;/div&gt;&lt;div&gt;- email: String&amp;nbsp; &amp;nbsp;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="e7zmRcS1ZgVzJJZaRLiw-1">
+          <mxGeometry y="38" width="250" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="e7zmRcS1ZgVzJJZaRLiw-1">
+          <mxGeometry y="102" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-4" value="&lt;div&gt;+ Funcionario(salario: double, nome: String, email: String)&lt;/div&gt;&lt;div&gt;+ getSalario(): double&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ getNome(): String&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ getEmail(): String&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ setSalario(salario: double)&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ setNome(nome: String)&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ setEmail(email: String)&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ calcSalarioLiquido(): double&amp;nbsp;&lt;/div&gt;&lt;div&gt;# calcDescontosPrevidencia():&amp;nbsp;double&amp;nbsp;&lt;/div&gt;&lt;div&gt;# calcDescontosPlanoSaude():&amp;nbsp;double&amp;nbsp;&lt;/div&gt;&lt;div&gt;# calcOutrosDescontos():&amp;nbsp;double&amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="e7zmRcS1ZgVzJJZaRLiw-1">
+          <mxGeometry y="110" width="250" height="193" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-5" value="Gerente" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#BAC8D3;" vertex="1" parent="1">
+          <mxGeometry x="-1820" y="-450" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-6" value="&lt;div&gt;- output: OutputInterface&amp;nbsp;&lt;/div&gt;&lt;div&gt;- sc: Scanner (static)&amp;nbsp;&amp;nbsp;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="e7zmRcS1ZgVzJJZaRLiw-5">
+          <mxGeometry y="26" width="250" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="e7zmRcS1ZgVzJJZaRLiw-5">
+          <mxGeometry y="70" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-8" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ Gerente(salario: double, nome: String, email: String, outputInterface: OutputInterface)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ calcDescontosPrevidencia(): double&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ calcDescontosPlanoSaude(): double&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ calcOutrosDescontos(): double&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="e7zmRcS1ZgVzJJZaRLiw-5">
+          <mxGeometry y="78" width="250" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="e7zmRcS1ZgVzJJZaRLiw-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.452;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="e7zmRcS1ZgVzJJZaRLiw-1" target="e7zmRcS1ZgVzJJZaRLiw-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-1525" y="-130" />
+              <mxPoint x="-1707" y="-130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

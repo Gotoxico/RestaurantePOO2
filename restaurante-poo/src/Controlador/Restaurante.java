@@ -7,7 +7,9 @@ package Controlador;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -63,12 +65,14 @@ public class Restaurante implements SubjectQueue{
         this.output = OutputFactory.getInstance().getTipoOutput(tipoOutput);
         
         scheduler.scheduleAtFixedRate(() -> {
-            Pessoa pessoa = new Pessoa();
-            fila.add(pessoa);
-            notifyObservers(pessoa);
-        }, 0, 10, TimeUnit.SECONDS);
+            Pessoa pessoa = new Pessoa(); 
+            if (!fila.contains(pessoa)) {
+                fila.add(pessoa);
+                notifyObservers(pessoa);
+            }
+        }, 0, 30, TimeUnit.SECONDS);
     }
-        
+    
     /**
      * @Brief: Adiciona uma nova mesa ao restaurante
      * @Parameter: numeroMesa Número identificador da mesa
@@ -152,17 +156,49 @@ public class Restaurante implements SubjectQueue{
         reserva.cancelarReserva(data, hora, nome, quantidade);
     }
     
-    public void exibirReservas(){
-        reserva.exibirReservas();
-    }
-    
     /**
      * @Brief: Adiciona um cliente à lista de clientes do restaurante
      * @Parameter: clienteRestaurante Objeto ClienteRestaurante a ser adicionado
      */
     public void adicionarCliente(ClienteRestaurante clienteRestaurante){
-        clientes.add(clienteRestaurante);
+        if (!clientes.contains(clienteRestaurante)) {
+            clientes.add(clienteRestaurante);
+        }
         aumentarContadorClientes();
+    }
+    
+    /**
+     * @Brief: Exibir todos os clientes que foram adicionados pela atendente na fila de clientes
+     */
+    public void exibirClientesFila(){
+        for (ClienteRestaurante cliente : clientes){
+            output.display("Nome Cliente: " + cliente.getNomeCliente());
+        }
+    }
+    /**
+     * @Brief: Retornar tamanho da fila de clientes
+     */
+    public int getTamanhoFilaClientes(){
+        return clientes.size();
+    }
+    
+    /**
+     * @Brief: Cadastra reserva para clientes na fila do restaurante
+     * 
+     * @param data
+     * @param horarioReserva
+     * @param nomeCliente
+     * @param quantidadePessoas 
+     */
+    public void cadastrarReservaClienteFila(LocalDate data, LocalTime horarioReserva, String nomeCliente, int quantidadePessoas){
+        reserva.reservarMesa(data, horarioReserva, nomeCliente, quantidadePessoas);
+        Iterator<ClienteRestaurante> iterator = clientes.iterator();
+        while (iterator.hasNext()) {
+            ClienteRestaurante cliente = iterator.next();
+            if (cliente.getNomeCliente().equals(nomeCliente)) {
+                iterator.remove(); 
+            }
+        }
     }
     
     public void aumentarContadorClientes(){
@@ -177,11 +213,11 @@ public class Restaurante implements SubjectQueue{
      * @Parameter: salarioBaseGarcom Salário base do garçom
      * @Parameter: gorjetaGarcom Gorjeta recebida pelo garçom
      */
-    public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom, double gorjetaGarcom){
-        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, gorjetaGarcom, output);
+    public void adicionarGarcom(String nome, String email, String registroGarcom, double salarioBaseGarcom){
+        Garcom garcom = new Garcom(nome, email, registroGarcom,salarioBaseGarcom, output);
         this.garcoms.add(garcom);
     }
-        
+    
     /**
      * @Brief: Adiciona um novo item ao menu do restaurante
      * @Parameter: nomeItem Nome do item

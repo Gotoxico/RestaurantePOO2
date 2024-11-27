@@ -28,7 +28,7 @@ public class Principal2 {
     static Restaurante restaurante = new Restaurante("Restaurante FCT", OutputFactory.getInstance(), tipoOutput, 30, "Menu Normal", "Menu pensado para as operações cotidianas do Restaurante FCT", "11:00 - 14:00 e 17:00 - 22:00");
     static Atendente atendente = new Atendente(Constantes.SALARIO_MINIMO, Gerador.geradorAleatorioNome(), "oqequwqioe@email.com",  restaurante, output);
     static Cozinheiro cozinheiro = new Cozinheiro("Cozinheiro", Constantes.SALARIO_MINIMO, Gerador.geradorAleatorioNome(), "uqywiweyquiwiueq@email.com", output, tipoOutput);
-    static Garcom garcom = new Garcom(Gerador.geradorAleatorioNome(), "qhejyqgtyeqtyugw@email.com", "Garcom1", Constantes.SALARIO_MINIMO, 10, output);
+    static Garcom garcom = new Garcom(Gerador.geradorAleatorioNome(), "qhejyqgtyeqtyugw@email.com", "Garcom1", Constantes.SALARIO_MINIMO, output);
     static Gerente gerente = new Gerente(Constantes.SALARIO_MINIMO*2, Gerador.geradorAleatorioNome(), "ujquiqweyuqguyeq@email.com", output);
     static Scanner sc = new Scanner(System.in);
     
@@ -45,7 +45,7 @@ public class Principal2 {
         output.display("1 - Cadastrar Reserva");
         output.display("2 - Verificar Disponibilidade");
         output.display("3 - Cancelar Reserva");
-        output.display("4 - Exibir Reservas"); //Com problema, consertar
+        output.display("4 - Cadastrar Reserva Clientes Fila");
         output.display("5 - Cadastrar Mesa");
         output.display("6 - Remover Mesa");
         output.display("7 - Exibir Mesas");
@@ -69,7 +69,7 @@ public class Principal2 {
                 cancelarReserva();
                 break;
             case 4:
-                exibirReservas();
+                cadastrarReservaClientesFila();
                 break;
             case 5:
                 cadastrarMesa();
@@ -169,10 +169,29 @@ public class Principal2 {
     }
     
     /**
-     * @Brief: Exibe todas as reservas do restaurante
+     * @Brief: Exibe todas os clientes na fila do restaurante
      */
-    public static void exibirReservas(){
-        restaurante.exibirReservas();
+    public static void exibirClientesFila(){
+        restaurante.exibirClientesFila();
+    }
+    
+    /**
+     * @Brief: Cadastra reserva para os clientes na fila do restaurante
+     */
+    public static void cadastrarReservaClientesFila(){
+        exibirClientesFila();
+        output.display("Nome Cliente");
+        String nomeCliente = sc.nextLine();
+
+        output.display("Horário (formato: HH:mm): ");
+        String horarioInput = sc.nextLine(); 
+
+        output.display("Quantidade de Pessoas: ");
+        int quantidadePessoas = sc.nextInt();
+
+        LocalTime horario = LocalTime.parse(horarioInput);
+
+        restaurante.cadastrarReservaClienteFila(LocalDate.now(), horario, nomeCliente, quantidadePessoas);
     }
 
     /**
@@ -267,11 +286,8 @@ public class Principal2 {
        
         output.display("Salario base: ");
         double salarioBaseGarcom = sc.nextInt();
-       
-        output.display("Gorjeta: ");
-        double gorjetaGarcom = sc.nextInt();
 
-        restaurante.adicionarGarcom(nome, email, registroGarcom, salarioBaseGarcom, gorjetaGarcom);
+        restaurante.adicionarGarcom(nome, email, registroGarcom, salarioBaseGarcom);
     }
    
     /**

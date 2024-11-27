@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36" version="24.9.1">
+  <diagram name="Página-1" id="qFLeECpiVSSG4R4dW_2p">
+    <mxGraphModel dx="1389" dy="1896" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-4" value="Atendente" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#BAC8D3;" vertex="1" parent="1">
+          <mxGeometry x="-560" y="-700" width="250" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-5" value="- restaurante: Restaurante;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- output: OutputInterface;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- sc: Scanner;&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="15VXjRFH1mYvy2I7MtMX-4">
+          <mxGeometry y="26" width="250" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="15VXjRFH1mYvy2I7MtMX-4">
+          <mxGeometry y="90" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-7" value="+ Atendente(salario: double,&amp;nbsp;nome: String, email: String,&amp;nbsp;restaurante: Restaurante, outputInterface:&amp;nbsp;OutputInterface)&amp;nbsp;&lt;br&gt;+ update(pessoa: Pessoa): void&amp;nbsp;&lt;div&gt;- calcDescontosPrevidencia():&amp;nbsp;double&amp;nbsp;&lt;/div&gt;&lt;div&gt;- calcDescontosPlanoSaude():&amp;nbsp;double&amp;nbsp;&lt;br&gt;- calcOutrosDescontos():&amp;nbsp;double&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="15VXjRFH1mYvy2I7MtMX-4">
+          <mxGeometry y="98" width="250" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-9" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ObserverQueue&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ update (pessoa: Pessoa): void&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-413" y="-280" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.464;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="15VXjRFH1mYvy2I7MtMX-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-595" y="-280" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.488;entryY=1.016;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="15VXjRFH1mYvy2I7MtMX-9" target="15VXjRFH1mYvy2I7MtMX-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-318" y="-380" />
+              <mxPoint x="-438" y="-380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-12" value="&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&lt;div&gt;Funcionario&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=38;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#BAC8D3;" vertex="1" parent="1">
+          <mxGeometry x="-720" y="-280" width="250" height="303" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-13" value="- salario: double&lt;div&gt;- nome: String&amp;nbsp;&lt;/div&gt;&lt;div&gt;- email: String&amp;nbsp; &amp;nbsp;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="15VXjRFH1mYvy2I7MtMX-12">
+          <mxGeometry y="38" width="250" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-14" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="15VXjRFH1mYvy2I7MtMX-12">
+          <mxGeometry y="102" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="15VXjRFH1mYvy2I7MtMX-15" value="&lt;div&gt;+ Funcionario(salario: double, nome: String, email: String)&lt;/div&gt;&lt;div&gt;+ getSalario(): double&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ getNome(): String&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ getEmail(): String&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ setSalario(salario: double)&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ setNome(nome: String)&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ setEmail(email: String)&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ calcSalarioLiquido(): double&amp;nbsp;&lt;/div&gt;&lt;div&gt;# calcDescontosPrevidencia():&amp;nbsp;double&amp;nbsp;&lt;/div&gt;&lt;div&gt;# calcDescontosPlanoSaude():&amp;nbsp;double&amp;nbsp;&lt;/div&gt;&lt;div&gt;# calcOutrosDescontos():&amp;nbsp;double&amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="15VXjRFH1mYvy2I7MtMX-12">
+          <mxGeometry y="110" width="250" height="193" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
